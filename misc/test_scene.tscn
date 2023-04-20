@@ -1,10 +1,28 @@
-[gd_scene format=3 uid="uid://ba0a0ewqo2ts4"]
+[gd_scene load_steps=4 format=3 uid="uid://ba0a0ewqo2ts4"]
+
+[ext_resource type="Script" path="res://scripts/camera.gd" id="1_q2onj"]
+[ext_resource type="PackedScene" uid="uid://dk3rerlki7ek6" path="res://scenes/player/player.tscn" id="1_rrs63"]
+[ext_resource type="PackedScene" uid="uid://bbs1mlevvu5dv" path="res://misc/test_block.tscn" id="2_2cl3d"]
 
 [node name="TestScene" type="Node2D"]
 
-[node name="Label" type="Label" parent="."]
-offset_left = 281.0
-offset_top = 238.0
-offset_right = 321.0
-offset_bottom = 264.0
-text = "hello"
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("1_q2onj")
+target_node_path = NodePath("../Player")
+
+[node name="Player" parent="." instance=ExtResource("1_rrs63")]
+position = Vector2(37, -2)
+
+[node name="Block" parent="." instance=ExtResource("2_2cl3d")]
+position = Vector2(18, 329)
+scale = Vector2(8.72601, 1.04158)
+
+[node name="Block2" parent="." instance=ExtResource("2_2cl3d")]
+position = Vector2(217, 293)
+rotation = -1.57079
+scale = Vector2(1.40601, 1.04158)
+
+[node name="Block3" parent="." instance=ExtResource("2_2cl3d")]
+position = Vector2(517, 216)
+rotation = -1.57079
+scale = Vector2(1.40601, 1.04158)
