@@ -9,6 +9,7 @@
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("1_q2onj")
 target_node_path = NodePath("../Player")
+target_offset = Vector2(0, -100)
 
 [node name="Player" parent="." instance=ExtResource("1_rrs63")]
 position = Vector2(37, -2)
@@ -17,8 +18,26 @@ position = Vector2(37, -2)
 position = Vector2(18, 329)
 scale = Vector2(8.72601, 1.04158)
 
+[node name="Block5" parent="." instance=ExtResource("2_2cl3d")]
+position = Vector2(1132, 193)
+scale = Vector2(8.72601, 1.04158)
+
+[node name="Block6" parent="." instance=ExtResource("2_2cl3d")]
+position = Vector2(-1094, 421)
+scale = Vector2(8.72601, 1.04158)
+
 [node name="Block2" parent="." instance=ExtResource("2_2cl3d")]
 position = Vector2(217, 293)
+rotation = -1.57079
+scale = Vector2(1.40601, 1.04158)
+
+[node name="Block7" parent="." instance=ExtResource("2_2cl3d")]
+position = Vector2(1011, -397)
+rotation = -1.57079
+scale = Vector2(1.40601, 1.04158)
+
+[node name="Block8" parent="." instance=ExtResource("2_2cl3d")]
+position = Vector2(-925, -24)
 rotation = -1.57079
 scale = Vector2(1.40601, 1.04158)
 
@@ -26,3 +45,34 @@ scale = Vector2(1.40601, 1.04158)
 position = Vector2(517, 216)
 rotation = -1.57079
 scale = Vector2(1.40601, 1.04158)
+
+[node name="Block4" parent="." instance=ExtResource("2_2cl3d")]
+position = Vector2(256, -280)
+rotation = -1.57079
+scale = Vector2(1.40601, 1.04158)
+
+[node name="Block9" parent="." instance=ExtResource("2_2cl3d")]
+position = Vector2(-41, -304)
+rotation = -1.57079
+scale = Vector2(1.40601, 1.04158)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "CONTROLS (FOR NOW)
+
+A, D, Left Arrow, Right Arrow - Move
+W, Space, Up Arrow - Jump
+Hold Shift - Fire Grappling Hook
+Mouse - Aim Grappling Hook
+"
