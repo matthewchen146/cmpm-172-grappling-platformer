@@ -1,10 +1,10 @@
 extends StaticBody2D
 
-@export var trigger_object: Interactable
-
 var pressed = false
-
 var presscount = 0
+
+signal button_pressed
+signal button_depressed
 
 # Called when the node enters the scene tree for the first time.
 #func _ready():
@@ -20,10 +20,9 @@ func _on_area_2d_body_entered(body):
 		if presscount == 1:
 			$AnimationPlayer.play("Button_Down")
 			print_debug("Button Pressed")
-			trigger_object.activate()
+			button_pressed.emit()
 	
 	
-
 
 
 func _on_area_2d_body_exited(body):
@@ -31,4 +30,5 @@ func _on_area_2d_body_exited(body):
 		presscount -= 1
 		if presscount == 0:
 			$AnimationPlayer.play("Button_Up")
+			button_depressed.emit()
 	pass # Replace with function body.
