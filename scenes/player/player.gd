@@ -72,8 +72,9 @@ func _physics_process(delta):
 		if vectorToHook.length() > grapplelength :
 			var difference = vectorToHook.length() - grapplelength
 			position += vectorToHook.normalized() * difference
-		velocity += (oldPosition - position)
+		velocity += (oldPosition - position) * delta
 		oldPosition = position
+		velocity.x += (int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))) * move_speed
 		#velocity.y += gravity.y * delta
 		
 	else:
