@@ -88,7 +88,7 @@ target_node_path = NodePath("../Player")
 target_offset = Vector2(0, -100)
 
 [node name="Player" parent="." groups=["Presser"] instance=ExtResource("1_rrs63")]
-position = Vector2(37, -2)
+position = Vector2(247, -7)
 
 [node name="Block" parent="." instance=ExtResource("2_2cl3d")]
 position = Vector2(18, 329)
@@ -143,8 +143,10 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 61.0
+offset_top = 54.0
+offset_right = 338.0
+offset_bottom = 210.0
 text = "CONTROLS (FOR NOW)
 
 A, D, Left Arrow, Right Arrow - Move

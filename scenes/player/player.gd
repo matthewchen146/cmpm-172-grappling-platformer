@@ -10,6 +10,10 @@ var is_firing_grapple := false
 
 var is_grappled := false
 
+var oldPosition : Vector2
+
+var grapplelength: float
+
 var current_grappling_hook : Node2D = null
 
 func _ready():
@@ -43,6 +47,7 @@ func _physics_process(delta):
 			hook.attached.connect(
 				func(body : PhysicsBody2D):
 					is_grappled = true
+					grapplelength = (position - hook.position).length()
 			)
 			
 			hook.fire(position, direction)
@@ -62,11 +67,17 @@ func _physics_process(delta):
 			is_grappled = false
 	
 	if is_grappled:
-		
-		var direction := (current_grappling_hook.position - position).normalized()
-		velocity = direction * grapple_pull_speed
+		position += gravity * delta
+		var vectorToHook := (current_grappling_hook.position - position)
+		if vectorToHook.length() > grapplelength :
+			var difference = vectorToHook.length() - grapplelength
+			position += vectorToHook.normalized() * difference
+		velocity += (oldPosition - position)
+		oldPosition = position
+		#velocity.y += gravity.y * delta
 		
 	else:
+		oldPosition = position
 		velocity.x = movement.x * move_speed
 		
 		if not is_on_floor():
