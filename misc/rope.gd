@@ -28,13 +28,14 @@ var slacking : bool = false
 func _ready():
 	add_child.call_deferred(_debug_control)
 	_debug_control.connect("draw", func():
-		_debug_control.draw_line(position, hanger_position, Color.ANTIQUE_WHITE, 2)
-		_debug_control.draw_circle(position, 5, Color.BLUE)
-		_debug_control.draw_circle(hanger_position, 5, Color.RED)
+		var hanger_local_position = rigid_body.position - position
+		_debug_control.draw_line(Vector2.ZERO, hanger_local_position, Color.ANTIQUE_WHITE, 2)
+		_debug_control.draw_circle(Vector2.ZERO, 5, Color.BLUE)
+		_debug_control.draw_circle(hanger_local_position, 5, Color.RED)
 #		_debug_control.draw_line(hanger_position, hanger_position + _debug_tangent, Color.MAGENTA, 2)
 #		_debug_control.draw_line(hanger_position, hanger_position + gravity, Color.GREEN, 2)
-#		_debug_control.draw_line(hanger_position, hanger_position + _debug_tension, Color.YELLOW if slacking else Color.RED, 2)
-		_debug_control.draw_line(hanger_position, hanger_position + _debug_net, Color.ORANGE, 2)
+		_debug_control.draw_line(hanger_local_position, hanger_local_position + _debug_tension, Color.ORANGE if slacking else Color.RED, 2)
+		_debug_control.draw_line(hanger_local_position, hanger_local_position + _debug_net, Color.MAGENTA, 2)
 	)
 	
 	var gravity_vector : Vector2 = ProjectSettings.get_setting("physics/2d/default_gravity_vector")
@@ -59,26 +60,23 @@ func _physics_process(delta):
 	# calculate pendulum acceleration
 	var diff = hanger_position - position#vec(this.pos).sub(this.tongueTipPos)
 	var length := diff.length()
-	var radius = length#max(length, 6);
+#	var radius = length#max(length, 6);
 	var pendulum_angle = atan(diff.x / diff.y)
-	var angular_force = gravity.y * (sin(pendulum_angle) / radius) * (-1 if sign(diff.y) > 0 else 1)
-	angular_velocity += angular_force
-
-	# change swing angle
-	swing_angle -= angular_velocity * delta * .01
-	
-	# calculate rotated position
-#	var rotated_pos = Vector2(
-#		swing_start_vector.x * cos(swing_angle) - swing_start_vector.y * sin(swing_angle),
-#		swing_start_vector.y * cos(swing_angle) + swing_start_vector.x * sin(swing_angle)
-#	)
-	var rotated_pos = swing_start_vector.rotated(swing_angle * energy)
+#	var angular_force = gravity.y * (sin(pendulum_angle) / radius) * (-1 if sign(diff.y) > 0 else 1)
+#	angular_velocity += angular_force
+#
+#	# change swing angle
+#	swing_angle -= angular_velocity * delta * .01
+#
+#	var rotated_pos = swing_start_vector.rotated(swing_angle * energy)
 
 	# calculate tangent for velocity
 	var tangent = Vector2(diff.y, -diff.x).normalized()#Vector2(rotated_pos.y, -rotated_pos.x).normalized()
 	var tangent_angle = atan(tangent.x / tangent.y) * (1 if diff.x < 0 else -1)
-	var tension_force = gravity.y * sin(tangent_angle) * (1 if sign(diff.y) > 0 else -1) * 5
-	
+#	var tension_force = gravity.y * sin(tangent_angle) * (1 if sign(diff.y) > 0 else -1) * (max(0, length - max_length) ** 2) * .01
+	var tension_force = gravity.y * cos(pendulum_angle) + 1 * (rigid_body.linear_velocity.length_squared()) / length
+#	tension_force *= max(0, length - max_length) * .01
+#	print(tension_force)
 	slacking = length < max_length
 	
 	var tension_vector = position - hanger_position
@@ -86,45 +84,43 @@ func _physics_process(delta):
 	_debug_tension = tension
 	
 	var magnitude = angular_velocity * max_length
-#	tangent *= magnitude
-	_debug_tangent = tangent * 100# * angular_velocity
-#	tangent.mul(magnitude);
-	# keep tonguelength around 12
-#	if this.tongueLength > 12:
-#		tangent.sub(this.rotatedPos.normalize().mul(this.tongueRetractSpeed));
-#	else:
-#		tangent.add(this.rotatedPos.normalize().mul(this.tongueRetractSpeed));
-#	swing_start_vector = swing_start_vector.rotated(swing_start_vector.angle_to(Vector2.DOWN) * .05)
+	
+	_debug_tangent = tangent * 100
 	
 	var movement = Vector2(float(Input.is_action_pressed("move_right")) - float(Input.is_action_pressed("move_left")), 0)
-#	energy += movement.x * -tangent.x * delta
-#
+	
 	var applied = Vector2()
 	
-	applied = movement * 600# * tangent * 10000
-	
-#	rigid_body.apply_force(movement * 500)
-	
-	if length > max_length:
-		rigid_body.move_and_collide(-diff.normalized() * (length - max_length))
-		rigid_body.apply_impulse(-diff.normalized() * (length - max_length))
-#		applied += tension_vector.normalized() * (length - max_length) ** 2
+	applied += movement * 300# * tangent * 10000
+	applied += Vector2.UP * 500 if Input.is_action_just_pressed("jump") else Vector2()
 	
 	var net = gravity + tension + applied# + tangent
-#	net *= delta
 	_debug_net = net
-#	energy *= .999
-	# apply velocity
-#	this.velocity.set(tangent);
-#	hanger_velocity = net
-#	hanger_position = 
-#	hanger_velocity += net * delta
-#	hanger_position += hanger_velocity * delta
 	if rigid_body != null:
 		rigid_body.apply_force(net)
-	
+	if length > max_length:
+#		print("applyin")
+		rigid_body.move_and_collide(-diff.normalized() * (length - max_length))
+		rigid_body.apply_impulse(-diff.normalized() * (length - max_length) * 10)
+#		applied += tension_vector.normalized() * (length - max_length) ** 2
 #	hanger_velocity = tangent
 #	hanger_position += hanger_velocity * delta
 #	hanger_position = position + rotated_pos
-
+	
+	if Input.is_key_pressed(KEY_SHIFT):
+		max_length -= 200 * delta
+	if Input.is_key_pressed(KEY_CTRL):
+		max_length += 200 * delta
+	
+	if Input.is_key_pressed(KEY_J):
+		position += Vector2.LEFT * 100 * delta
+	if Input.is_key_pressed(KEY_L):
+		position += Vector2.RIGHT * 100 * delta
+	if Input.is_key_pressed(KEY_I):
+		position += Vector2.UP * 100 * delta
+	if Input.is_key_pressed(KEY_K):
+		position += Vector2.DOWN * 100 * delta
+		
+#	position = get_viewport().get_camera_2d().get_local_mouse_position()
+	
 	_debug_control.queue_redraw()

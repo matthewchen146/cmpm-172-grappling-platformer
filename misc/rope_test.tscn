@@ -15,7 +15,7 @@ hanger_position = Vector2(-200, 2)
 rigid_body = NodePath("../RigidBody2D")
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2(-132, -304)
+position = Vector2(-243, -14)
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
