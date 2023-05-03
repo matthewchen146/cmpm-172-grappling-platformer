@@ -34,3 +34,13 @@ scale = Vector2(0.575792, 2.46542)
 [node name="Block2" parent="." instance=ExtResource("3_ksvsa")]
 position = Vector2(155, -160)
 scale = Vector2(1.40626, 0.554531)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "SHIFT - Retract
+CTRL - Extend
+A and D - Swing Left and Right
+Mouse - Move the anchor (blue)"
