@@ -83,7 +83,7 @@ func _physics_process(delta):
 			if anchorobject.has("collider"):
 				print_debug("Grapple Landed")
 				grappling = true
-				anchorobject.collider.add_child(anchorNode)#haven't tested this
+				#anchorobject.collider.add_child(anchorNode) #  this doesn't work but it would be nice to solve
 				anchorNode.position = anchorobject.position
 				max_length = (anchorobject.position - position).length()
 				corners.clear()

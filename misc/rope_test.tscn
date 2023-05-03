@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bbf3d5xhdldrw"]
+[gd_scene load_steps=9 format=3 uid="uid://bbf3d5xhdldrw"]
 
 [ext_resource type="Script" path="res://misc/rope.gd" id="1_frnjq"]
 [ext_resource type="Texture2D" uid="uid://r4pvpqt1jh30" path="res://misc/icon.svg" id="2_5dwcc"]
@@ -9,6 +9,30 @@
 rough = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mbgjy"]
+
+[sub_resource type="GDScript" id="GDScript_vcxem"]
+resource_name = "leftrightmovement"
+script/source = "extends StaticBody2D
+
+@export var leftLimit : float = -50
+@export var rightLimit : float = 50
+@export var moveSpeed : float = 5
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+var movement = Vector2(moveSpeed, 0)
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	position += movement
+	if position.x > rightLimit:
+		movement = Vector2(-moveSpeed, 0)
+	
+	if position.x < leftLimit:
+		movement = Vector2(moveSpeed, 0)
+"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_84ae7"]
 radius = 45.0
@@ -47,6 +71,10 @@ scale = Vector2(1.83336, 0.421179)
 [node name="Block2" parent="." instance=ExtResource("3_ksvsa")]
 position = Vector2(155, -160)
 scale = Vector2(1.40626, 0.554531)
+script = SubResource("GDScript_vcxem")
+leftLimit = -200.0
+rightLimit = 200.0
+moveSpeed = 0.0
 
 [node name="Block3" parent="." instance=ExtResource("3_ksvsa")]
 position = Vector2(-181, 209)
