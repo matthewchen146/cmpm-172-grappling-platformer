@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="CMPM 172 Grappling Platformer"
-run/main_scene="res://misc/test_scene.tscn"
+run/main_scene="res://misc/rope_test.tscn"
 config/features=PackedStringArray("4.0", "Mobile")
 config/icon="res://misc/icon.svg"
 

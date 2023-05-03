@@ -1,9 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://bbf3d5xhdldrw"]
+[gd_scene load_steps=8 format=3 uid="uid://bbf3d5xhdldrw"]
 
 [ext_resource type="Script" path="res://misc/rope.gd" id="1_frnjq"]
+[ext_resource type="Texture2D" uid="uid://r4pvpqt1jh30" path="res://misc/icon.svg" id="2_5dwcc"]
 [ext_resource type="PackedScene" uid="uid://bbs1mlevvu5dv" path="res://misc/test_block.tscn" id="3_ksvsa"]
+[ext_resource type="Texture2D" uid="uid://ck0nuipvrrto0" path="res://misc/circleSprite.png" id="4_vn3l6"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_v52f2"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wkbmd"]
+rough = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mbgjy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_84ae7"]
+radius = 45.0
 
 [node name="RopeTest" type="Node2D"]
 
@@ -11,13 +19,22 @@
 
 [node name="Rope" type="Node2D" parent="."]
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2(-243, -14)
+[node name="Player" type="RigidBody2D" parent="."]
+position = Vector2(-37, -26)
+physics_material_override = SubResource("PhysicsMaterial_wkbmd")
 script = ExtResource("1_frnjq")
+max_length = 500.0
+grapple_reach = 500.0
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-shape = SubResource("CircleShape2D_v52f2")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_mbgjy")
+debug_color = Color(0, 0.627451, 0.0784314, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+position = Vector2(-3.57628e-07, -1.60933e-06)
+scale = Vector2(0.15625, 0.15625)
+texture = ExtResource("2_5dwcc")
 
 [node name="PinJoint2D" type="PinJoint2D" parent="."]
 
@@ -27,13 +44,13 @@ shape = SubResource("CircleShape2D_v52f2")
 position = Vector2(327, 191)
 scale = Vector2(1.83336, 0.421179)
 
-[node name="Block3" parent="." instance=ExtResource("3_ksvsa")]
-position = Vector2(-181, 209)
-scale = Vector2(0.575792, 2.46542)
-
 [node name="Block2" parent="." instance=ExtResource("3_ksvsa")]
 position = Vector2(155, -160)
 scale = Vector2(1.40626, 0.554531)
+
+[node name="Block3" parent="." instance=ExtResource("3_ksvsa")]
+position = Vector2(-181, 209)
+scale = Vector2(0.575792, 2.46542)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -42,5 +59,24 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "SHIFT - Retract
 CTRL - Extend
-A and D - Swing Left and Right
-Mouse - Move the anchor (blue)"
+A and D - Swing/Move Left and Right
+Left Click - Grapple Towards Mouse
+Right Click - Release Grapple"
+
+[node name="Static Circle" type="StaticBody2D" parent="."]
+position = Vector2(-430, -68)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Static Circle"]
+shape = SubResource("CircleShape2D_84ae7")
+
+[node name="Sprite2D" type="Sprite2D" parent="Static Circle"]
+scale = Vector2(0.021, 0.021)
+texture = ExtResource("4_vn3l6")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Static Circle"]
+offset_left = -53.0
+offset_top = -100.0
+offset_right = 52.0
+offset_bottom = 40.0
+text = "DANGEROUS AND BUGGY"
