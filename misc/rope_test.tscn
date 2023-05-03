@@ -9,13 +9,11 @@
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="Rope" type="Node2D" parent="." node_paths=PackedStringArray("rigid_body")]
-script = ExtResource("1_frnjq")
-hanger_position = Vector2(-200, 2)
-rigid_body = NodePath("../RigidBody2D")
+[node name="Rope" type="Node2D" parent="."]
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 position = Vector2(-243, -14)
+script = ExtResource("1_frnjq")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
@@ -26,4 +24,13 @@ shape = SubResource("CircleShape2D_v52f2")
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="Block" parent="." instance=ExtResource("3_ksvsa")]
-position = Vector2(227, 123)
+position = Vector2(327, 191)
+scale = Vector2(1.83336, 0.421179)
+
+[node name="Block3" parent="." instance=ExtResource("3_ksvsa")]
+position = Vector2(-181, 209)
+scale = Vector2(0.575792, 2.46542)
+
+[node name="Block2" parent="." instance=ExtResource("3_ksvsa")]
+position = Vector2(155, -160)
+scale = Vector2(1.40626, 0.554531)
