@@ -6,7 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://ck0nuipvrrto0" path="res://misc/circleSprite.png" id="4_vn3l6"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wkbmd"]
-rough = true
+bounce = 0.5
+absorbent = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mbgjy"]
 
@@ -46,6 +47,7 @@ radius = 45.0
 [node name="Player" type="RigidBody2D" parent="."]
 position = Vector2(-37, -26)
 physics_material_override = SubResource("PhysicsMaterial_wkbmd")
+linear_damp = 0.1
 script = ExtResource("1_frnjq")
 max_length = 500.0
 grapple_reach = 500.0

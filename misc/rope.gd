@@ -211,6 +211,8 @@ func _physics_process(delta):
 	
 	if Input.is_key_pressed(KEY_SHIFT):
 		current_corner.length -= 200 * delta
+		if current_corner.length < 30 and (corners.size() - 1) == 0: # make it so you can't go below 30 on anchor
+			current_corner.length = 30
 	if Input.is_key_pressed(KEY_CTRL):
 		current_corner.length += 200 * delta
 	
@@ -235,3 +237,4 @@ func _process(delta):
 	
 	if Input.is_key_pressed(KEY_R):
 		get_tree().change_scene_to_file("res://misc/rope_test.tscn")
+	
