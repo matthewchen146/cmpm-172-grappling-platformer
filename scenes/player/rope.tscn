@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://mbalwexuflje"]
+
+[ext_resource type="Script" path="res://scenes/player/rope.gd" id="1_tloef"]
+[ext_resource type="Texture2D" uid="uid://r4pvpqt1jh30" path="res://misc/icon.svg" id="2_kjvd8"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wkbmd"]
+bounce = 0.5
+absorbent = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mbgjy"]
+
+[node name="Rope" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_wkbmd")
+linear_damp = 0.1
+script = ExtResource("1_tloef")
+grapple_reach = 500.0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_mbgjy")
+debug_color = Color(0, 0.627451, 0.0784314, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-3.57628e-07, -1.60933e-06)
+scale = Vector2(0.15625, 0.15625)
+texture = ExtResource("2_kjvd8")

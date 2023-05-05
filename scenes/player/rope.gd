@@ -1,13 +1,16 @@
 extends RigidBody2D
 
-@export var max_length : float = 200
+var _length : float = 200
+@export var max_length : float = 500
+
 @export var grapple_reach: float = 200
 @export var move_speed: float = 250
 
 @export var anchor_position : Vector2 = Vector2()
-var anchorNode: Node2D = Node2D.new()
 
 @export var max_tension_force : float = 50000
+
+@export var active : bool = true
 
 var _debug_tangent : Vector2 = Vector2()
 var _debug_tension : Vector2 = Vector2()
@@ -22,6 +25,7 @@ var slacking : bool = false
 
 class Corner extends RefCounted:
 	var position : Vector2 = Vector2()
+	var prev_position : Vector2 = Vector2()
 	var length : float = 0
 	func _init(_position, _length):
 		position = _position
@@ -30,7 +34,6 @@ class Corner extends RefCounted:
 var corners = []
 
 func _ready():
-	anchorNode.position = Vector2() # Peyton edit
 	var canvas_layer = CanvasLayer.new()
 	canvas_layer.add_child(_debug_control)
 	add_child.call_deferred(canvas_layer)
@@ -66,36 +69,64 @@ func _ready():
 var grappling = true
 var pressed_mouse = false
 
+func change_length(amount : float) -> void:
+	var current_corner = corners[corners.size() - 1]
+	current_corner.length += amount
+
+func set_length(length : float) -> void:
+	length = min(length, max_length)
+	if length == _length:
+		return
+	if length > _length:
+		var current_corner = corners[corners.size() - 1]
+		current_corner.length += length - _length
+	else: # length < _length
+		var change := _length - length
+		var i = corners.size() - 1
+		while i >= 1 and corners[i].length < change:
+			change -= corners[i].length
+			corners.pop_back()
+			i -= 1
+		var current_corner = corners[i]
+		current_corner.length -= change
+	_length = length
+
+func get_length() -> float:
+	return _length
+
 func _physics_process(delta):
+	
+	if not active:
+		return 
 	
 	#Peyton's Edits:
 	
 	var space_state = get_world_2d().direct_space_state
 	
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		if !pressed_mouse:
-			print_debug("Shot The Grapple")
-			pressed_mouse = true
-			var camera : Camera2D = get_viewport().get_camera_2d()
-			var mouse_world_pos : Vector2 = camera.get_global_mouse_position()
-			var direction = mouse_world_pos - position
-			var anchorobject := space_state.intersect_ray(PhysicsRayQueryParameters2D.create(position, position + direction.normalized() * grapple_reach, 0xFFFFFFFF, [self]))
-			if anchorobject.has("collider"):
-				print_debug("Grapple Landed")
-				grappling = true
-				#anchorobject.collider.add_child(anchorNode) #  this doesn't work but it would be nice to solve
-				anchorNode.position = anchorobject.position
-				max_length = (anchorobject.position - position).length()
-				corners.clear()
-				corners.append(Corner.new(anchorNode.position, max_length))
-	else:
-		pressed_mouse = false
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-		grappling = false
-		
-	if !grappling:
-		return
-	anchor_position = anchorNode.position
+#	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+#		if !pressed_mouse:
+#			print_debug("Shot The Grapple")
+#			pressed_mouse = true
+#			var camera : Camera2D = get_viewport().get_camera_2d()
+#			var mouse_world_pos : Vector2 = camera.get_global_mouse_position()
+#			var direction = mouse_world_pos - position
+#			var anchorobject := space_state.intersect_ray(PhysicsRayQueryParameters2D.create(position, position + direction.normalized() * grapple_reach, 0xFFFFFFFF, [self]))
+#			if anchorobject.has("collider"):
+#				print_debug("Grapple Landed")
+#				grappling = true
+#				#anchorobject.collider.add_child(anchorNode) #  this doesn't work but it would be nice to solve
+#				anchorNode.position = anchorobject.position
+#				max_length = (anchorobject.position - position).length()
+#				corners.clear()
+#				corners.append(Corner.new(anchorNode.position, max_length))
+#	else:
+#		pressed_mouse = false
+#	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+#		grappling = false
+#
+#	if !grappling:
+#		return
+#	anchor_position = anchorNode.position
 	
 	corners[0].position = anchor_position
 	
@@ -147,16 +178,6 @@ func _physics_process(delta):
 		else:
 			# check if current corner and prev corner can see next corner
 			if corners.size() > 1 and not next_corner_is_hanger:
-				
-#				var prev_corner = corners[i - 1]
-#				var test_prev := space_state.intersect_ray(PhysicsRayQueryParameters2D.create(prev_corner.position, next_corner_position, 0xFFFFFFFF, [self]))
-#				if not test_prev.has("collider"):
-##					print("can remove ", i)
-##					print("removibing ", i)
-#					prev_corner.length += current_corner.length
-#					corners.remove_at(i)
-#					i -= 1
-#					pass
 				var next_next_corner = corners[i + 2] if i + 2 < corners.size() else null
 				var next_next_corner_pos = next_next_corner.position if next_next_corner != null else position
 				var test := space_state.intersect_ray(PhysicsRayQueryParameters2D.create(current_corner.position, next_next_corner_pos, 0xFFFFFFFF, [self]))
@@ -166,6 +187,10 @@ func _physics_process(delta):
 					i -= 1
 #		current_corner = next_corner
 		i += 1
+	
+	# update prev position of each corner (last frame's position)
+	for corner in corners:
+		corner.prev_position = corner.position
 	
 	var current_corner = corners[corners.size() - 1]
 	var current_anchor_position : Vector2 = current_corner.position
@@ -209,12 +234,12 @@ func _physics_process(delta):
 		move_and_collide(-diff.normalized() * (length - current_max_length))
 		apply_impulse(-diff.normalized() * (length - current_max_length) * 100)
 	
-	if Input.is_key_pressed(KEY_SHIFT):
-		current_corner.length -= 200 * delta
-		if current_corner.length < 30 and (corners.size() - 1) == 0: # make it so you can't go below 30 on anchor
-			current_corner.length = 30
-	if Input.is_key_pressed(KEY_CTRL):
-		current_corner.length += 200 * delta
+#	if Input.is_key_pressed(KEY_SHIFT):
+#		current_corner.length -= 200 * delta
+#		if current_corner.length < 30 and (corners.size() - 1) == 0: # make it so you can't go below 30 on anchor
+#			current_corner.length = 30
+#	if Input.is_key_pressed(KEY_CTRL):
+#		current_corner.length += 200 * delta
 	
 	if Input.is_key_pressed(KEY_J):
 		anchor_position += Vector2.LEFT * 100 * delta
@@ -231,10 +256,9 @@ func _physics_process(delta):
 	_debug_control.queue_redraw()
 
 func _process(delta):
-	var movement:= Vector2()
-	movement.x = int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))
-	apply_force(movement * move_speed)
+#	var movement:= Vector2()
+#	movement.x = int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))
+#	apply_force(movement * move_speed)
 	
 	if Input.is_key_pressed(KEY_R):
 		get_tree().change_scene_to_file("res://misc/rope_test.tscn")
-	

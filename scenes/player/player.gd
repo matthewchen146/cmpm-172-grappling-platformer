@@ -43,6 +43,8 @@ func _physics_process(delta):
 			hook.attached.connect(
 				func(body : PhysicsBody2D):
 					is_grappled = true
+					hook.rope.position = position
+					hook.rope.set_length((position - hook.position).length())
 			)
 			
 			hook.fire(position, direction)

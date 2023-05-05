@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://fgmr178lho85"]
+[gd_scene load_steps=5 format=3 uid="uid://fgmr178lho85"]
 
 [ext_resource type="Script" path="res://scenes/player/grappling_hook.gd" id="1_2x4e6"]
 [ext_resource type="Texture2D" uid="uid://r4pvpqt1jh30" path="res://misc/icon.svg" id="1_b7gh3"]
+[ext_resource type="PackedScene" uid="uid://mbalwexuflje" path="res://scenes/player/rope.tscn" id="3_1am02"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p7lun"]
 radius = 20.0
@@ -15,5 +16,12 @@ texture = ExtResource("1_b7gh3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_p7lun")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="Rope" parent="Node" instance=ExtResource("3_1am02")]
+collision_layer = 2
+collision_mask = 3
+active = false
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
