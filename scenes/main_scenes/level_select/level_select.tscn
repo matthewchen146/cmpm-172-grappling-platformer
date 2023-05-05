@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjyclt3r0kynu"]
+
+[ext_resource type="Script" path="res://scenes/main_scenes/level_select/level_select.gd" id="1_shd6n"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pp7y0"]
+font_size = 60
+
+[node name="level_select" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_shd6n")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Choose a Level"
+label_settings = SubResource("LabelSettings_pp7y0")
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+columns = 5
