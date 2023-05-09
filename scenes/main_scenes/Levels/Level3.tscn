@@ -1,0 +1,213 @@
+[gd_scene load_steps=21 format=3 uid="uid://ruqoiu7rtjqc"]
+
+[ext_resource type="TileSet" uid="uid://h5r1q5j1b8n1" path="res://Assets/Tile-Set.tres" id="1_v8fs7"]
+[ext_resource type="Texture2D" uid="uid://rst0pvcpb65n" path="res://Assets/background2.1.png" id="2_3x5wk"]
+[ext_resource type="Script" path="res://scripts/Player.gd" id="3_whv3n"]
+[ext_resource type="Texture2D" uid="uid://r4pvpqt1jh30" path="res://misc/icon.svg" id="4_ldhoi"]
+[ext_resource type="Script" path="res://scripts/Button.gd" id="5_6yi48"]
+[ext_resource type="Script" path="res://scripts/Door.gd" id="6_fytqi"]
+[ext_resource type="Texture2D" uid="uid://csy1rurpkwyl8" path="res://Assets/DoorOpen.png" id="7_xhjqy"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wkbmd"]
+bounce = 0.5
+absorbent = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mbgjy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3dfyy"]
+size = Vector2(20, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_upc62"]
+size = Vector2(16, 3)
+
+[sub_resource type="Animation" id="Animation_btqnr"]
+resource_name = "Button_Down"
+
+[sub_resource type="Animation" id="Animation_bhe58"]
+resource_name = "Button_Up"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ux273"]
+_data = {
+"Button_Down": SubResource("Animation_btqnr"),
+"Button_Up": SubResource("Animation_bhe58")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qafom"]
+size = Vector2(128, 294)
+
+[sub_resource type="Animation" id="Animation_iqff6"]
+resource_name = "Door_Close"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Door/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_7qrc0"]
+resource_name = "Door_Open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Door/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_tyx3q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Door/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6eedg"]
+_data = {
+"Door_Close": SubResource("Animation_iqff6"),
+"Door_Open": SubResource("Animation_7qrc0"),
+"RESET": SubResource("Animation_tyx3q")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v1mkh"]
+size = Vector2(100, 270)
+
+[node name="RopeTest" type="Node2D"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+offset_left = 201.0
+offset_top = 135.0
+offset_right = 421.0
+offset_bottom = 227.0
+text = "Extend with CTRL and swing!"
+
+[node name="TileMap" type="TileMap" parent="."]
+scale = Vector2(0.125, 0.125)
+tile_set = ExtResource("1_v8fs7")
+cell_quadrant_size = 32
+collision_animatable = true
+format = 2
+layer_0/tile_data = PackedInt32Array(1572825, 2, 0, 1572826, 2, 0, 1572827, 2, 0, 1572828, 2, 0, 1572829, 2, 0, 1572830, 2, 0, 1572831, 2, 0, 1572832, 2, 0, 1572833, 2, 0, 1572834, 2, 0, 1572835, 2, 0, 1572836, 2, 0, 1572837, 2, 0, 1572838, 2, 0, 1572839, 2, 0, 1572840, 2, 0, 1572841, 2, 0, 1572842, 2, 0, 1572843, 2, 0, 1572844, 2, 0, 1572845, 2, 0, 1572846, 2, 0, 1572847, 2, 0, 1572848, 2, 0, 1572849, 2, 0, 1572850, 2, 0, 1572851, 2, 0, 1572852, 2, 0, 1572853, 2, 0, 1572854, 2, 0, 1572855, 2, 0, 1572856, 2, 0, 1572857, 2, 0, 1572858, 2, 0, 1572859, 2, 0, 1572860, 2, 0, 1572861, 2, 0, 1572862, 2, 0, 1572863, 2, 0, 1507328, 2, 0, 1507329, 2, 0, 1507330, 2, 0, 1507331, 2, 0, 1507332, 2, 0, 1507333, 2, 0, 1507334, 2, 0, 1507335, 2, 0, 1507336, 2, 0, 1507337, 2, 0, 1507338, 2, 0, 1507339, 2, 0, 1507340, 2, 0, 1507341, 2, 0, 1507342, 2, 0, 1507343, 2, 0, 1507344, 2, 0, 1507345, 2, 0, 1507346, 2, 0, 1507347, 2, 0, 1507348, 2, 0, 1507349, 2, 0, 1507350, 2, 0, 1507351, 2, 0, 1507352, 2, 0, 1507353, 2, 0, 1507354, 2, 0, 1507355, 2, 0, 1507356, 2, 0, 1507357, 2, 0, 1507358, 2, 0, 1507359, 2, 0, 1507360, 2, 0, 1507361, 2, 0, 1507362, 2, 0, 1507363, 2, 0, 1507364, 2, 0, 1507365, 2, 0, 1507366, 2, 0, 1507289, 2, 0, 1441753, 2, 0, 1376217, 2, 0, 1310681, 2, 0, 1245145, 2, 0, 1179609, 2, 0, -1245223, 2, 0, -1507367, 2, 0, -1441831, 2, 0, -1376295, 2, 0, -1310759, 2, 0, -1507366, 2, 0, -1507365, 2, 0, -1507364, 2, 0, -1507363, 2, 0, -1507362, 2, 0, -1507361, 2, 0, -1507360, 2, 0, -1507359, 2, 0, -1507358, 2, 0, -1507357, 2, 0, -1507356, 2, 0, -1507355, 2, 0, -1507354, 2, 0, -1507353, 2, 0, -1507352, 2, 0, -1507351, 2, 0, -1507350, 2, 0, -1507349, 2, 0, -1507348, 2, 0, -1507347, 2, 0, -1507346, 2, 0, -1507345, 2, 0, -1507344, 2, 0, -1507343, 2, 0, -1507342, 2, 0, -1507341, 2, 0, -1507340, 2, 0, -1507339, 2, 0, -1507338, 2, 0, -1507337, 2, 0, -1507336, 2, 0, -1507335, 2, 0, -1507334, 2, 0, -1507333, 2, 0, -1507332, 2, 0, -1507331, 2, 0, -1507330, 2, 0, -1507329, 2, 0, -1572864, 2, 0, -1572863, 2, 0, -1572862, 2, 0, -1572861, 2, 0, -1572860, 2, 0, -1572859, 2, 0, -1572858, 2, 0, -1572857, 2, 0, -1572856, 2, 0, -1572855, 2, 0, -1572854, 2, 0, -1572853, 2, 0, -1572852, 2, 0, -1572851, 2, 0, -1572850, 2, 0, -1572849, 2, 0, -1572848, 2, 0, -1572847, 2, 0, -1572846, 2, 0, -1572845, 2, 0, -1572844, 2, 0, -1572843, 2, 0, -1572842, 2, 0, -1572841, 2, 0, -1572840, 2, 0, -1572839, 2, 0, -1572838, 2, 0, -1572837, 2, 0, -1572836, 2, 0, -1572835, 2, 0, -1572834, 2, 0, -1572833, 2, 0, -1572832, 2, 0, -1572831, 2, 0, -1572830, 2, 0, -1572829, 2, 0, -1572828, 2, 0, -1572827, 2, 0, -1572826, 2, 0, -1507290, 2, 0, -1441754, 2, 0, -1376218, 2, 0, -1310682, 2, 0, -1245146, 2, 0, -1179610, 2, 0, -1114074, 2, 0, -1048538, 2, 0, -983002, 2, 0, -917466, 2, 0, -851930, 2, 0, -786394, 2, 0, -720858, 2, 0, -655322, 2, 0, -589786, 2, 0, -524250, 2, 0, -458714, 2, 0, -393178, 2, 0, -327642, 2, 0, -262106, 2, 0, -196570, 2, 0, -131034, 2, 0, -65498, 2, 0, 38, 2, 0, 65574, 2, 0, 131110, 2, 0, 196646, 2, 0, 262182, 2, 0, 327718, 2, 0, 393254, 2, 0, 458790, 2, 0, 524326, 2, 0, 589862, 2, 0, 655398, 2, 0, 720934, 2, 0, 786470, 2, 0, 852006, 2, 0, 917542, 2, 0, 983078, 2, 0, 1048614, 2, 0, 1114150, 2, 0, 1179686, 2, 0, 1245222, 2, 0, 1310758, 2, 0, 1376294, 2, 0, 1441830, 2, 0, -1179687, 2, 0, -1114151, 2, 0, -1048615, 2, 0, -983079, 2, 0, -917543, 2, 0, -852007, 2, 0, -786471, 2, 0, -720935, 2, 0, -655399, 2, 0, -589863, 2, 0, -524327, 2, 0, -458791, 2, 0, -393255, 2, 0, -327719, 2, 0, -262183, 2, 0, -196647, 2, 0, -131111, 2, 0, -65575, 2, 0, -39, 2, 0, 65497, 2, 0, 131033, 2, 0, 196569, 2, 0, 262105, 2, 0, 327641, 2, 0, 393177, 2, 0, 458713, 2, 0, 524249, 2, 0, 589785, 2, 0, 655321, 2, 0, 720857, 2, 0, 786393, 2, 0, 851929, 2, 0, 917465, 2, 0, 983001, 2, 0, 1048537, 2, 0, 1114073, 2, 0, 131061, 2, 0, 131062, 2, 0, 131063, 2, 0, 131064, 2, 0, 131065, 2, 0, 131066, 2, 0, 131067, 2, 0, 131068, 2, 0, 131069, 2, 0, 131070, 2, 0, 131071, 2, 0, 65536, 2, 0, 65537, 2, 0, 65538, 2, 0, 65539, 2, 0, 65540, 2, 0, -327691, 2, 0, -327690, 2, 0, -327689, 2, 0, -327688, 2, 0, -327687, 2, 0, -327686, 2, 0, -327685, 2, 0, -327684, 2, 0, -327683, 2, 0, -327682, 2, 0, -327681, 2, 0, -393216, 2, 0, -393215, 2, 0, -393214, 2, 0, -393213, 2, 0, -393212, 2, 0, -393211, 2, 0, -393210, 2, 0, -393209, 2, 0, -393208, 2, 0, -393207, 2, 0, -393206, 2, 0, -393205, 2, 0, -393204, 2, 0, -393203, 2, 0, -393202, 2, 0, -393201, 2, 0, 655359, 2, 0, 655358, 2, 0, 655357, 2, 0, 655356, 2, 0, 655355, 2, 0, 655354, 2, 0, 655353, 2, 0, 655352, 2, 0, 655351, 2, 0, 655350, 2, 0, 655349, 2, 0, 655348, 2, 0, 720884, 2, 0, 786420, 2, 0, 851956, 2, 0, 917492, 2, 0, 983028, 2, 0, 1048564, 2, 0, 1114100, 2, 0, 1179636, 2, 0, 1245172, 2, 0, 1310708, 2, 0, 1310709, 2, 0, 1310710, 2, 0, 1310711, 2, 0, 1310712, 2, 0, 1310713, 2, 0, 1310714, 2, 0, 1310715, 2, 0, 1310716, 2, 0, 1310717, 2, 0, 1310718, 2, 0, 1310719, 2, 0, 1245184, 2, 0, 1245185, 2, 0, 1245186, 2, 0, 1245187, 2, 0, 1245188, 2, 0, 1245189, 2, 0, 1245190, 2, 0, 1245191, 2, 0, 1245192, 2, 0, 1245193, 2, 0, 1245194, 2, 0, 1245195, 2, 0, 1245196, 2, 0, 1245197, 2, 0, 1245198, 2, 0, 1245199, 2, 0, 1245200, 2, 0, 1245201, 2, 0, 1245202, 2, 0, 1245203, 2, 0, 1245204, 2, 0, 1245205, 2, 0, 1245206, 2, 0, 1179670, 2, 0, 1114134, 2, 0, 1048598, 2, 0, 983062, 2, 0, 917526, 2, 0, 851990, 2, 0, 786454, 2, 0, 720918, 2, 0, 655382, 2, 0, 589846, 2, 0, 524310, 2, 0, 458774, 2, 0, 393238, 2, 0, 327702, 2, 0, 262166, 2, 0, 196630, 2, 0, 131094, 2, 0, 65558, 2, 0, 22, 2, 0, -65514, 2, 0, -131050, 2, 0, -196586, 2, 0, -262122, 2, 0, -327658, 2, 0, -393194, 2, 0, -458730, 2, 0, -393195, 2, 0, -393196, 2, 0, -393197, 2, 0, -393198, 2, 0, -393199, 2, 0, -393200, 2, 0, -327692, 2, 0, -327693, 2, 0, -262157, 2, 0, -196621, 2, 0, -131085, 2, 0, -65549, 2, 0, -13, 2, 0, 65523, 2, 0, 131059, 2, 0, 131060, 2, 0, 196595, 2, 0, 262131, 2, 0, 327667, 2, 0, 393203, 2, 0, 458739, 2, 0, 524275, 2, 0, 589811, 2, 0, 655347, 2, 0)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(2500, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("2_3x5wk")
+
+[node name="Player" type="RigidBody2D" parent="." groups=["Presser"]]
+position = Vector2(-183, -9)
+physics_material_override = SubResource("PhysicsMaterial_wkbmd")
+linear_damp = 0.1
+script = ExtResource("3_whv3n")
+grapple_reach = 500.0
+move_speed = 300.0
+corner_adjustment = 10.0
+metadata/_edit_group_ = true
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_mbgjy")
+debug_color = Color(0, 0.627451, 0.0784314, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+position = Vector2(-3.57628e-07, -1.60933e-06)
+scale = Vector2(0.15625, 0.15625)
+texture = ExtResource("4_ldhoi")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "SHIFT - Retract
+CTRL - Extend
+A and D - Swing/Move Left and Right
+Left Click - Grapple Towards Mouse
+Right Click - Release Grapple
+R - Reset"
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Button" type="StaticBody2D" parent="Node2D"]
+position = Vector2(-114, 285)
+script = ExtResource("5_6yi48")
+metadata/_edit_group_ = true
+metadata/TriggerObjects = [NodePath("../Door")]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/Button"]
+position = Vector2(3.40939e-05, -1.66893e-06)
+scale = Vector2(0.15625, 0.046875)
+texture = ExtResource("4_ldhoi")
+
+[node name="Base Collision" type="CollisionShape2D" parent="Node2D/Button"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_3dfyy")
+
+[node name="Area2D" type="Area2D" parent="Node2D/Button"]
+
+[node name="Button Collision" type="CollisionShape2D" parent="Node2D/Button/Area2D"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_upc62")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Button"]
+libraries = {
+"": SubResource("AnimationLibrary_ux273")
+}
+
+[node name="Door" type="StaticBody2D" parent="Node2D"]
+position = Vector2(-347, 254)
+scale = Vector2(0.5, 0.5)
+script = ExtResource("6_fytqi")
+LevelNumToEnter = 3
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/Door"]
+position = Vector2(0, -82)
+scale = Vector2(0.435, 0.62931)
+texture = ExtResource("7_xhjqy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Door"]
+position = Vector2(0, -83)
+shape = SubResource("RectangleShape2D_qafom")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Door"]
+root_node = NodePath("../../..")
+libraries = {
+"": SubResource("AnimationLibrary_6eedg")
+}
+
+[node name="Area2D" type="Area2D" parent="Node2D/Door"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Door/Area2D"]
+position = Vector2(0, -73)
+shape = SubResource("RectangleShape2D_v1mkh")
+
+[connection signal="body_entered" from="Node2D/Button/Area2D" to="Node2D/Button" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Node2D/Button/Area2D" to="Node2D/Button" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Node2D/Door/Area2D" to="Node2D/Door" method="_on_area_2d_body_entered"]

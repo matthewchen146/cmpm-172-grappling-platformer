@@ -27,4 +27,4 @@ func activate():
 func _on_area_2d_body_entered(body):
 	if body.name == "Player":
 		print_debug("Player Entered Door")
-		get_tree().change_scene_to_file("Level%d" % [LevelNumToEnter])
+		get_tree().change_scene_to_file("res://scenes/main_scenes/Levels/Level%d.tscn" % [LevelNumToEnter])
