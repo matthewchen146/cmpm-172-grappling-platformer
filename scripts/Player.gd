@@ -3,6 +3,9 @@ extends RigidBody2D
 @export var max_length : float = 200
 @export var grapple_reach: float = 200
 @export var move_speed: float = 250
+@export var min_corner_distance: float = 10
+
+@export var corner_adjustment : float = 0.5
 
 @export var anchor_position : Vector2 = Vector2()
 var anchorNode: Node2D = Node2D.new()
@@ -32,20 +35,21 @@ var corners = []
 func _ready():
 	anchorNode.position = Vector2() # Peyton edit
 	var canvas_layer = CanvasLayer.new()
+	add_child(canvas_layer)
 	canvas_layer.add_child(_debug_control)
 	add_child.call_deferred(canvas_layer)
 	_debug_control.connect("draw", func():
 		var rect_half_size = get_viewport_rect().size * .5
 		var camera = get_viewport().get_camera_2d()
-		var hanger_local_position = position - camera.position + rect_half_size
-		var anchor_local_position = anchor_position - camera.position + rect_half_size
-		var prev_corner_local_position = corners[0].position - camera.position + rect_half_size
+		var hanger_local_position = position - position + rect_half_size
+		var anchor_local_position = anchor_position - position + rect_half_size
+		var prev_corner_local_position = corners[0].position - position + rect_half_size
 		for i in range(0, corners.size() - 1):
-			var corner_local_position = corners[i + 1].position - camera.position + rect_half_size
+			var corner_local_position = corners[i + 1].position - position + rect_half_size
 			_debug_control.draw_line(prev_corner_local_position, corner_local_position, Color.ANTIQUE_WHITE, 2)
 			prev_corner_local_position = corner_local_position
 		for corner in corners:
-			var corner_local_position = corner.position - camera.position + rect_half_size
+			var corner_local_position = corner.position - position + rect_half_size
 			_debug_control.draw_circle(corner_local_position, 3, Color.GREEN)
 		_debug_control.draw_line(prev_corner_local_position, hanger_local_position, Color.ANTIQUE_WHITE, 2)
 		_debug_control.draw_circle(anchor_local_position, 5, Color.BLUE)
@@ -63,7 +67,7 @@ func _ready():
 	corners.append(Corner.new(anchor_position, max_length))
 
 #var first_supposed_length = 0
-var grappling = true
+var grappling = false
 var pressed_mouse = false
 
 func _physics_process(delta):
@@ -119,7 +123,7 @@ func _physics_process(delta):
 		var next_corner_position : Vector2 = next_corner.position if not next_corner_is_hanger else position
 		# result is from current corner to the next corner. ex is anchor to the hanger
 		var result := space_state.intersect_ray(PhysicsRayQueryParameters2D.create(next_corner_position, current_corner.position, 0xFFFFFFFF, [self]))
-		if result.has("collider") and current_corner.length > 1:
+		if result.has("collider") and current_corner.length > 1 and ((result.position - current_corner.position).length() > min_corner_distance):
 				
 			# create corner
 			var sign = -1
@@ -140,10 +144,13 @@ func _physics_process(delta):
 			if found:
 				var length = (result.position - next_corner_position).length()
 				var corner_position = next_corner_position + rotated.normalized() * length
-				corners.insert(i + 1, Corner.new(corner_position, length))
-#				print("addinng corner ", i)
-				current_corner.length -= length
-				i += 1
+				#Peyton Edit: made it so can't make new corners close to previous ones.
+				if (corner_position - current_corner.position).length() > min_corner_distance:
+					print_debug("Added Corner")
+					corners.insert(i + 1, Corner.new(corner_position, length))
+#					print("addinng corner ", i)
+					current_corner.length -= length
+					i += 1
 		else:
 			# check if current corner and prev corner can see next corner
 			if corners.size() > 1 and not next_corner_is_hanger:
@@ -158,12 +165,23 @@ func _physics_process(delta):
 #					i -= 1
 #					pass
 				var next_next_corner = corners[i + 2] if i + 2 < corners.size() else null
-				var next_next_corner_pos = next_next_corner.position if next_next_corner != null else position
-				var test := space_state.intersect_ray(PhysicsRayQueryParameters2D.create(current_corner.position, next_next_corner_pos, 0xFFFFFFFF, [self]))
+				var next_next_corner_pos : Vector2 = next_next_corner.position if next_next_corner != null else position
+				var adjusted_current_direction : Vector2 = (next_next_corner_pos - current_corner.position).normalized() * corner_adjustment
+				var adjusted_next_direction : Vector2 = (next_next_corner_pos - next_corner.position).normalized() * corner_adjustment
+				var test := space_state.intersect_ray(PhysicsRayQueryParameters2D.create(current_corner.position + adjusted_current_direction, next_next_corner_pos, 0xFFFFFFFF, [self]))
+				var test2 := space_state.intersect_ray(PhysicsRayQueryParameters2D.create(next_corner.position + adjusted_next_direction, next_next_corner_pos, 0xFFFFFFFF, [self]))
 				if not test.has("collider"):
-					current_corner.length += next_corner.length
-					corners.remove_at(i + 1)
-					i -= 1
+					if not test2.has("collider"):
+						current_corner.length += next_corner.length
+						corners.remove_at(i + 1)
+						print_debug("Removed Corner")
+						i -= 1
+					else:
+						print_debug("test2:")
+						print_debug(test2.collider)
+				else:
+					print_debug("test1:")
+					print_debug(test.collider)
 #		current_corner = next_corner
 		i += 1
 	
@@ -236,5 +254,5 @@ func _process(delta):
 	apply_force(movement * move_speed)
 	
 	if Input.is_key_pressed(KEY_R):
-		get_tree().change_scene_to_file("res://misc/rope_test.tscn")
+		get_tree().reload_current_scene()
 	
