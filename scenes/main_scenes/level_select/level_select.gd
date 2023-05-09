@@ -8,7 +8,7 @@ func _ready():
 	# add levels
 	
 	var level_metas = [
-		{"path": "res://misc/test_scene.tscn", "name": "Test"},
+		{"path": "res://misc/Level1.tscn", "name": "Level 1"},
 		{"path": "res://misc/rope_test.tscn", "name": "Rope"}
 	]
 	
