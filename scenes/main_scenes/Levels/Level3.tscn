@@ -123,7 +123,6 @@ physics_material_override = SubResource("PhysicsMaterial_wkbmd")
 linear_damp = 0.1
 script = ExtResource("3_whv3n")
 grapple_reach = 500.0
-move_speed = 300.0
 corner_adjustment = 10.0
 metadata/_edit_group_ = true
 
@@ -141,10 +140,11 @@ texture = ExtResource("4_ldhoi")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="CanvasLayer"]
+modulate = Color(0, 0, 0, 1)
 offset_right = 40.0
 offset_bottom = 23.0
-text = "SHIFT - Retract
-CTRL - Extend
+text = "W / Space - Extend
+S / Shift - Retract
 A and D - Swing/Move Left and Right
 Left Click - Grapple Towards Mouse
 Right Click - Release Grapple

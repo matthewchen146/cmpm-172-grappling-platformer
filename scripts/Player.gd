@@ -2,7 +2,7 @@ extends RigidBody2D
 
 @export var max_length : float = 200
 @export var grapple_reach: float = 200
-@export var move_speed: float = 250
+var move_speed: float = 900
 @export var min_corner_distance: float = 10
 
 @export var corner_adjustment : float = 0.5
@@ -227,11 +227,11 @@ func _physics_process(delta):
 		move_and_collide(-diff.normalized() * (length - current_max_length))
 		apply_impulse(-diff.normalized() * (length - current_max_length) * 100)
 	
-	if Input.is_key_pressed(KEY_SHIFT):
+	if Input.is_action_pressed("lower"):
 		current_corner.length -= 200 * delta
 		if current_corner.length < 30 and (corners.size() - 1) == 0: # make it so you can't go below 30 on anchor
 			current_corner.length = 30
-	if Input.is_key_pressed(KEY_CTRL):
+	if Input.is_action_pressed("jump"):
 		current_corner.length += 200 * delta
 	
 	if Input.is_key_pressed(KEY_J):
