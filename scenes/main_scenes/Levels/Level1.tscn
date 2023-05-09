@@ -144,11 +144,11 @@ texture = ExtResource("4_6ns0k")
 modulate = Color(0, 0, 0, 1)
 offset_right = 40.0
 offset_bottom = 23.0
-text = "W / Space - Extend
-S / Shift - Retract
+text = "W - Retract
+S / Shift - Extend
 A and D - Swing/Move Left and Right
 Left Click - Grapple Towards Mouse
-Right Click - Release Grapple
+Space / Right Click - Release Grapple
 R - Reset"
 
 [node name="Node2D" type="Node2D" parent="."]

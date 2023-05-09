@@ -94,7 +94,7 @@ func _physics_process(delta):
 				corners.append(Corner.new(anchorNode.position, max_length))
 	else:
 		pressed_mouse = false
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) or Input.is_action_pressed("jump"):
 		grappling = false
 		
 	if !grappling:
@@ -227,11 +227,11 @@ func _physics_process(delta):
 		move_and_collide(-diff.normalized() * (length - current_max_length))
 		apply_impulse(-diff.normalized() * (length - current_max_length) * 100)
 	
-	if Input.is_action_pressed("lower"):
+	if Input.is_action_pressed("raise"):
 		current_corner.length -= 200 * delta
 		if current_corner.length < 30 and (corners.size() - 1) == 0: # make it so you can't go below 30 on anchor
 			current_corner.length = 30
-	if Input.is_action_pressed("jump"):
+	if Input.is_action_pressed("lower"):
 		current_corner.length += 200 * delta
 	
 	if Input.is_key_pressed(KEY_J):
