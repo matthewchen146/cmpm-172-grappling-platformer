@@ -107,9 +107,12 @@ func _physics_process(delta):
 				
 	else:
 		pressed_mouse = false
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) or Input.is_action_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and grappling:
+		#jump off of the rope instead of disconnect it
+		apply_impulse(jump_strength * Vector2(0,-1))
 		grappling = false
-		
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		grappling = false
 	if !grappling:
 		return
 	anchor_position = anchorNode.position
@@ -290,6 +293,6 @@ func _process(delta):
 		
 	
 	#jump if we are on the ground and jump is pressed
-	if (onGround or grappling) and Input.is_action_just_pressed("jump"):
+	if (onGround and not grappling) and Input.is_action_just_pressed("jump"):
 		apply_impulse(jump_strength * Vector2(0,-1))
 	
