@@ -1,18 +1,20 @@
-[gd_scene load_steps=21 format=3 uid="uid://dhfwdfdnba244"]
+[gd_scene load_steps=22 format=3 uid="uid://dhfwdfdnba244"]
 
 [ext_resource type="TileSet" uid="uid://h5r1q5j1b8n1" path="res://Assets/Tile-Set.tres" id="1_xpqh8"]
 [ext_resource type="Texture2D" uid="uid://rst0pvcpb65n" path="res://Assets/background2.1.png" id="2_f8jwq"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="3_h4c20"]
+[ext_resource type="PhysicsMaterial" uid="uid://yqj44vfpe3dd" path="res://Resources/PlayerPhysMaterial.tres" id="3_jxqhb"]
 [ext_resource type="Texture2D" uid="uid://r4pvpqt1jh30" path="res://misc/icon.svg" id="4_6ns0k"]
 [ext_resource type="Script" path="res://scripts/Button.gd" id="5_0jonn"]
 [ext_resource type="Script" path="res://scripts/Door.gd" id="6_wv75m"]
 [ext_resource type="Texture2D" uid="uid://csy1rurpkwyl8" path="res://Assets/DoorOpen.png" id="7_sih3g"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wkbmd"]
-bounce = 0.5
-absorbent = true
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uv13g"]
+height = 20.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mbgjy"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ffiph"]
+radius = 9.0
+height = 22.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3dfyy"]
 size = Vector2(20, 3)
@@ -119,8 +121,10 @@ texture = ExtResource("2_f8jwq")
 
 [node name="Player" type="RigidBody2D" parent="." groups=["Presser"]]
 position = Vector2(-183, -9)
-physics_material_override = SubResource("PhysicsMaterial_wkbmd")
-linear_damp = 0.1
+physics_material_override = ExtResource("3_jxqhb")
+continuous_cd = 1
+lock_rotation = true
+linear_damp = 0.05
 script = ExtResource("3_h4c20")
 grapple_reach = 500.0
 corner_adjustment = 10.0
@@ -130,7 +134,7 @@ metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 visible = false
-shape = SubResource("RectangleShape2D_mbgjy")
+shape = SubResource("CapsuleShape2D_uv13g")
 debug_color = Color(0, 0.627451, 0.0784314, 0.419608)
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
@@ -138,14 +142,19 @@ position = Vector2(-3.57628e-07, -1.60933e-06)
 scale = Vector2(0.15625, 0.15625)
 texture = ExtResource("4_6ns0k")
 
+[node name="Area2D" type="Area2D" parent="Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D"]
+shape = SubResource("CapsuleShape2D_ffiph")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="CanvasLayer"]
 modulate = Color(0, 0, 0, 1)
 offset_right = 40.0
 offset_bottom = 23.0
-text = "W - Retract
-S / Shift - Extend
+text = "W / SHIFT - Retract
+S / CTRL - Extend
 A and D - Swing/Move Left and Right
 Left Click - Grapple Towards Mouse
 Space / Right Click - Release Grapple

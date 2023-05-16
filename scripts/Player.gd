@@ -2,7 +2,9 @@ extends RigidBody2D
 
 @export var max_length : float = 200
 @export var grapple_reach: float = 200
-var move_speed: float = 900
+var move_speed: float = 500
+var swing_speed: float = 50
+var jump_strength:float = 300
 @export var min_corner_distance: float = 10
 
 @export var corner_adjustment : float = 0.5
@@ -57,7 +59,7 @@ func _ready():
 #		_debug_control.draw_line(hanger_position, hanger_position + _debug_tangent, Color.MAGENTA, 2)
 #		_debug_control.draw_line(hanger_position, hanger_position + gravity, Color.GREEN, 2)
 		_debug_control.draw_line(hanger_local_position, hanger_local_position + _debug_tension, Color.ORANGE if slacking else Color.RED, 2)
-		_debug_control.draw_line(hanger_local_position, hanger_local_position + _debug_net, Color.MAGENTA, 2)
+		#_debug_control.draw_line(hanger_local_position, hanger_local_position + _debug_net, Color.MAGENTA, 2)
 	)
 	
 	var gravity_vector : Vector2 = ProjectSettings.get_setting("physics/2d/default_gravity_vector")
@@ -69,9 +71,16 @@ func _ready():
 #var first_supposed_length = 0
 var grappling = false
 var pressed_mouse = false
-
+var auto_retracting = false
+var auto_retract_length : float = 50
 func _physics_process(delta):
-	
+	#start with checking if player is on the ground
+	var onGround = false
+	var bodies = $Area2D.get_overlapping_bodies()
+	for body in bodies:
+		if body.name != "Player":
+			onGround = true
+			break
 	#Peyton's Edits:
 	
 	var space_state = get_world_2d().direct_space_state
@@ -92,6 +101,10 @@ func _physics_process(delta):
 				max_length = (anchorobject.position - position).length()
 				corners.clear()
 				corners.append(Corner.new(anchorNode.position, max_length))
+				if onGround:
+					auto_retracting = true
+					auto_retract_length = 70
+				
 	else:
 		pressed_mouse = false
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT) or Input.is_action_pressed("jump"):
@@ -227,8 +240,11 @@ func _physics_process(delta):
 		move_and_collide(-diff.normalized() * (length - current_max_length))
 		apply_impulse(-diff.normalized() * (length - current_max_length) * 100)
 	
-	if Input.is_action_pressed("raise"):
+	if Input.is_action_pressed("raise") or auto_retracting:
 		current_corner.length -= 200 * delta
+		auto_retract_length -= 200 * delta
+		if auto_retract_length <= 0:
+			auto_retracting = false
 		if current_corner.length < 30 and (corners.size() - 1) == 0: # make it so you can't go below 30 on anchor
 			current_corner.length = 30
 	if Input.is_action_pressed("lower"):
@@ -249,10 +265,31 @@ func _physics_process(delta):
 	_debug_control.queue_redraw()
 
 func _process(delta):
+	var speed_limit = 300
 	var movement:= Vector2()
-	movement.x = int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))
-	apply_force(movement * move_speed)
+	if linear_velocity.x < speed_limit or grappling:
+		movement.x += int(Input.is_action_pressed("move_right"))
+	if linear_velocity.x > -speed_limit or grappling:
+		movement.x -= int(Input.is_action_pressed("move_left"))
+	if grappling:
+		apply_force(movement * swing_speed)
+	else:
+		apply_force(movement * move_speed)
+	
 	
 	if Input.is_key_pressed(KEY_R):
 		get_tree().reload_current_scene()
+		
+	#check if we are on the ground
+	var onGround = false
+	var bodies = $Area2D.get_overlapping_bodies()
+	for body in bodies:
+		if body.name != "Player":
+			onGround = true
+			break
+		
+	
+	#jump if we are on the ground and jump is pressed
+	if (onGround or grappling) and Input.is_action_just_pressed("jump"):
+		apply_impulse(jump_strength * Vector2(0,-1))
 	
