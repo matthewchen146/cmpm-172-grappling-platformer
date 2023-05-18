@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dhfwdfdnba244"]
+[gd_scene load_steps=24 format=3 uid="uid://dhfwdfdnba244"]
 
 [ext_resource type="TileSet" uid="uid://h5r1q5j1b8n1" path="res://Assets/Tile-Set.tres" id="1_xpqh8"]
 [ext_resource type="Texture2D" uid="uid://rst0pvcpb65n" path="res://Assets/background2.1.png" id="2_f8jwq"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://r4pvpqt1jh30" path="res://misc/icon.svg" id="4_6ns0k"]
 [ext_resource type="Script" path="res://scripts/Button.gd" id="5_0jonn"]
 [ext_resource type="Script" path="res://scripts/Door.gd" id="6_wv75m"]
+[ext_resource type="Texture2D" uid="uid://ca0u07badv0np" path="res://Assets/Button_Anim.png" id="7_i5q6y"]
 [ext_resource type="Texture2D" uid="uid://b1dy0gufhix1s" path="res://Assets/Door_Animation_Sprites_Revised.png" id="8_1j28l"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uv13g"]
@@ -17,21 +18,61 @@ radius = 9.0
 height = 22.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3dfyy"]
-size = Vector2(20, 3)
+size = Vector2(16, 10.0047)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_upc62"]
-size = Vector2(16, 3)
+size = Vector2(9.00001, 3.49529)
 
 [sub_resource type="Animation" id="Animation_btqnr"]
 resource_name = "Button_Down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
 
 [sub_resource type="Animation" id="Animation_bhe58"]
 resource_name = "Button_Up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [3, 2, 1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_3n18f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ux273"]
 _data = {
 "Button_Down": SubResource("Animation_btqnr"),
-"Button_Up": SubResource("Animation_bhe58")
+"Button_Up": SubResource("Animation_bhe58"),
+"RESET": SubResource("Animation_3n18f")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qafom"]
@@ -153,7 +194,7 @@ layer_0/tile_data = PackedInt32Array(196604, 2, 0, 196605, 2, 0, 196603, 2, 0, 1
 motion_mirroring = Vector2(2500, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(-76, 53)
+position = Vector2(-100, 50)
 texture = ExtResource("2_f8jwq")
 
 [node name="Player" type="RigidBody2D" parent="." groups=["Presser"]]
@@ -170,7 +211,6 @@ metadata/_edit_group_ = true
 [node name="Camera2D" type="Camera2D" parent="Player"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-visible = false
 shape = SubResource("CapsuleShape2D_uv13g")
 debug_color = Color(0, 0.627451, 0.0784314, 0.419608)
 
@@ -202,22 +242,23 @@ R - Reset"
 [node name="Button" type="StaticBody2D" parent="Node2D"]
 position = Vector2(496, 60)
 script = ExtResource("5_0jonn")
-metadata/_edit_group_ = true
 metadata/TriggerObjects = [NodePath("../Door")]
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/Button"]
-position = Vector2(3.40939e-05, -1.66893e-06)
-scale = Vector2(0.15625, 0.046875)
-texture = ExtResource("4_6ns0k")
+position = Vector2(0, -9)
+scale = Vector2(0.426, 0.426)
+texture = ExtResource("7_i5q6y")
+hframes = 2
+vframes = 2
 
 [node name="Base Collision" type="CollisionShape2D" parent="Node2D/Button"]
-position = Vector2(0, 1.5)
+position = Vector2(-1, -0.997646)
 shape = SubResource("RectangleShape2D_3dfyy")
 
 [node name="Area2D" type="Area2D" parent="Node2D/Button"]
 
 [node name="Button Collision" type="CollisionShape2D" parent="Node2D/Button/Area2D"]
-position = Vector2(0, -1.5)
+position = Vector2(-0.5, -8.25235)
 shape = SubResource("RectangleShape2D_upc62")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
