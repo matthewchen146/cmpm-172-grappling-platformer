@@ -58,7 +58,7 @@ func _ready():
 		_debug_control.draw_circle(hanger_local_position, 5, Color.RED)
 #		_debug_control.draw_line(hanger_position, hanger_position + _debug_tangent, Color.MAGENTA, 2)
 #		_debug_control.draw_line(hanger_position, hanger_position + gravity, Color.GREEN, 2)
-		_debug_control.draw_line(hanger_local_position, hanger_local_position + _debug_tension, Color.ORANGE if slacking else Color.RED, 2)
+		#_debug_control.draw_line(hanger_local_position, hanger_local_position + _debug_tension, Color.ORANGE if slacking else Color.RED, 2)
 		#_debug_control.draw_line(hanger_local_position, hanger_local_position + _debug_net, Color.MAGENTA, 2)
 	)
 	
@@ -84,29 +84,35 @@ func _physics_process(delta):
 	#Peyton's Edits:
 	
 	var space_state = get_world_2d().direct_space_state
-	
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		if !pressed_mouse:
-			print_debug("Shot The Grapple")
-			pressed_mouse = true
-			var camera : Camera2D = get_viewport().get_camera_2d()
-			var mouse_world_pos : Vector2 = camera.get_global_mouse_position()
-			var direction = mouse_world_pos - position
-			var anchorobject := space_state.intersect_ray(PhysicsRayQueryParameters2D.create(position, position + direction.normalized() * grapple_reach, 0xFFFFFFFF, [self]))
-			if anchorobject.has("collider"):
-				print_debug("Grapple Landed")
-				grappling = true
-				#anchorobject.collider.add_child(anchorNode) #  this doesn't work but it would be nice to solve
-				anchorNode.position = anchorobject.position
-				max_length = (anchorobject.position - position).length()
-				corners.clear()
-				corners.append(Corner.new(anchorNode.position, max_length))
-				if onGround:
-					auto_retracting = true
-					auto_retract_length = 70
+	if Input.is_action_just_pressed("fire_grapple"):
+		print_debug("Shot The Grapple")
+		pressed_mouse = true
+		var camera : Camera2D = get_viewport().get_camera_2d()
+		var mouse_world_pos : Vector2 = camera.get_global_mouse_position()
+		var direction
+		if (Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)):
+			direction = mouse_world_pos - position
+		else: if (Input.is_key_pressed(KEY_UP)):
+			direction = Vector2(0,-1)
+		else: if (Input.is_key_pressed(KEY_DOWN)):
+			direction = Vector2(0,1)
+		else: if (Input.is_key_pressed(KEY_LEFT)):
+			direction = Vector2(-1,0)
+		else: if (Input.is_key_pressed(KEY_RIGHT)):
+			direction = Vector2(1,0)
+		var anchorobject := space_state.intersect_ray(PhysicsRayQueryParameters2D.create(position, position + direction.normalized() * grapple_reach, 0xFFFFFFFF, [self]))
+		if anchorobject.has("collider"):
+			print_debug("Grapple Landed")
+			grappling = true
+			#anchorobject.collider.add_child(anchorNode) #  this doesn't work but it would be nice to solve
+			anchorNode.position = anchorobject.position
+			max_length = (anchorobject.position - position).length()
+			corners.clear()
+			corners.append(Corner.new(anchorNode.position, max_length))
+			if onGround:
+				auto_retracting = true
+				auto_retract_length = 70
 				
-	else:
-		pressed_mouse = false
 	if Input.is_action_just_pressed("jump") and grappling:
 		#jump off of the rope instead of disconnect it
 		apply_impulse(jump_strength * Vector2(0,-1))
