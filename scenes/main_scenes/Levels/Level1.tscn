@@ -1,14 +1,18 @@
-[gd_scene load_steps=24 format=3 uid="uid://dhfwdfdnba244"]
+[gd_scene load_steps=27 format=3 uid="uid://dhfwdfdnba244"]
 
 [ext_resource type="TileSet" uid="uid://h5r1q5j1b8n1" path="res://Assets/Tile-Set.tres" id="1_xpqh8"]
 [ext_resource type="Texture2D" uid="uid://rst0pvcpb65n" path="res://Assets/background2.1.png" id="2_f8jwq"]
+[ext_resource type="Script" path="res://scripts/PullableObject.gd" id="3_6e3rq"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="3_h4c20"]
 [ext_resource type="PhysicsMaterial" uid="uid://yqj44vfpe3dd" path="res://Resources/PlayerPhysMaterial.tres" id="3_jxqhb"]
+[ext_resource type="Texture2D" uid="uid://v68hw53xcptv" path="res://Assets/Tile (1).png" id="3_yf585"]
 [ext_resource type="Texture2D" uid="uid://r4pvpqt1jh30" path="res://misc/icon.svg" id="4_6ns0k"]
 [ext_resource type="Script" path="res://scripts/Button.gd" id="5_0jonn"]
 [ext_resource type="Script" path="res://scripts/Door.gd" id="6_wv75m"]
 [ext_resource type="Texture2D" uid="uid://ca0u07badv0np" path="res://Assets/Button_Anim.png" id="7_i5q6y"]
 [ext_resource type="Texture2D" uid="uid://b1dy0gufhix1s" path="res://Assets/Door_Animation_Sprites_Revised.png" id="8_1j28l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c2wlg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uv13g"]
 height = 20.0
@@ -196,6 +200,18 @@ motion_mirroring = Vector2(2500, 0)
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
 position = Vector2(-100, 50)
 texture = ExtResource("2_f8jwq")
+
+[node name="MovableObject" type="RigidBody2D" parent="." groups=["Presser"]]
+position = Vector2(289.469, 21.3433)
+continuous_cd = 2
+script = ExtResource("3_6e3rq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MovableObject"]
+shape = SubResource("RectangleShape2D_c2wlg")
+
+[node name="Sprite2D" type="Sprite2D" parent="MovableObject"]
+scale = Vector2(0.079, 0.079)
+texture = ExtResource("3_yf585")
 
 [node name="Player" type="RigidBody2D" parent="." groups=["Presser"]]
 position = Vector2(-183, -9)
