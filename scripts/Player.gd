@@ -25,6 +25,7 @@ var gravity : Vector2 = Vector2()
 
 var slacking : bool = false
 
+
 class Corner extends RefCounted:
 	var position : Vector2 = Vector2()
 	var length : float = 0
@@ -36,6 +37,8 @@ var corners = []
 signal release
 
 func _ready():
+	var animationPlayer = $AnimationPlayer
+	animationPlayer.play("Idle")
 	anchorNode.position = Vector2() # Peyton edit
 	var canvas_layer = CanvasLayer.new()
 	
@@ -78,9 +81,9 @@ var pulling = false
 var pressed_mouse = false
 var auto_retracting = false
 var auto_retract_length : float = 50
+var onGround = false
 func _physics_process(delta):
 	#start with checking if player is on the ground
-	var onGround = false
 	var bodies = $Area2D.get_overlapping_bodies()
 	for body in bodies:
 		if body.name != "Player":
@@ -186,7 +189,7 @@ func _physics_process(delta):
 					break
 				sign *= -1
 				angle += .01
-			if found:
+			if true:#found
 				var length = (result.position - next_corner_position).length()
 				#corner_position = 
 				#var corner_position = next_corner_position + rotated.normalized() * length
@@ -200,16 +203,6 @@ func _physics_process(delta):
 		else:
 			# check if current corner and prev corner can see next corner
 			if corners.size() > 1 and not next_corner_is_hanger:
-				
-#				var prev_corner = corners[i - 1]
-#				var test_prev := space_state.intersect_ray(PhysicsRayQueryParameters2D.create(prev_corner.position, next_corner_position, 0xFFFFFFFF, [self]))
-#				if not test_prev.has("collider"):
-##					print("can remove ", i)
-##					print("removibing ", i)
-#					prev_corner.length += current_corner.length
-#					corners.remove_at(i)
-#					i -= 1
-#					pass
 				var next_next_corner = corners[i + 2] if i + 2 < corners.size() else null
 				var next_next_corner_pos : Vector2 = next_next_corner.position if next_next_corner != null else position
 				var adjusted_current_direction : Vector2 = (next_next_corner_pos - current_corner.position).normalized() * corner_adjustment
@@ -222,12 +215,6 @@ func _physics_process(delta):
 						corners.remove_at(i + 1)
 						print_debug("Removed Corner")
 						i -= 1
-					else:
-						print_debug("test2:")
-						print_debug(test2.collider)
-				else:
-					print_debug("test1:")
-					print_debug(test.collider)
 #		current_corner = next_corner
 		i += 1
 	
@@ -298,6 +285,24 @@ func _physics_process(delta):
 	_debug_control.queue_redraw()
 
 func _process(delta):
+	#start with checking if player is on the ground
+	onGround = false
+	var bodies = $Area2D.get_overlapping_bodies()
+	for body in bodies:
+		if body.name != "Player":
+			onGround = true
+			break
+	
+	if linear_velocity.x > 1 or linear_velocity.x < -1 or linear_velocity.y > 1 or linear_velocity.y < -1 or not onGround:
+		print_debug("Playing Running")
+		$AnimationPlayer.play("Running")
+	else:
+		print_debug("Playing Idle")
+		$AnimationPlayer.play("Idle")
+	if linear_velocity.x < -1:
+		$Sprite2D.scale.x = -$Sprite2D.scale.y
+	if linear_velocity.x > 1:
+		$Sprite2D.scale.x = $Sprite2D.scale.y
 	var speed_limit = 300
 	var movement:= Vector2()
 	if linear_velocity.x < speed_limit or grappling:
@@ -312,15 +317,6 @@ func _process(delta):
 	
 	if Input.is_key_pressed(KEY_R):
 		get_tree().reload_current_scene()
-		
-	#check if we are on the ground
-	var onGround = false
-	var bodies = $Area2D.get_overlapping_bodies()
-	for body in bodies:
-		if body.name != "Player":
-			onGround = true
-			break
-		
 	
 	#jump if we are on the ground and jump is pressed
 	if (onGround and not grappling) and Input.is_action_just_pressed("jump"):

@@ -17,10 +17,10 @@ func activate():
 		#$Sprite2D.visible = false
 		$AnimationPlayer.play("Door_Open")
 		open = true
-	else:
+	#else:
 		#$Sprite2D.visible = true
-		$AnimationPlayer.play("Door_Close")
-		open = false
+		#$AnimationPlayer.play("Door_Close")
+		#open = false
 	
 
 
