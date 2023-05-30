@@ -2,9 +2,9 @@ extends RigidBody2D
 
 @export var max_length : float = 200
 @export var grapple_reach: float = 200
-var move_speed: float = 500
+var move_speed: float = 420
 var swing_speed: float = 50
-var jump_strength:float = 300
+var jump_strength:float = 500
 @export var min_corner_distance: float = 10
 
 @export var corner_adjustment : float = 0.5
@@ -38,12 +38,15 @@ signal release
 func _ready():
 	anchorNode.position = Vector2() # Peyton edit
 	var canvas_layer = CanvasLayer.new()
+	
 	add_child(canvas_layer)
 	canvas_layer.add_child(_debug_control)
 	add_child.call_deferred(canvas_layer)
 	_debug_control.connect("draw", func():
 		var rect_half_size = get_viewport_rect().size * .5
 		var camera = get_viewport().get_camera_2d()
+		#canvas_layer.scale.x = camera.zoom.x / 2
+		#canvas_layer.scale.y = camera.zoom.y / 2
 		var hanger_local_position = position - position + rect_half_size
 		var anchor_local_position = anchor_position - position + rect_half_size
 		var prev_corner_local_position = corners[0].position - position + rect_half_size
@@ -166,7 +169,7 @@ func _physics_process(delta):
 		# result is from current corner to the next corner. ex is anchor to the hanger
 		var result := space_state.intersect_ray(PhysicsRayQueryParameters2D.create(next_corner_position, current_corner.position, 0xFFFFFFFF, [self]))
 		if result.has("collider") and current_corner.length > 1 and ((result.position - current_corner.position).length() > min_corner_distance):
-				
+			var corner_position = result.position
 			# create corner
 			var sign = -1
 			var angle = .01
@@ -185,7 +188,8 @@ func _physics_process(delta):
 				angle += .01
 			if found:
 				var length = (result.position - next_corner_position).length()
-				var corner_position = next_corner_position + rotated.normalized() * length
+				#corner_position = 
+				#var corner_position = next_corner_position + rotated.normalized() * length
 				#Peyton Edit: made it so can't make new corners close to previous ones.
 				if (corner_position - current_corner.position).length() > min_corner_distance:
 					print_debug("Added Corner")

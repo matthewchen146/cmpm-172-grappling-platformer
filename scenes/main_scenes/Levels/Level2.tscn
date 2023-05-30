@@ -212,7 +212,7 @@ Space / Right Click - Release Grapple
 R - Reset"
 
 [node name="Player" type="RigidBody2D" parent="." groups=["Presser"]]
-position = Vector2(-183, -9)
+position = Vector2(-335, 40)
 physics_material_override = ExtResource("3_4mjye")
 continuous_cd = 2
 lock_rotation = true
@@ -225,26 +225,29 @@ metadata/_edit_group_ = true
 [node name="Camera2D" type="Camera2D" parent="Player"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-visible = false
+scale = Vector2(2, 2)
 shape = SubResource("CapsuleShape2D_e0xi0")
 debug_color = Color(0, 0.627451, 0.0784314, 0.419608)
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 position = Vector2(-3.57628e-07, -1.60933e-06)
-scale = Vector2(0.15625, 0.15625)
+scale = Vector2(0.317, 0.317)
 texture = ExtResource("4_r6yws")
 
 [node name="Area2D" type="Area2D" parent="Player"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D"]
+scale = Vector2(2, 2)
 shape = SubResource("CapsuleShape2D_pjpxw")
 
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="Button" type="StaticBody2D" parent="Node2D"]
-position = Vector2(496, 60)
+position = Vector2(480, 56)
+scale = Vector2(2, 2)
 script = ExtResource("5_gicgk")
 metadata/TriggerObjects = [NodePath("../Door")]
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/Button"]
 position = Vector2(0, -9)
@@ -270,8 +273,7 @@ libraries = {
 }
 
 [node name="Door" type="StaticBody2D" parent="Node2D"]
-position = Vector2(636, 37)
-scale = Vector2(0.5, 0.5)
+position = Vector2(635, 12)
 script = ExtResource("6_j2pwe")
 LevelNumToEnter = 3
 metadata/_edit_group_ = true

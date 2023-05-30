@@ -209,26 +209,29 @@ metadata/_edit_group_ = true
 [node name="Camera2D" type="Camera2D" parent="Player"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-visible = false
+scale = Vector2(2, 2)
 shape = SubResource("CapsuleShape2D_gq05c")
 debug_color = Color(0, 0.627451, 0.0784314, 0.419608)
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 position = Vector2(-3.57628e-07, -1.60933e-06)
-scale = Vector2(0.15625, 0.15625)
+scale = Vector2(0.317, 0.317)
 texture = ExtResource("4_ldhoi")
 
 [node name="Area2D" type="Area2D" parent="Player"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D"]
+scale = Vector2(2, 2)
 shape = SubResource("CapsuleShape2D_7jxo3")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="CanvasLayer"]
 modulate = Color(0, 0, 0, 1)
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 2.0
+offset_top = 4.0
+offset_right = 282.0
+offset_bottom = 160.0
 text = "W / SHIFT - Retract
 S / CTRL - Extend
 A and D - Swing/Move Left and Right
@@ -240,7 +243,8 @@ R - Reset"
 position = Vector2(-188, 205)
 
 [node name="Button" type="StaticBody2D" parent="Node2D"]
-position = Vector2(78, 79)
+position = Vector2(77, 74)
+scale = Vector2(2, 2)
 script = ExtResource("5_6yi48")
 metadata/TriggerObjects = [NodePath("../Door")]
 metadata/_edit_group_ = true
@@ -269,8 +273,7 @@ libraries = {
 }
 
 [node name="Door" type="StaticBody2D" parent="Node2D"]
-position = Vector2(-115, 57)
-scale = Vector2(0.5, 0.5)
+position = Vector2(-114, 33)
 script = ExtResource("6_fytqi")
 LevelNumToEnter = 3
 metadata/_edit_group_ = true

@@ -226,17 +226,19 @@ metadata/_edit_group_ = true
 [node name="Camera2D" type="Camera2D" parent="Player"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+scale = Vector2(2, 2)
 shape = SubResource("CapsuleShape2D_uv13g")
 debug_color = Color(0, 0.627451, 0.0784314, 0.419608)
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 position = Vector2(-3.57628e-07, -1.60933e-06)
-scale = Vector2(0.15625, 0.15625)
+scale = Vector2(0.317, 0.317)
 texture = ExtResource("4_6ns0k")
 
 [node name="Area2D" type="Area2D" parent="Player"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D"]
+scale = Vector2(2, 2)
 shape = SubResource("CapsuleShape2D_ffiph")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -256,8 +258,10 @@ R - Reset"
 
 [node name="Button" type="StaticBody2D" parent="Node2D"]
 position = Vector2(496, 60)
+scale = Vector2(2, 2)
 script = ExtResource("5_0jonn")
 metadata/TriggerObjects = [NodePath("../Door")]
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/Button"]
 position = Vector2(0, -9)
@@ -283,8 +287,7 @@ libraries = {
 }
 
 [node name="Door" type="StaticBody2D" parent="Node2D"]
-position = Vector2(636, 37)
-scale = Vector2(0.5, 0.5)
+position = Vector2(633, 11)
 script = ExtResource("6_wv75m")
 metadata/_edit_group_ = true
 
