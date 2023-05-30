@@ -1,19 +1,75 @@
-[gd_scene load_steps=24 format=3 uid="uid://c4mqico3vrdj8"]
+[gd_scene load_steps=28 format=3 uid="uid://c4mqico3vrdj8"]
 
 [ext_resource type="TileSet" uid="uid://h5r1q5j1b8n1" path="res://Assets/Tile-Set.tres" id="1_p65wp"]
 [ext_resource type="Texture2D" uid="uid://rst0pvcpb65n" path="res://Assets/background2.1.png" id="2_ptuqo"]
 [ext_resource type="PhysicsMaterial" uid="uid://yqj44vfpe3dd" path="res://Resources/PlayerPhysMaterial.tres" id="3_4mjye"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="3_4qf4m"]
-[ext_resource type="Texture2D" uid="uid://r4pvpqt1jh30" path="res://misc/icon.svg" id="4_r6yws"]
+[ext_resource type="Texture2D" uid="uid://cafm28ugb122v" path="res://Assets/CharacterSpriteSheet.png" id="5_1u64a"]
 [ext_resource type="Script" path="res://scripts/Button.gd" id="5_gicgk"]
 [ext_resource type="Script" path="res://scripts/Door.gd" id="6_j2pwe"]
 [ext_resource type="Texture2D" uid="uid://ca0u07badv0np" path="res://Assets/Button_Anim.png" id="7_gplrf"]
 [ext_resource type="Texture2D" uid="uid://b1dy0gufhix1s" path="res://Assets/Door_Animation_Sprites_Revised.png" id="8_s23in"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e0xi0"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f85il"]
 height = 20.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pjpxw"]
+[sub_resource type="Animation" id="Animation_aisk4"]
+resource_name = "Idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1]
+}
+
+[sub_resource type="Animation" id="Animation_vv2te"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_cv8pl"]
+resource_name = "Running"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 10, 11, 12]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6gkkf"]
+_data = {
+"Idle": SubResource("Animation_aisk4"),
+"RESET": SubResource("Animation_vv2te"),
+"Running": SubResource("Animation_cv8pl")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v5a2n"]
 radius = 9.0
 height = 22.0
 
@@ -212,9 +268,9 @@ Space / Right Click - Release Grapple
 R - Reset"
 
 [node name="Player" type="RigidBody2D" parent="." groups=["Presser"]]
-position = Vector2(-335, 40)
+position = Vector2(-352, 23)
 physics_material_override = ExtResource("3_4mjye")
-continuous_cd = 2
+continuous_cd = 1
 lock_rotation = true
 linear_damp = 0.05
 script = ExtResource("3_4qf4m")
@@ -226,19 +282,26 @@ metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 scale = Vector2(2, 2)
-shape = SubResource("CapsuleShape2D_e0xi0")
+shape = SubResource("CapsuleShape2D_f85il")
 debug_color = Color(0, 0.627451, 0.0784314, 0.419608)
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
-position = Vector2(-3.57628e-07, -1.60933e-06)
-scale = Vector2(0.317, 0.317)
-texture = ExtResource("4_r6yws")
+position = Vector2(0, -13)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_1u64a")
+hframes = 7
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+libraries = {
+"": SubResource("AnimationLibrary_6gkkf")
+}
 
 [node name="Area2D" type="Area2D" parent="Player"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D"]
 scale = Vector2(2, 2)
-shape = SubResource("CapsuleShape2D_pjpxw")
+shape = SubResource("CapsuleShape2D_v5a2n")
 
 [node name="Node2D" type="Node2D" parent="."]
 

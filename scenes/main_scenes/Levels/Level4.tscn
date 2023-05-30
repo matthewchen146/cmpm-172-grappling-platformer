@@ -1,19 +1,75 @@
-[gd_scene load_steps=24 format=3 uid="uid://bojtniwjvldwt"]
+[gd_scene load_steps=28 format=3 uid="uid://bojtniwjvldwt"]
 
 [ext_resource type="TileSet" uid="uid://h5r1q5j1b8n1" path="res://Assets/Tile-Set.tres" id="1_70538"]
 [ext_resource type="Texture2D" uid="uid://rst0pvcpb65n" path="res://Assets/background2.1.png" id="2_e8e16"]
 [ext_resource type="PhysicsMaterial" uid="uid://yqj44vfpe3dd" path="res://Resources/PlayerPhysMaterial.tres" id="3_2gjnp"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="4_cusvd"]
-[ext_resource type="Texture2D" uid="uid://r4pvpqt1jh30" path="res://misc/icon.svg" id="5_0lhr8"]
+[ext_resource type="Texture2D" uid="uid://cafm28ugb122v" path="res://Assets/CharacterSpriteSheet.png" id="5_7gmgp"]
 [ext_resource type="Script" path="res://scripts/Button.gd" id="6_fvmwx"]
 [ext_resource type="Texture2D" uid="uid://ca0u07badv0np" path="res://Assets/Button_Anim.png" id="7_jqs0h"]
 [ext_resource type="Script" path="res://scripts/Door.gd" id="8_gpr5r"]
 [ext_resource type="Texture2D" uid="uid://b1dy0gufhix1s" path="res://Assets/Door_Animation_Sprites_Revised.png" id="9_l2681"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gq05c"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3hp8j"]
 height = 20.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7jxo3"]
+[sub_resource type="Animation" id="Animation_aisk4"]
+resource_name = "Idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1]
+}
+
+[sub_resource type="Animation" id="Animation_vv2te"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_cv8pl"]
+resource_name = "Running"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 10, 11, 12]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6gkkf"]
+_data = {
+"Idle": SubResource("Animation_aisk4"),
+"RESET": SubResource("Animation_vv2te"),
+"Running": SubResource("Animation_cv8pl")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_73ems"]
 radius = 9.0
 height = 22.0
 
@@ -197,9 +253,9 @@ position = Vector2(704, 430)
 texture = ExtResource("2_e8e16")
 
 [node name="Player" type="RigidBody2D" parent="." groups=["Presser"]]
-position = Vector2(-183, -9)
+position = Vector2(-227, 34)
 physics_material_override = ExtResource("3_2gjnp")
-continuous_cd = 2
+continuous_cd = 1
 lock_rotation = true
 linear_damp = 0.05
 script = ExtResource("4_cusvd")
@@ -211,19 +267,26 @@ metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 scale = Vector2(2, 2)
-shape = SubResource("CapsuleShape2D_gq05c")
+shape = SubResource("CapsuleShape2D_3hp8j")
 debug_color = Color(0, 0.627451, 0.0784314, 0.419608)
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
-position = Vector2(-3.57628e-07, -1.60933e-06)
-scale = Vector2(0.317, 0.317)
-texture = ExtResource("5_0lhr8")
+position = Vector2(0, -13)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_7gmgp")
+hframes = 7
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+libraries = {
+"": SubResource("AnimationLibrary_6gkkf")
+}
 
 [node name="Area2D" type="Area2D" parent="Player"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D"]
 scale = Vector2(2, 2)
-shape = SubResource("CapsuleShape2D_7jxo3")
+shape = SubResource("CapsuleShape2D_73ems")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -276,7 +339,7 @@ libraries = {
 [node name="Door" type="StaticBody2D" parent="Node2D"]
 position = Vector2(109, -31)
 script = ExtResource("8_gpr5r")
-LevelNumToEnter = 3
+LevelNumToEnter = 1
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/Door"]
