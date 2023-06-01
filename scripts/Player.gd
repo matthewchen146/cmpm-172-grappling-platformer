@@ -7,9 +7,10 @@ var swing_speed: float = 50
 var jump_strength:float = 500
 
 #Tweaking of the Grappling hook!
-var min_corner_distance: float = 1.5 # Corners must be this distance apart to be formed
-var AddCornerExtensionLength : float = 1 # When creating a corner, extend it from it's root by this much
-var AddedAngle: float = 0.01 # When scanning angles, after finding the open angle add more to it
+var min_corner_distance: float = 1 # Corners must be this distance apart to be formed
+var AddCornerExtensionLength : float = 0.25 # When creating a corner, extend it from it's root by this much
+var AddedAngle: float = 0.005 # When scanning angles, after finding the open angle add more to it
+var CheckExtend : float = 0.25 # when raycast gets a hit, push it forward for the sweep
 var corner_adjustment : float = 0 # This is used to remove corners, if they get stuck in walls
 
 var anchor_position : Vector2 = Vector2()
@@ -175,7 +176,7 @@ func _physics_process(delta):
 		var next_corner_is_hanger := next_corner == null
 		var next_corner_position : Vector2 = next_corner.position if not next_corner_is_hanger else position
 		# result is from current corner to the next corner. ex is anchor to the hanger
-		var result := space_state.intersect_ray(PhysicsRayQueryParameters2D.create(current_corner.position, next_corner_position, 0xFFFFFFFF, [self]))
+		var result := space_state.intersect_ray(PhysicsRayQueryParameters2D.create(next_corner_position, current_corner.position, 0xFFFFFFFF, [self]))
 		if result.has("collider") and current_corner.length > min_corner_distance and ((result.position - current_corner.position).length() > min_corner_distance):
 			#var corner_position = result.position
 			# create corner
@@ -190,7 +191,7 @@ func _physics_process(delta):
 			# convert this into some binary search for faster calculation
 			for j in range(1000):
 				rotated = (result.position - current_corner.position).rotated(angle * sign)
-				#rotated += rotated.normalized() * 0.25 # extend the rotating scan slightly
+				rotated += rotated.normalized() * CheckExtend # extend the rotating scan slightly
 				var test = space_state.intersect_ray(PhysicsRayQueryParameters2D.create(current_corner.position,current_corner.position + rotated, 0xFFFFFFFF, [self]))
 				if not test.has("collider"):
 					found = true # found a spot where it isn't colliding
