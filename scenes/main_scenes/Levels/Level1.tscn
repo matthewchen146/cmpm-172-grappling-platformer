@@ -275,8 +275,6 @@ continuous_cd = 1
 lock_rotation = true
 linear_damp = 0.05
 script = ExtResource("3_h4c20")
-grapple_reach = 500.0
-corner_adjustment = 10.0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 

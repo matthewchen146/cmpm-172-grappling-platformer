@@ -259,8 +259,6 @@ continuous_cd = 1
 lock_rotation = true
 linear_damp = 0.05
 script = ExtResource("4_cusvd")
-grapple_reach = 500.0
-corner_adjustment = 10.0
 metadata/_edit_group_ = true
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
