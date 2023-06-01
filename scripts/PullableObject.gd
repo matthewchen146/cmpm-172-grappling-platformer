@@ -1,12 +1,16 @@
 extends RigidBody2D
 class_name PullableObject
 @export var max_length : float = 200
-@export var min_corner_distance: float = 10
-@export var corner_adjustment : float = 0.5
 @export var anchor_position : Vector2 = Vector2()
 var anchorNode: Node2D = Node2D.new()
 
 @export var max_tension_force : float = 50000
+
+var min_corner_distance: float = 1 # Corners must be this distance apart to be formed
+var AddCornerExtensionLength : float = 0.1 # When creating a corner, extend it from it's root by this much
+var AddedAngle: float = 0.000 # When scanning angles, after finding the open angle add more to it
+var CheckExtend : float = 0.1 # when raycast gets a hit, push it forward for the sweep
+var corner_adjustment : float = 0 # This is used to remove corners, if they get stuck in walls
 
 var _debug_tangent : Vector2 = Vector2()
 var _debug_tension : Vector2 = Vector2()
@@ -121,32 +125,54 @@ func _physics_process(delta):
 		var next_corner_position : Vector2 = next_corner.position if not next_corner_is_hanger else position
 		# result is from current corner to the next corner. ex is anchor to the hanger
 		var result := space_state.intersect_ray(PhysicsRayQueryParameters2D.create(next_corner_position, current_corner.position, 0xFFFFFFFF, [self, player]))
-		if result.has("collider") and current_corner.length > 1 and ((result.position - current_corner.position).length() > min_corner_distance):
-				
+		if result.has("collider") and current_corner.length > min_corner_distance and ((result.position - current_corner.position).length() > min_corner_distance):
+			#var corner_position = result.position
 			# create corner
 			var sign = -1
 			var angle = .01
 			var rotated = Vector2()
 			var found = false
+			var corner_position = result.position
+			var farthestPositive : float = (current_corner.position - result.position).length()
+			var farthestNegative : float = (current_corner.position - result.position).length()
 			# tests multiple rays with different angles from the next corner to find a non-colliding spot
 			# convert this into some binary search for faster calculation
-			for j in range(100):
-				rotated = (current_corner.position - next_corner_position).rotated(angle * sign)
-				var test = space_state.intersect_ray(PhysicsRayQueryParameters2D.create(next_corner_position, next_corner_position + rotated, 0xFFFFFFFF, [self, player]))
+			for j in range(1000):
+				rotated = (result.position - current_corner.position).rotated(angle * sign)
+				rotated += rotated.normalized() * CheckExtend # extend the rotating scan slightly
+				var test = space_state.intersect_ray(PhysicsRayQueryParameters2D.create(current_corner.position,current_corner.position + rotated, 0xFFFFFFFF, [self, player]))
 				if not test.has("collider"):
-					found = true
+					found = true # found a spot where it isn't colliding
+					rotated = (result.position - current_corner.position).rotated((angle + AddedAngle) * sign)
+					if sign == 1:
+						var dir = (rotated.normalized() * farthestPositive)
+						dir += dir.normalized() * AddCornerExtensionLength
+						corner_position = current_corner.position + dir
+						
+					else:
+						var dir = (rotated.normalized() * farthestNegative)
+						dir += dir.normalized() * AddCornerExtensionLength
+						corner_position = current_corner.position + dir
 #					print("found at ", j)
 					break
+				else:
+					if (sign == 1):
+						farthestPositive = (current_corner.position - test.position).length()
+						#_debug_control.draw_circle(farthestPositive - position + rect_half_size, 5, Color.BLACK)
+					else:
+						farthestNegative = (current_corner.position - test.position).length()
+						#_debug_control.draw_circle(farthestNegative - position + rect_half_size, 5, Color.BLACK)
 				sign *= -1
 				angle += .01
-			if found:
-				var length = (result.position - next_corner_position).length()
-				var corner_position = next_corner_position + rotated.normalized() * length
+			if found:#found
+				var length = (corner_position - next_corner_position).length()
+				#var corner_position = next_corner_position + rotated.normalized() * length
 				#Peyton Edit: made it so can't make new corners close to previous ones.
-				if (corner_position - current_corner.position).length() > min_corner_distance:
-					print_debug("Added Corner")
+				if (corner_position - current_corner.position).length() >= min_corner_distance:
+					#print("Added Corner")
 					corners.insert(i + 1, Corner.new(corner_position, length))
-#					print("addinng corner ", i)
+					#print("adding corner from corner ", i, " to corner ", i+1)
+					#print("Corner Count: ", corners.size())
 					current_corner.length -= length
 					i += 1
 		else:
@@ -156,20 +182,14 @@ func _physics_process(delta):
 				var next_next_corner_pos : Vector2 = next_next_corner.position if next_next_corner != null else position
 				var adjusted_current_direction : Vector2 = (next_next_corner_pos - current_corner.position).normalized() * corner_adjustment
 				var adjusted_next_direction : Vector2 = (next_next_corner_pos - next_corner.position).normalized() * corner_adjustment
-				var test := space_state.intersect_ray(PhysicsRayQueryParameters2D.create(current_corner.position + adjusted_current_direction, next_next_corner_pos, 0xFFFFFFFF, [self, player]))
-				var test2 := space_state.intersect_ray(PhysicsRayQueryParameters2D.create(next_corner.position + adjusted_next_direction, next_next_corner_pos, 0xFFFFFFFF, [self]))
+				var test := space_state.intersect_ray(PhysicsRayQueryParameters2D.create(current_corner.position , next_next_corner_pos, 0xFFFFFFFF, [self, player]))
+				var test2 := space_state.intersect_ray(PhysicsRayQueryParameters2D.create(next_corner.position, next_next_corner_pos, 0xFFFFFFFF, [self, player]))
 				if not test.has("collider"):
 					if not test2.has("collider"):
 						current_corner.length += next_corner.length
 						corners.remove_at(i + 1)
-						print_debug("Removed Corner")
+						#print("Removed Corner")
 						i -= 1
-					else:
-						print_debug("test2:")
-						print_debug(test2.collider)
-				else:
-					print_debug("test1:")
-					print_debug(test.collider)
 #		current_corner = next_corner
 		i += 1
 	
@@ -216,11 +236,11 @@ func _physics_process(delta):
 		apply_impulse(-diff.normalized() * (length - current_max_length) * 100)
 	
 	if Input.is_action_pressed("raise"):
-		current_corner.length -= 250 * delta
-		if current_corner.length < 30 and (corners.size() - 1) == 0: # make it so you can't go below 30 on anchor
-			current_corner.length = 30
+		current_corner.length -= 175 * delta
+		if current_corner.length < 60 and (corners.size() - 1) == 0: # make it so you can't go below 30 on anchor
+			current_corner.length = 60
 	if Input.is_action_pressed("lower"):
-		current_corner.length += 250 * delta
+		current_corner.length += 175 * delta
 	
 	if Input.is_key_pressed(KEY_J):
 		anchor_position += Vector2.LEFT * 100 * delta

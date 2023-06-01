@@ -8,9 +8,9 @@ var jump_strength:float = 500
 
 #Tweaking of the Grappling hook!
 var min_corner_distance: float = 1 # Corners must be this distance apart to be formed
-var AddCornerExtensionLength : float = 0.25 # When creating a corner, extend it from it's root by this much
-var AddedAngle: float = 0.005 # When scanning angles, after finding the open angle add more to it
-var CheckExtend : float = 0.25 # when raycast gets a hit, push it forward for the sweep
+var AddCornerExtensionLength : float = 0.1 # When creating a corner, extend it from it's root by this much
+var AddedAngle: float = 0.000 # When scanning angles, after finding the open angle add more to it
+var CheckExtend : float = 0.1 # when raycast gets a hit, push it forward for the sweep
 var corner_adjustment : float = 0 # This is used to remove corners, if they get stuck in walls
 
 var anchor_position : Vector2 = Vector2()
@@ -337,7 +337,10 @@ func _process(delta):
 	if linear_velocity.x > -speed_limit or grappling:
 		movement.x -= int(Input.is_action_pressed("move_left"))
 	if grappling and not pulling:
-		apply_force(movement * swing_speed)
+		if onGround:
+			apply_force(movement * move_speed)
+		else:
+			apply_force(movement * swing_speed)
 	else:
 		apply_force(movement * move_speed)
 	
