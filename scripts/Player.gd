@@ -140,12 +140,16 @@ func _physics_process(delta):
 					auto_retracting = true
 					auto_retract_length = 70
 				
-	if Input.is_action_just_pressed("jump") and grappling:
-		#jump off of the rope instead of disconnect it
-		apply_impulse(jump_strength * Vector2(0,-1))
-		grappling = false
-		_debug_control.hide()
-		pulling = false
+	if Input.is_action_just_pressed("jump"):
+		if grappling:
+			#jump off of the rope instead of disconnect it
+			#apply_impulse(jump_strength * Vector2(0,-1)) # removing grapple jump, OP
+			grappling = false
+			_debug_control.hide()
+			pulling = false
+		else:
+			if onGround:
+				apply_impulse(jump_strength * Vector2(0,-1))
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		grappling = false
 		_debug_control.hide()
@@ -319,7 +323,6 @@ func _process(delta):
 		if body.name != "Player":
 			onGround = true
 			break
-	
 	if linear_velocity.x > 1 or linear_velocity.x < -1 or linear_velocity.y > 1 or linear_velocity.y < -1 or not onGround:
 		#print("Playing Running")
 		$AnimationPlayer.play("Running")
@@ -332,9 +335,9 @@ func _process(delta):
 		$Sprite2D.scale.x = $Sprite2D.scale.y
 	var speed_limit = 300
 	var movement:= Vector2()
-	if linear_velocity.x < speed_limit or grappling:
+	if linear_velocity.x < speed_limit or (grappling and not pulling):
 		movement.x += int(Input.is_action_pressed("move_right"))
-	if linear_velocity.x > -speed_limit or grappling:
+	if linear_velocity.x > -speed_limit or (grappling and not pulling):
 		movement.x -= int(Input.is_action_pressed("move_left"))
 	if grappling and not pulling:
 		if onGround:
@@ -347,8 +350,4 @@ func _process(delta):
 	
 	if Input.is_key_pressed(KEY_R):
 		get_tree().reload_current_scene()
-	
-	#jump if we are on the ground and jump is pressed
-	if (onGround and not grappling) and Input.is_action_just_pressed("jump"):
-		apply_impulse(jump_strength * Vector2(0,-1))
 	
