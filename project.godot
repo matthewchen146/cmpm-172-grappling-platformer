@@ -15,6 +15,10 @@ run/main_scene="res://scenes/main_scenes/title/title.tscn"
 config/features=PackedStringArray("4.0", "Mobile")
 config/icon="res://misc/icon.svg"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/smoothing/plugin.cfg")
