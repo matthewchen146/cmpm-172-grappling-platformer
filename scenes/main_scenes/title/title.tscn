@@ -1,6 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ddw0d47ku5wla"]
 
 [ext_resource type="Script" path="res://scenes/main_scenes/title/title.gd" id="1_kaxqf"]
+[ext_resource type="Theme" uid="uid://dw1jwox7gvmhs" path="res://themes/main_theme.tres" id="1_xt8ah"]
 [ext_resource type="Shader" path="res://shaders/cyber.gdshader" id="2_20ryr"]
 [ext_resource type="Texture2D" uid="uid://da1tunqln5hl4" path="res://assets/ui/background.png" id="2_rsxu1"]
 [ext_resource type="Texture2D" uid="uid://cljup16fcxpe6" path="res://assets/ui/title.png" id="3_ye22j"]
@@ -12,9 +13,6 @@ shader_parameter/min_alpha = 0.5
 shader_parameter/period = 0.2
 shader_parameter/speed = 0.3
 
-[sub_resource type="LabelSettings" id="LabelSettings_0aq3o"]
-font_size = 50
-
 [node name="title" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -22,6 +20,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_xt8ah")
 script = ExtResource("1_kaxqf")
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -76,6 +75,7 @@ offset_left = -316.5
 offset_right = 316.5
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_xt8ah")
 
 [node name="TextureRect" type="TextureRect" parent="SubViewportContainer/SubViewport/VBoxContainer"]
 layout_mode = 2
@@ -97,33 +97,18 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
-
-[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/VBoxContainer/HBoxContainer/VBoxContainer/PlayButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 text = "Play"
-label_settings = SubResource("LabelSettings_0aq3o")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="SettingsButton" type="Button" parent="SubViewportContainer/SubViewport/VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 disabled = true
-
-[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/VBoxContainer/HBoxContainer/VBoxContainer/SettingsButton"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 text = "Settings"
-label_settings = SubResource("LabelSettings_0aq3o")
-horizontal_alignment = 1
-vertical_alignment = 1
+
+[node name="CreditsButton" type="Button" parent="SubViewportContainer/SubViewport/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+disabled = true
+text = "Credits"
