@@ -1,82 +1,17 @@
-[gd_scene load_steps=32 format=3 uid="uid://dhfwdfdnba244"]
+[gd_scene load_steps=24 format=3 uid="uid://dhfwdfdnba244"]
 
-[ext_resource type="TileSet" uid="uid://h5r1q5j1b8n1" path="res://Assets/Tile-Set.tres" id="1_xpqh8"]
-[ext_resource type="Texture2D" uid="uid://rst0pvcpb65n" path="res://Assets/background2.1.png" id="2_f8jwq"]
+[ext_resource type="TileSet" uid="uid://h5r1q5j1b8n1" path="res://assets/Tile-Set.tres" id="1_xpqh8"]
+[ext_resource type="Texture2D" uid="uid://rst0pvcpb65n" path="res://assets/background2.1.png" id="2_f8jwq"]
 [ext_resource type="Script" path="res://scripts/PullableObject.gd" id="3_6e3rq"]
-[ext_resource type="Script" path="res://scripts/Player.gd" id="3_h4c20"]
-[ext_resource type="PhysicsMaterial" uid="uid://yqj44vfpe3dd" path="res://Resources/PlayerPhysMaterial.tres" id="3_jxqhb"]
 [ext_resource type="PhysicsMaterial" uid="uid://cab6g8o6iwgwy" path="res://Resources/HighFriction.tres" id="3_x7mb1"]
 [ext_resource type="Script" path="res://scripts/Button.gd" id="5_0jonn"]
-[ext_resource type="Texture2D" uid="uid://dbkb5qaotkgu4" path="res://Assets/Hollow-Circle.png" id="5_50k0q"]
+[ext_resource type="Texture2D" uid="uid://dbkb5qaotkgu4" path="res://assets/Hollow-Circle.png" id="5_50k0q"]
+[ext_resource type="PackedScene" uid="uid://c8dqt4b3wvgwp" path="res://scenes/player/player.tscn" id="6_hrvtw"]
 [ext_resource type="Script" path="res://scripts/Door.gd" id="6_wv75m"]
-[ext_resource type="Texture2D" uid="uid://cafm28ugb122v" path="res://Assets/CharacterSpriteSheet.png" id="7_gxv3x"]
-[ext_resource type="Texture2D" uid="uid://ca0u07badv0np" path="res://Assets/Button_Anim.png" id="7_i5q6y"]
-[ext_resource type="Texture2D" uid="uid://b1dy0gufhix1s" path="res://Assets/Door_Animation_Sprites_Revised.png" id="8_1j28l"]
+[ext_resource type="Texture2D" uid="uid://ca0u07badv0np" path="res://assets/Button_Anim.png" id="7_i5q6y"]
+[ext_resource type="Texture2D" uid="uid://b1dy0gufhix1s" path="res://assets/Door_Animation_Sprites_Revised.png" id="8_1j28l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h23wv"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uv13g"]
-height = 20.0
-
-[sub_resource type="Animation" id="Animation_aisk4"]
-resource_name = "Idle"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1]
-}
-
-[sub_resource type="Animation" id="Animation_vv2te"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_cv8pl"]
-resource_name = "Running"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [7, 8, 9, 10, 11, 12]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_6gkkf"]
-_data = {
-"Idle": SubResource("Animation_aisk4"),
-"RESET": SubResource("Animation_vv2te"),
-"Running": SubResource("Animation_cv8pl")
-}
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ffiph"]
-radius = 9.0
-height = 22.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3dfyy"]
 size = Vector2(16, 10.0047)
@@ -271,38 +206,8 @@ shape = SubResource("CircleShape2D_h23wv")
 scale = Vector2(0.02, 0.02)
 texture = ExtResource("5_50k0q")
 
-[node name="Player" type="RigidBody2D" parent="." groups=["Presser"]]
-position = Vector2(-183, -9)
-physics_material_override = ExtResource("3_jxqhb")
-continuous_cd = 1
-lock_rotation = true
-linear_damp = 0.05
-script = ExtResource("3_h4c20")
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-scale = Vector2(2, 2)
-shape = SubResource("CapsuleShape2D_uv13g")
-debug_color = Color(0, 0.627451, 0.0784314, 0.419608)
-
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
-position = Vector2(0, -13)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_gxv3x")
-hframes = 7
-vframes = 2
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
-libraries = {
-"": SubResource("AnimationLibrary_6gkkf")
-}
-
-[node name="Area2D" type="Area2D" parent="Player"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D"]
-scale = Vector2(2, 2)
-shape = SubResource("CapsuleShape2D_ffiph")
+[node name="Player" parent="." instance=ExtResource("6_hrvtw")]
+position = Vector2(-276, -3)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

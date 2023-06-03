@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://g346hmt5i44v"
-path="res://.godot/imported/Pixil-Fame-Set.png-63a1a6aff21328f75a51e647336a55e6.ctex"
+path="res://.godot/imported/Pixil-Fame-Set.png-d3fe63809acc6bb7501deefd62dba827.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Pixil-Fame-Set.png"
-dest_files=["res://.godot/imported/Pixil-Fame-Set.png-63a1a6aff21328f75a51e647336a55e6.ctex"]
+source_file="res://assets/Pixil-Fame-Set.png"
+dest_files=["res://.godot/imported/Pixil-Fame-Set.png-d3fe63809acc6bb7501deefd62dba827.ctex"]
 
 [params]
 
