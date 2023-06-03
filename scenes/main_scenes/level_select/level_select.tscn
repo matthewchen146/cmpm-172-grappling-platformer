@@ -1,6 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjyclt3r0kynu"]
+[gd_scene load_steps=6 format=3 uid="uid://cjyclt3r0kynu"]
 
 [ext_resource type="Script" path="res://scenes/main_scenes/level_select/level_select.gd" id="1_shd6n"]
+[ext_resource type="Texture2D" uid="uid://da1tunqln5hl4" path="res://assets/ui/background.png" id="2_5cb6h"]
+[ext_resource type="Shader" path="res://shaders/cyber.gdshader" id="3_h4vfs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ml38j"]
+shader = ExtResource("3_h4vfs")
+shader_parameter/color = Color(0.4, 1, 0.6, 1)
+shader_parameter/min_alpha = 0.5
+shader_parameter/period = 0.2
+shader_parameter/speed = 0.3
 
 [sub_resource type="LabelSettings" id="LabelSettings_pp7y0"]
 font_size = 60
@@ -14,22 +23,71 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_shd6n")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(500, 0)
+[node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_5cb6h")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.654902)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_ml38j")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer/SubViewport"]
+custom_minimum_size = Vector2(500, 0)
 anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = -250.0
+offset_right = 250.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="SubViewportContainer/SubViewport/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/VBoxContainer"]
 layout_mode = 2
 text = "Choose a Level"
 label_settings = SubResource("LabelSettings_pp7y0")
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+[node name="LevelContainer" type="GridContainer" parent="SubViewportContainer/SubViewport/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 columns = 5
+
+[node name="Line2D" type="Line2D" parent="SubViewportContainer/SubViewport"]
+position = Vector2(900, 0)
+points = PackedVector2Array(0, 1, 0, 383, 100, 486, 100, 695)
+
+[node name="Line2D2" type="Line2D" parent="SubViewportContainer/SubViewport"]
+position = Vector2(950, 0)
+points = PackedVector2Array(0, 1, 0, 383, 100, 486, 100, 695)
+width = 20.0
