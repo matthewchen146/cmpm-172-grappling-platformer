@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scenes/main_scenes/title/title.gd" id="1_kaxqf"]
 [ext_resource type="Theme" uid="uid://dw1jwox7gvmhs" path="res://themes/main_theme.tres" id="1_xt8ah"]
 [ext_resource type="Shader" path="res://shaders/cyber.gdshader" id="2_20ryr"]
-[ext_resource type="Texture2D" uid="uid://da1tunqln5hl4" path="res://assets/ui/background.png" id="2_rsxu1"]
-[ext_resource type="Texture2D" uid="uid://cljup16fcxpe6" path="res://assets/ui/title.png" id="3_ye22j"]
+[ext_resource type="Texture2D" uid="uid://da1tunqln5hl4" path="res://Assets/ui/background.png" id="2_rsxu1"]
+[ext_resource type="Texture2D" uid="uid://cljup16fcxpe6" path="res://Assets/ui/title.png" id="3_ye22j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pgl4y"]
 shader = ExtResource("2_20ryr")

@@ -351,3 +351,16 @@ func _process(delta):
 	if Input.is_key_pressed(KEY_R):
 		get_tree().reload_current_scene()
 	
+
+
+func _on_area_2d_body_entered(body): # 
+	var body_tilemap = body as TileMap
+	if body_tilemap != null:
+		var tileLocation = body_tilemap.local_to_map(position + Vector2(0, 32))
+		var tiledata: TileData = body_tilemap.get_cell_tile_data(0, tileLocation)
+		if tiledata != null:
+			if tiledata.get_custom_data("Lethal") == true:
+				Player_Death()
+
+func Player_Death():
+	get_tree().reload_current_scene()
