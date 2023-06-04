@@ -361,6 +361,11 @@ func _on_area_2d_body_entered(body): #
 		if tiledata != null:
 			if tiledata.get_custom_data("Lethal") == true:
 				Player_Death()
+		tileLocation = body_tilemap.local_to_map(position)
+		tiledata = body_tilemap.get_cell_tile_data(0, tileLocation)
+		if tiledata != null:
+			if tiledata.get_custom_data("Lethal") == true:
+				Player_Death()
 
 func Player_Death():
 	get_tree().reload_current_scene()

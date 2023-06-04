@@ -255,3 +255,20 @@ func _physics_process(delta):
 	
 #	_debug_control.rotation = -rotation
 	_debug_control.queue_redraw()
+
+
+func _on_body_entered(body):
+	var body_tilemap = body as TileMap
+	if body_tilemap != null:
+		var tileLocation = body_tilemap.local_to_map(position + Vector2(0, 32))
+		var tiledata: TileData = body_tilemap.get_cell_tile_data(0, tileLocation)
+		if tiledata != null:
+			if tiledata.get_custom_data("Lethal") == true:
+				print("PullableDies")
+				free()
+		tileLocation = body_tilemap.local_to_map(position)
+		tiledata = body_tilemap.get_cell_tile_data(0, tileLocation)
+		if tiledata != null:
+			if tiledata.get_custom_data("Lethal") == true:
+				print("PullableDies")
+				free()
