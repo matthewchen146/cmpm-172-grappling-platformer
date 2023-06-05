@@ -1,7 +1,7 @@
 extends Control
 
 func _ready():
-	pass 
+	%Button.
 
 
 func _process(delta):

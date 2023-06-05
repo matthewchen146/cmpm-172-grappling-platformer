@@ -109,5 +109,4 @@ text = "Controls"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
-disabled = true
 text = "Credits"
