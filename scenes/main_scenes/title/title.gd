@@ -7,7 +7,7 @@ func _ready():
 		get_tree().change_scene_to_file("res://scenes/main_scenes/level_select/level_select.tscn")
 	)
 	%SettingsButton.pressed.connect(func(): 
-		get_tree().change_scene_to_file("res://scenes/main_scenes/settings.tscn")
+		get_tree().change_scene_to_file("res://scenes/main_scenes/settings/settings.tscn")
 	)
 
 
