@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://xlpd8v3v3d3i"]
+[gd_scene load_steps=9 format=3 uid="uid://xlpd8v3v3d3i"]
 
 [ext_resource type="Theme" uid="uid://dw1jwox7gvmhs" path="res://themes/main_theme.tres" id="1_ch2dl"]
 [ext_resource type="Script" path="res://scenes/main_scenes/settings/settings.gd" id="1_tca2l"]
 [ext_resource type="Texture2D" uid="uid://da1tunqln5hl4" path="res://Assets/ui/background.png" id="2_2a8q3"]
 [ext_resource type="Shader" path="res://shaders/cyber.gdshader" id="4_kif2p"]
+[ext_resource type="FontFile" uid="uid://c23bmrxqpt6w4" path="res://misc/ChakraPetch-SemiBold.ttf" id="5_hb761"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8c0eb"]
 shader = ExtResource("4_kif2p")
@@ -11,6 +12,19 @@ shader_parameter/color = Color(0.4, 1, 0.6, 1)
 shader_parameter/min_alpha = 0.5
 shader_parameter/period = 0.2
 shader_parameter/speed = 0.3
+
+[sub_resource type="LabelSettings" id="LabelSettings_vdaed"]
+font = ExtResource("5_hb761")
+font_size = 60
+outline_size = 1
+shadow_size = 0
+shadow_color = Color(0.635294, 0.419608, 0.243137, 0)
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xm674"]
+line_spacing = 20.0
+font = ExtResource("5_hb761")
+font_size = 30
 
 [node name="settings" type="Control"]
 layout_mode = 3
@@ -66,8 +80,57 @@ points = PackedVector2Array(0, 1, 0, 383, 100, 486, 100, 695)
 width = 20.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer/SubViewport"]
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -166.0
+offset_top = 60.0
+offset_right = 151.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="SubViewportContainer/SubViewport/VBoxContainer"]
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/VBoxContainer"]
 layout_mode = 2
+text = "CONTROLS"
+label_settings = SubResource("LabelSettings_vdaed")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SubViewportContainer/SubViewport/VBoxContainer/Label"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -106.0
+offset_top = 59.0
+offset_right = 106.0
+offset_bottom = 419.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/VBoxContainer/Label/HBoxContainer"]
+layout_mode = 2
+text = "W / SHIFT - Retract
+S / CTRL - Extend
+A and D - Swing/Move Left and Right
+Left Click - Grapple Towards Mouse
+Space / Right Click - Release Grapple
+R - Reset"
+label_settings = SubResource("LabelSettings_xm674")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer/SubViewport/VBoxContainer/Label/HBoxContainer/Label"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 1
+offset_left = -300.0
+offset_top = -150.0
+offset_right = -180.0
+scale = Vector2(1.5, 1.5)
+
+[node name="backButton" type="Button" parent="SubViewportContainer/SubViewport/VBoxContainer/Label/HBoxContainer/Label/VBoxContainer"]
+layout_mode = 2
+text = "Back"
