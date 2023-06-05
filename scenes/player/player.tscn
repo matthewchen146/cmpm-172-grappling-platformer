@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://c8dqt4b3wvgwp"]
+[gd_scene load_steps=11 format=3 uid="uid://c8dqt4b3wvgwp"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://yqj44vfpe3dd" path="res://Resources/PlayerPhysMaterial.tres" id="1_pmfhl"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="2_o8j4d"]
 [ext_resource type="Texture2D" uid="uid://cafm28ugb122v" path="res://Assets/CharacterSpriteSheet.png" id="3_dj7kx"]
+[ext_resource type="AudioStream" uid="uid://b6wlch14xtcj8" path="res://audio/527393__mpierluissi__ropemvmt_rope-zip-fast_mp_10.wav" id="4_71lk4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uv13g"]
 height = 20.0
@@ -98,5 +99,9 @@ libraries = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2(2, 2)
 shape = SubResource("CapsuleShape2D_ffiph")
+
+[node name="GrappleHookSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_71lk4")
+volume_db = -20.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

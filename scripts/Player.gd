@@ -29,6 +29,8 @@ var gravity : Vector2 = Vector2()
 
 var slacking : bool = false
 
+@onready var grappleHookSFX = $GrappleHookSFX
+
 
 class Corner extends RefCounted:
 	var position : Vector2 = Vector2()
@@ -104,6 +106,7 @@ func _physics_process(delta):
 		var camera : Camera2D = get_viewport().get_camera_2d()
 		var mouse_world_pos : Vector2 = camera.get_global_mouse_position()
 		var direction
+		grappleHookSFX.play()
 		if (Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)):
 			direction = mouse_world_pos - position
 		else: if (Input.is_key_pressed(KEY_UP)):
