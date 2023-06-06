@@ -1,0 +1,133 @@
+[gd_scene load_steps=9 format=3 uid="uid://dh6r4vfc8vwix"]
+
+[ext_resource type="Theme" uid="uid://dw1jwox7gvmhs" path="res://themes/main_theme.tres" id="1_dp3mn"]
+[ext_resource type="Texture2D" uid="uid://da1tunqln5hl4" path="res://Assets/ui/background.png" id="1_vjs83"]
+[ext_resource type="Script" path="res://scenes/main_scenes/credits/credits.gd" id="2_i06j7"]
+[ext_resource type="Shader" path="res://shaders/cyber.gdshader" id="3_24tll"]
+[ext_resource type="FontFile" path="res://misc/alien_encounters/Alien-Encounters-Bold.ttf" id="4_xmak8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u50ej"]
+shader = ExtResource("3_24tll")
+shader_parameter/color = Color(0.4, 1, 0.6, 1)
+shader_parameter/min_alpha = 0.5
+shader_parameter/period = 0.2
+shader_parameter/speed = 0.3
+
+[sub_resource type="LabelSettings" id="LabelSettings_05vor"]
+font = ExtResource("4_xmak8")
+font_size = 60
+
+[sub_resource type="LabelSettings" id="LabelSettings_nmnng"]
+line_spacing = 7.0
+font_size = 30
+
+[node name="credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_dp3mn")
+script = ExtResource("2_i06j7")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_vjs83")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.0784314, 0, 0.654902)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_u50ej")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="Line2D" type="Line2D" parent="SubViewportContainer/SubViewport"]
+position = Vector2(200, 0)
+points = PackedVector2Array(0, 1, 0, 383, 100, 486, 100, 695)
+width = 0.0
+
+[node name="Line2D2" type="Line2D" parent="SubViewportContainer/SubViewport"]
+position = Vector2(150, 0)
+points = PackedVector2Array(0, 1, 0, 383, 100, 486, 100, 695)
+width = 0.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer/SubViewport/Line2D2"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 250.0
+offset_top = 60.0
+offset_right = 567.0
+offset_bottom = 708.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/Line2D2/VBoxContainer"]
+layout_mode = 2
+text = "CREDITS"
+label_settings = SubResource("LabelSettings_05vor")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SubViewportContainer/SubViewport/Line2D2/VBoxContainer/Label"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -240.0
+offset_top = 45.5
+offset_right = -240.0
+offset_bottom = 437.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/Line2D2/VBoxContainer/Label/HBoxContainer"]
+layout_mode = 2
+text = "Omar A. -
+Peyton J. - 
+Margarita R. - 
+Sean O. - 
+Adam F. - 
+Ben Q. - 
+Mattthew C. - 
+Michelle H. - "
+label_settings = SubResource("LabelSettings_nmnng")
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer/SubViewport/Line2D2/VBoxContainer/Label/HBoxContainer/Label"]
+layout_mode = 1
+offset_left = -140.0
+offset_top = -120.0
+offset_right = -40.0
+scale = Vector2(1.5, 1.5)
+
+[node name="returnButton" type="Button" parent="SubViewportContainer/SubViewport/Line2D2/VBoxContainer/Label/HBoxContainer/Label/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Back"
