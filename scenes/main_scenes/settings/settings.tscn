@@ -1,11 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://ccsyn7ot3aie7"]
+[gd_scene load_steps=10 format=3 uid="uid://cwgn8usgotdft"]
 
 [ext_resource type="Theme" uid="uid://dw1jwox7gvmhs" path="res://themes/main_theme.tres" id="1_ch2dl"]
 [ext_resource type="Script" path="res://scenes/main_scenes/settings/settings.gd" id="1_tca2l"]
 [ext_resource type="Texture2D" uid="uid://da1tunqln5hl4" path="res://Assets/ui/background.png" id="2_2a8q3"]
 [ext_resource type="Shader" path="res://shaders/cyber.gdshader" id="4_kif2p"]
-[ext_resource type="FontFile" uid="uid://bed6t3dk4t4vl" path="res://misc/alien_encounters/Alien-Encounters-Regular.ttf" id="5_22gk6"]
-[ext_resource type="FontFile" uid="uid://m0ov82v1q5b3" path="res://misc/alien_encounters/Alien-Encounters-Solid-Regular.ttf" id="6_3wijy"]
+[ext_resource type="FontFile" path="res://misc/alien_encounters/Alien-Encounters-Regular.ttf" id="5_22gk6"]
+[ext_resource type="FontFile" path="res://misc/alien_encounters/Alien-Encounters-Solid-Regular.ttf" id="6_3wijy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t3t44"]
 shader = ExtResource("4_kif2p")
