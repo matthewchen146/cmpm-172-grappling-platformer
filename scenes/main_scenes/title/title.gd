@@ -9,6 +9,9 @@ func _ready():
 	%SettingsButton.pressed.connect(func(): 
 		get_tree().change_scene_to_file("res://scenes/main_scenes/settings/settings.tscn")
 	)
+	%CreditsButton.pressed.connect(func():
+		get_tree().change_scene_to_file("res://scenes/main_scenes/credits/credits.tscn")
+	)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

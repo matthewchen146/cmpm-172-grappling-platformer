@@ -126,5 +126,6 @@ offset_right = -40.0
 scale = Vector2(1.5, 1.5)
 
 [node name="returnButton" type="Button" parent="SubViewportContainer/SubViewport/Line2D2/VBoxContainer/Label/HBoxContainer/Label/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Back"
