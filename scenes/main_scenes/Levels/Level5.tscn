@@ -169,10 +169,10 @@ size = Vector2(60, 108)
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 modulate = Color(0, 0, 0, 1)
 self_modulate = Color(0, 0, 0, 1)
-offset_left = 201.0
-offset_top = 135.0
-offset_right = 421.0
-offset_bottom = 227.0
+offset_left = 311.0
+offset_top = -115.0
+offset_right = 531.0
+offset_bottom = -23.0
 text = "Extend with S / CTRL and swing!"
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -203,7 +203,6 @@ texture = ExtResource("2_mkj0x")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="CanvasLayer"]
-modulate = Color(0, 0, 0, 1)
 offset_left = 2.0
 offset_top = 4.0
 offset_right = 282.0

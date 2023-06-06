@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 var max_length : float = 200
-var grapple_reach: float = 800
+var grapple_reach: float = 400
 var move_speed: float = 420
 var swing_speed: float = 50
 var jump_strength:float = 500
@@ -23,6 +23,7 @@ var _debug_tension : Vector2 = Vector2()
 var _debug_net : Vector2 = Vector2()
 
 @onready var _debug_control : Control = Control.new()
+@onready var _debug_control_holo : Control = Control.new()
 
 var gravity_magnitude : float = 0
 var gravity : Vector2 = Vector2()
@@ -82,6 +83,20 @@ func _ready():
 	gravity = gravity_vector * gravity_magnitude
 	
 	corners.append(Corner.new(anchor_position, max_length))
+	
+	var canvas_layer_holo = CanvasLayer.new()
+	add_child(canvas_layer_holo)
+	canvas_layer_holo.add_child(_debug_control_holo)
+	add_child.call_deferred(canvas_layer_holo)
+	_debug_control_holo.connect("draw", func():
+		var space_state = get_world_2d().direct_space_state
+		var camera : Camera2D = get_viewport().get_camera_2d()
+		var mouse_world_pos : Vector2 = camera.get_global_mouse_position()
+		var mouseDir = mouse_world_pos - position
+		var grapplePosition := space_state.intersect_ray(PhysicsRayQueryParameters2D.create(position, position + mouseDir.normalized() * grapple_reach, 0xFFFFFFFF, [self]))
+		#if grapplePosition.has("collider"):
+			#_debug_control_holo.draw_circle(grapplePosition.collider.position, 1, Color.LIGHT_BLUE)
+	)
 
 #var first_supposed_length = 0
 var grappling = false
@@ -97,17 +112,17 @@ func _physics_process(delta):
 		if body.name != "Player":
 			onGround = true
 			break
-	#Peyton's Edits:
 	
+	#show where grapple will land
 	var space_state = get_world_2d().direct_space_state
+	var camera : Camera2D = get_viewport().get_camera_2d()
+	var mouse_world_pos : Vector2 = camera.get_global_mouse_position()
 	if Input.is_action_just_pressed("fire_grapple"):
 		#print("Shot The Grapple")
 		pressed_mouse = true
-		var camera : Camera2D = get_viewport().get_camera_2d()
-		var mouse_world_pos : Vector2 = camera.get_global_mouse_position()
-		var direction
+		var direction : Vector2
 		grappleHookSFX.play()
-		if (Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)):
+		if (Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or Input.is_key_pressed(KEY_F)):
 			direction = mouse_world_pos - position
 		else: if (Input.is_key_pressed(KEY_UP)):
 			direction = Vector2(0,-1)
@@ -317,6 +332,7 @@ func _physics_process(delta):
 	
 #	_debug_control.rotation = -rotation
 	_debug_control.queue_redraw()
+	_debug_control_holo.queue_redraw()
 
 func _process(delta):
 	#start with checking if player is on the ground
