@@ -358,6 +358,8 @@ func _process(delta):
 		movement.x += int(Input.is_action_pressed("move_right"))
 	if linear_velocity.x > -speed_limit or (grappling and not pulling):
 		movement.x -= int(Input.is_action_pressed("move_left"))
+	if not Input.is_action_pressed("move_right") and not Input.is_action_pressed("move_left") and onGround:
+		linear_velocity.x /= 1.5
 	if grappling and not pulling:
 		if onGround:
 			apply_force(movement * move_speed)
