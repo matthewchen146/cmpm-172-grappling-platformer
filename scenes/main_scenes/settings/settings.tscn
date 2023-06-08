@@ -121,15 +121,16 @@ R - Reset"
 label_settings = SubResource("LabelSettings_64dek")
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SubViewportContainer/SubViewport/Line2D2/HBoxContainer/Label/HBoxContainer/Label"]
-layout_mode = 1
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer/SubViewport/Line2D2/HBoxContainer/Label/HBoxContainer/Label"]
+layout_mode = 0
 offset_left = -200.0
 offset_top = -100.0
-offset_right = -97.0
-offset_bottom = -53.0
+offset_right = -60.0
+offset_bottom = -20.0
 theme = ExtResource("7_vhosm")
 
-[node name="backButton" type="Button" parent="SubViewportContainer/SubViewport/Line2D2/HBoxContainer/Label/HBoxContainer/Label/HBoxContainer"]
+[node name="backButton" type="Button" parent="SubViewportContainer/SubViewport/Line2D2/HBoxContainer/Label/HBoxContainer/Label/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Back"
+text = "Back
+"

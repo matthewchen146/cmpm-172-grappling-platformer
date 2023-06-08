@@ -125,7 +125,8 @@ vertical_alignment = 1
 layout_mode = 1
 offset_left = -140.0
 offset_top = -120.0
-offset_right = -40.0
+offset_right = 10.0
+offset_bottom = 50.0
 scale = Vector2(1.5, 1.5)
 theme = ExtResource("6_d1i7y")
 

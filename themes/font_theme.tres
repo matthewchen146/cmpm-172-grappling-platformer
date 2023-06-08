@@ -1,7 +1,8 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://dgo11ku3vc8fo"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://dgo11ku3vc8fo"]
 
 [ext_resource type="FontFile" uid="uid://m0ov82v1q5b3" path="res://misc/alien_encounters/Alien-Encounters-Solid-Regular.ttf" id="1_j7gtf"]
 [ext_resource type="Texture2D" uid="uid://dc4b61tojdq8i" path="res://Assets/button 2.png" id="2_q7u3n"]
+[ext_resource type="Texture2D" uid="uid://5giwonrrw4w6" path="res://Assets/button normal.png" id="3_gqgui"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xmdta"]
 content_margin_left = 4.0
@@ -36,33 +37,14 @@ expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5k6xo"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.225, 0.225, 0.225, 0.6)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_43dh8"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_crya6"]
 texture = ExtResource("2_q7u3n")
 region_rect = Rect2(10, 26, 80, 48)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wrcr2"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0, 0, 0, 0.6)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 5
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qqgr7"]
+texture = ExtResource("3_gqgui")
 
 [resource]
 default_font = ExtResource("1_j7gtf")
@@ -85,6 +67,6 @@ Button/font_sizes/font_size = 35
 Button/fonts/font = ExtResource("1_j7gtf")
 Button/styles/disabled = SubResource("StyleBoxFlat_xmdta")
 Button/styles/focus = SubResource("StyleBoxFlat_unwp5")
-Button/styles/hover = SubResource("StyleBoxFlat_5k6xo")
+Button/styles/hover = SubResource("StyleBoxTexture_43dh8")
 Button/styles/normal = SubResource("StyleBoxTexture_crya6")
-Button/styles/pressed = SubResource("StyleBoxFlat_wrcr2")
+Button/styles/pressed = SubResource("StyleBoxTexture_qqgr7")
