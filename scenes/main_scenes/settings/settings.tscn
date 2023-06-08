@@ -125,8 +125,8 @@ vertical_alignment = 1
 layout_mode = 1
 offset_left = -200.0
 offset_top = -100.0
-offset_right = -155.0
-offset_bottom = -60.0
+offset_right = -97.0
+offset_bottom = -53.0
 theme = ExtResource("7_vhosm")
 
 [node name="backButton" type="Button" parent="SubViewportContainer/SubViewport/Line2D2/HBoxContainer/Label/HBoxContainer/Label/HBoxContainer"]

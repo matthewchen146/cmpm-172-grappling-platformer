@@ -99,6 +99,7 @@ theme = ExtResource("6_e8q5l")
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
+theme = ExtResource("6_e8q5l")
 text = "Play"
 
 [node name="SettingsButton" type="Button" parent="SubViewportContainer/SubViewport/VBoxContainer/HBoxContainer/VBoxContainer"]
