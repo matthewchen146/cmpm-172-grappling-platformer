@@ -104,6 +104,8 @@ var pulling = false
 var pressed_mouse = false
 var auto_retracting = false
 var auto_retract_length : float = 50
+var auto_retract_speed : float = 5
+var auto_retract_max_length: float = 0
 var onGround = false
 func _physics_process(delta):
 	#start with checking if player is on the ground
@@ -139,7 +141,7 @@ func _physics_process(delta):
 			grappling = true
 			if obj_to_pull != null:
 				pulling = true
-				print_debug(obj_to_pull.name)
+				print(obj_to_pull.name)
 				anchorNode.position = anchorobject.collider.position
 				max_length = (anchorNode.position - position).length()
 				corners.clear()
@@ -157,6 +159,19 @@ func _physics_process(delta):
 				if onGround:
 					auto_retracting = true
 					auto_retract_length = 70
+					auto_retract_speed = 250#default
+					auto_retract_max_length = max_length
+				var TM = anchorobject.collider as TileMap
+				if TM != null:
+					#there is a tilemap
+					var location0 : Vector2 = TM.local_to_map(anchorNode.position + (direction.normalized() * 0.1))
+					if TM.get_cell_tile_data(0, location0).get_custom_data("FastGrapple"):
+						#FastGrapple
+						auto_retracting = true
+						auto_retract_length = max_length
+						auto_retract_speed = 320#default
+						auto_retract_max_length = max_length
+						apply_impulse(direction.normalized() * 1500)
 				
 	if Input.is_action_just_pressed("jump"):
 		if grappling:
@@ -309,13 +324,21 @@ func _physics_process(delta):
 		move_and_collide(-diff.normalized() * (length - current_max_length))
 		apply_impulse(-diff.normalized() * (length - current_max_length) * 100)
 	
+	#Auto-retraction and normal retraction
 	if Input.is_action_pressed("raise") or auto_retracting:
-		current_corner.length -= 250 * delta
-		auto_retract_length -= 250 * delta
+		#use 250 as speed if not auto-retracting, else use it's speed
+		var retractSpeed = 250 if not auto_retracting else auto_retract_speed
+		current_corner.length -= retractSpeed * delta
+		auto_retract_length -= retractSpeed * delta
 		if auto_retract_length <= 0:
 			auto_retracting = false
-		if current_corner.length < 30 and (corners.size() - 1) == 0: # make it so you can't go below 30 on anchor
+		if current_corner.length < 30: #and (corners.size() - 1) == 0: # make it so you can't go below 30 on anchor
 			current_corner.length = 30
+		if auto_retracting:
+			if current_corner.length < auto_retract_max_length:
+				auto_retract_max_length = current_corner.length
+			if current_corner.length > auto_retract_max_length:
+				current_corner.length = auto_retract_max_length
 	if Input.is_action_pressed("lower"):
 		current_corner.length += 250 * delta
 	

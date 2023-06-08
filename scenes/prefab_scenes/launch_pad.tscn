@@ -7,7 +7,7 @@
 size = Vector2(32, 36)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m7r3g"]
-size = Vector2(60, 36)
+size = Vector2(52, 36)
 
 [sub_resource type="Animation" id="Animation_cxtt3"]
 resource_name = "Active"
@@ -69,12 +69,15 @@ script = ExtResource("1_umvcq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-46, 46)
 shape = SubResource("RectangleShape2D_03ay8")
+disabled = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
 position = Vector2(46, 46)
 shape = SubResource("RectangleShape2D_03ay8")
+disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
 texture = ExtResource("2_ehjuq")
 hframes = 8
 vframes = 2
