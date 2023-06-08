@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dgo11ku3vc8fo"]
+
+[ext_resource type="FontFile" uid="uid://m0ov82v1q5b3" path="res://misc/alien_encounters/Alien-Encounters-Solid-Regular.ttf" id="1_j7gtf"]
+
+[resource]
+default_font = ExtResource("1_j7gtf")
