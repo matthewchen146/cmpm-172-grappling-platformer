@@ -1,17 +1,12 @@
-[gd_scene load_steps=24 format=3 uid="uid://dhfwdfdnba244"]
+[gd_scene load_steps=20 format=3 uid="uid://dhfwdfdnba244"]
 
 [ext_resource type="TileSet" uid="uid://h5r1q5j1b8n1" path="res://Assets/Tile-Set.tres" id="1_xpqh8"]
 [ext_resource type="Texture2D" uid="uid://rst0pvcpb65n" path="res://Assets/background2.1.png" id="2_f8jwq"]
-[ext_resource type="Script" path="res://scripts/PullableObject.gd" id="3_6e3rq"]
-[ext_resource type="PhysicsMaterial" uid="uid://cab6g8o6iwgwy" path="res://Resources/HighFriction.tres" id="3_x7mb1"]
 [ext_resource type="Script" path="res://scripts/Button.gd" id="5_0jonn"]
-[ext_resource type="Texture2D" uid="uid://dbkb5qaotkgu4" path="res://Assets/Hollow-Circle.png" id="5_50k0q"]
 [ext_resource type="PackedScene" uid="uid://c8dqt4b3wvgwp" path="res://scenes/player/player.tscn" id="6_hrvtw"]
 [ext_resource type="Script" path="res://scripts/Door.gd" id="6_wv75m"]
 [ext_resource type="Texture2D" uid="uid://ca0u07badv0np" path="res://Assets/Button_Anim.png" id="7_i5q6y"]
 [ext_resource type="Texture2D" uid="uid://b1dy0gufhix1s" path="res://Assets/Door_Animation_Sprites_Revised.png" id="8_1j28l"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_h23wv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3dfyy"]
 size = Vector2(16, 10.0047)
@@ -213,20 +208,6 @@ motion_mirroring = Vector2(2500, 1500)
 position = Vector2(-161, -412)
 texture = ExtResource("2_f8jwq")
 
-[node name="PullableObject" type="RigidBody2D" parent="." groups=["Presser"]]
-position = Vector2(289.469, 21.3433)
-physics_material_override = ExtResource("3_x7mb1")
-continuous_cd = 2
-angular_damp = 8.526
-script = ExtResource("3_6e3rq")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PullableObject"]
-shape = SubResource("CircleShape2D_h23wv")
-
-[node name="Sprite2D" type="Sprite2D" parent="PullableObject"]
-scale = Vector2(0.02, 0.02)
-texture = ExtResource("5_50k0q")
-
 [node name="Player" parent="." instance=ExtResource("6_hrvtw")]
 position = Vector2(-452, 32)
 
@@ -305,7 +286,6 @@ position = Vector2(0, -4)
 position = Vector2(0.314941, 0.439713)
 shape = SubResource("RectangleShape2D_v1mkh")
 
-[connection signal="body_entered" from="PullableObject" to="PullableObject" method="_on_body_entered"]
 [connection signal="button_pressed" from="Node2D/Button" to="Node2D/Door" method="activate"]
 [connection signal="body_entered" from="Node2D/Button/Area2D" to="Node2D/Button" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Node2D/Button/Area2D" to="Node2D/Button" method="_on_area_2d_body_exited"]

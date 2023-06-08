@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://73pmyvsje1b1"]
+[gd_scene load_steps=21 format=3 uid="uid://73pmyvsje1b1"]
 
 [ext_resource type="TileSet" uid="uid://h5r1q5j1b8n1" path="res://Assets/Tile-Set.tres" id="1_ccjsv"]
 [ext_resource type="Texture2D" uid="uid://rst0pvcpb65n" path="res://Assets/background2.1.png" id="2_mkj0x"]
@@ -6,8 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ca0u07badv0np" path="res://Assets/Button_Anim.png" id="4_ig3lx"]
 [ext_resource type="Script" path="res://scripts/Door.gd" id="5_urpde"]
 [ext_resource type="Texture2D" uid="uid://b1dy0gufhix1s" path="res://Assets/Door_Animation_Sprites_Revised.png" id="6_ftt6n"]
-[ext_resource type="Script" path="res://scripts/PullableObject.gd" id="7_28iyd"]
-[ext_resource type="Texture2D" uid="uid://v68hw53xcptv" path="res://Assets/Tile (1).png" id="8_wcnlm"]
+[ext_resource type="PackedScene" uid="uid://dc5nrsl1byves" path="res://scenes/prefab_scenes/pullable_object.tscn" id="7_cwwq3"]
 [ext_resource type="PackedScene" uid="uid://c8dqt4b3wvgwp" path="res://scenes/player/player.tscn" id="9_28mny"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4jh31"]
@@ -162,8 +161,6 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d8lpt"]
 size = Vector2(60, 108)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_57nel"]
-
 [node name="RopeTest" type="Node2D"]
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
@@ -250,7 +247,7 @@ libraries = {
 [node name="Door" type="StaticBody2D" parent="Node2D"]
 position = Vector2(356, 153)
 script = ExtResource("5_urpde")
-LevelNumToEnter = 1
+LevelNumToEnter = 6
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/Door"]
@@ -279,18 +276,7 @@ position = Vector2(0, -4)
 position = Vector2(0.314941, 0.439713)
 shape = SubResource("RectangleShape2D_d8lpt")
 
-[node name="PullableObject" type="RigidBody2D" parent="." groups=["Presser"]]
-position = Vector2(651, 110)
-continuous_cd = 2
-script = ExtResource("7_28iyd")
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PullableObject"]
-shape = SubResource("RectangleShape2D_57nel")
-
-[node name="Sprite2D" type="Sprite2D" parent="PullableObject"]
-scale = Vector2(0.079, 0.079)
-texture = ExtResource("8_wcnlm")
+[node name="PullableObject" parent="." instance=ExtResource("7_cwwq3")]
 
 [node name="Player" parent="." instance=ExtResource("9_28mny")]
 position = Vector2(-243, 2)
