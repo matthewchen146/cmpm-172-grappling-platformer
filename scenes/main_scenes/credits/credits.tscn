@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dh6r4vfc8vwix"]
+[gd_scene load_steps=10 format=3 uid="uid://dh6r4vfc8vwix"]
 
 [ext_resource type="Theme" uid="uid://dw1jwox7gvmhs" path="res://themes/main_theme.tres" id="1_dp3mn"]
 [ext_resource type="Texture2D" uid="uid://da1tunqln5hl4" path="res://Assets/ui/background.png" id="1_vjs83"]
 [ext_resource type="Script" path="res://scenes/main_scenes/credits/credits.gd" id="2_i06j7"]
 [ext_resource type="Shader" path="res://shaders/cyber.gdshader" id="3_24tll"]
-[ext_resource type="FontFile" path="res://misc/alien_encounters/Alien-Encounters-Bold.ttf" id="4_xmak8"]
+[ext_resource type="FontFile" uid="uid://b0nfqoxyvmy2n" path="res://misc/alien_encounters/Alien-Encounters-Bold.ttf" id="4_xmak8"]
+[ext_resource type="Theme" uid="uid://dgo11ku3vc8fo" path="res://themes/font_theme.tres" id="6_d1i7y"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u50ej"]
 shader = ExtResource("3_24tll")
@@ -126,6 +127,7 @@ offset_left = -140.0
 offset_top = -120.0
 offset_right = -40.0
 scale = Vector2(1.5, 1.5)
+theme = ExtResource("6_d1i7y")
 
 [node name="returnButton" type="Button" parent="SubViewportContainer/SubViewport/Line2D2/VBoxContainer/Label/HBoxContainer/Label/VBoxContainer"]
 unique_name_in_owner = true

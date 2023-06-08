@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c42unrv8xxo16"]
+[gd_scene load_steps=11 format=3 uid="uid://c42unrv8xxo16"]
 
 [ext_resource type="Theme" uid="uid://dw1jwox7gvmhs" path="res://themes/main_theme.tres" id="1_ch2dl"]
 [ext_resource type="Script" path="res://scenes/main_scenes/settings/settings.gd" id="1_tca2l"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" path="res://shaders/cyber.gdshader" id="4_kif2p"]
 [ext_resource type="FontFile" uid="uid://b0nfqoxyvmy2n" path="res://misc/alien_encounters/Alien-Encounters-Bold.ttf" id="4_wrij3"]
 [ext_resource type="FontFile" uid="uid://m0ov82v1q5b3" path="res://misc/alien_encounters/Alien-Encounters-Solid-Regular.ttf" id="6_3wijy"]
+[ext_resource type="Theme" uid="uid://dgo11ku3vc8fo" path="res://themes/font_theme.tres" id="7_vhosm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xi3qa"]
 shader = ExtResource("4_kif2p")
@@ -126,6 +127,7 @@ offset_left = -200.0
 offset_top = -100.0
 offset_right = -155.0
 offset_bottom = -60.0
+theme = ExtResource("7_vhosm")
 
 [node name="backButton" type="Button" parent="SubViewportContainer/SubViewport/Line2D2/HBoxContainer/Label/HBoxContainer/Label/HBoxContainer"]
 unique_name_in_owner = true

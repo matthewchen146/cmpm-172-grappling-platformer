@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://ddw0d47ku5wla"]
+[gd_scene load_steps=8 format=3 uid="uid://ddw0d47ku5wla"]
 
 [ext_resource type="Script" path="res://scenes/main_scenes/title/title.gd" id="1_kaxqf"]
 [ext_resource type="Theme" uid="uid://dw1jwox7gvmhs" path="res://themes/main_theme.tres" id="1_xt8ah"]
 [ext_resource type="Shader" path="res://shaders/cyber.gdshader" id="2_20ryr"]
 [ext_resource type="Texture2D" uid="uid://da1tunqln5hl4" path="res://Assets/ui/background.png" id="2_rsxu1"]
 [ext_resource type="Texture2D" uid="uid://cljup16fcxpe6" path="res://Assets/ui/title.png" id="3_ye22j"]
+[ext_resource type="Theme" uid="uid://dgo11ku3vc8fo" path="res://themes/font_theme.tres" id="6_e8q5l"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pgl4y"]
 shader = ExtResource("2_20ryr")
@@ -92,6 +93,7 @@ alignment = 1
 [node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer/SubViewport/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+theme = ExtResource("6_e8q5l")
 
 [node name="PlayButton" type="Button" parent="SubViewportContainer/SubViewport/VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
