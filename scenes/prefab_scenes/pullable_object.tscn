@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dc5nrsl1byves"]
+
+[ext_resource type="Script" path="res://scripts/PullableObject.gd" id="1_ifnx3"]
+[ext_resource type="Texture2D" uid="uid://v68hw53xcptv" path="res://Assets/Tile (1).png" id="2_i5oaj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_57nel"]
+
+[node name="PullableObject" type="RigidBody2D" groups=["Presser"]]
+position = Vector2(-612, 756)
+continuous_cd = 2
+script = ExtResource("1_ifnx3")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_57nel")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.079, 0.079)
+texture = ExtResource("2_i5oaj")

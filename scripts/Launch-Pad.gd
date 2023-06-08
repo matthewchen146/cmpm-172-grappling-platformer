@@ -17,4 +17,5 @@ func Body_Entered_Jump_Region(body):
 	if body is RigidBody2D:
 		body.linear_velocity.y = 0
 		body.apply_impulse(Vector2(0, -1000))
+		body.linear_damp = 0.05
 	pass # Replace with function body.
