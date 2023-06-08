@@ -167,14 +167,27 @@ size = Vector2(60, 108)
 
 [node name="RopeTest" type="Node2D"]
 
+[node name="RichTextLabel3" type="RichTextLabel" parent="."]
+offset_left = 266.0
+offset_top = -140.0
+offset_right = 486.0
+offset_bottom = -48.0
+text = "Space / Right Click 
+     to release!"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+offset_left = -159.0
+offset_top = -156.0
+offset_right = 61.0
+offset_bottom = -64.0
+text = "Left click / F to grapple!"
+
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-modulate = Color(0, 0, 0, 1)
-self_modulate = Color(0, 0, 0, 1)
-offset_left = -352.0
-offset_top = -186.0
-offset_right = -132.0
-offset_bottom = -94.0
-text = "Cross the gap!"
+offset_left = -490.0
+offset_top = -74.0
+offset_right = -270.0
+offset_bottom = 18.0
+text = "Use A / D to move"
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("1_xpqh8")
@@ -197,7 +210,7 @@ layer_1/tile_data = PackedInt32Array(393214, 589824, 3, 393215, 589824, 3, 32768
 motion_mirroring = Vector2(2500, 1500)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(-117, -481)
+position = Vector2(-161, -412)
 texture = ExtResource("2_f8jwq")
 
 [node name="PullableObject" type="RigidBody2D" parent="." groups=["Presser"]]
@@ -215,12 +228,11 @@ scale = Vector2(0.02, 0.02)
 texture = ExtResource("5_50k0q")
 
 [node name="Player" parent="." instance=ExtResource("6_hrvtw")]
-position = Vector2(-337, -16)
+position = Vector2(-452, 32)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="CanvasLayer"]
-modulate = Color(0, 0, 0, 1)
 offset_right = 40.0
 offset_bottom = 23.0
 text = "W / SHIFT - Retract
