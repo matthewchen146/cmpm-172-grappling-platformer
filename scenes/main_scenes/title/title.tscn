@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://dw1jwox7gvmhs" path="res://themes/main_theme.tres" id="1_xt8ah"]
 [ext_resource type="Shader" path="res://shaders/cyber.gdshader" id="2_20ryr"]
 [ext_resource type="Texture2D" uid="uid://da1tunqln5hl4" path="res://Assets/ui/background.png" id="2_rsxu1"]
-[ext_resource type="Texture2D" uid="uid://cljup16fcxpe6" path="res://Assets/ui/title.png" id="3_ye22j"]
+[ext_resource type="Texture2D" uid="uid://cljup16fcxpe6" path="res://Assets/ui/TITLE.png" id="5_uwmhg"]
 [ext_resource type="Theme" uid="uid://dgo11ku3vc8fo" path="res://themes/font_theme.tres" id="6_e8q5l"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pgl4y"]
@@ -80,7 +80,7 @@ theme = ExtResource("1_xt8ah")
 
 [node name="TextureRect" type="TextureRect" parent="SubViewportContainer/SubViewport/VBoxContainer"]
 layout_mode = 2
-texture = ExtResource("3_ye22j")
+texture = ExtResource("5_uwmhg")
 
 [node name="MarginContainer" type="MarginContainer" parent="SubViewportContainer/SubViewport/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
