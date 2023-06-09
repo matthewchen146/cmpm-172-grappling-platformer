@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccabtkp482mc6"
-path="res://.godot/imported/TILESET.png-f7befb75c9c874715fad4310000ea72e.ctex"
+uid="uid://obsgyvjd3o6e"
+path="res://.godot/imported/Pullable Block.png-8e3886f7235eb85e957dc2b45f5d1f84.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/TILESET.png"
-dest_files=["res://.godot/imported/TILESET.png-f7befb75c9c874715fad4310000ea72e.ctex"]
+source_file="res://Assets/Pullable Block.png"
+dest_files=["res://.godot/imported/Pullable Block.png-8e3886f7235eb85e957dc2b45f5d1f84.ctex"]
 
 [params]
 

@@ -147,6 +147,7 @@ func _physics_process(delta):
 				corners.clear()
 				corners.append(Corner.new(anchorNode.position, max_length))
 				obj_to_pull.ConnectToPlayer()
+				print("Connecting To Player")
 			else:
 				pulling = false
 				emit_signal("release")
