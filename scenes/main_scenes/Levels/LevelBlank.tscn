@@ -1,0 +1,287 @@
+[gd_scene load_steps=21 format=3 uid="uid://cr6k58da7mais"]
+
+[ext_resource type="TileSet" uid="uid://h5r1q5j1b8n1" path="res://Assets/Tile-Set.tres" id="1_etc4o"]
+[ext_resource type="Texture2D" uid="uid://rst0pvcpb65n" path="res://Assets/background2.1.png" id="2_wnvb5"]
+[ext_resource type="Script" path="res://scripts/Button.gd" id="3_fe2l5"]
+[ext_resource type="Texture2D" uid="uid://ca0u07badv0np" path="res://Assets/Button_Anim.png" id="4_34rbm"]
+[ext_resource type="Script" path="res://scripts/Door.gd" id="5_xe4ou"]
+[ext_resource type="Texture2D" uid="uid://b1dy0gufhix1s" path="res://Assets/Door_Animation_Sprites_Revised.png" id="6_m6lw0"]
+[ext_resource type="PackedScene" uid="uid://dc5nrsl1byves" path="res://scenes/prefab_scenes/pullable_object.tscn" id="7_wi1ls"]
+[ext_resource type="PackedScene" uid="uid://c8dqt4b3wvgwp" path="res://scenes/player/player.tscn" id="8_xncko"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4jh31"]
+size = Vector2(16, 10.0047)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_woeca"]
+size = Vector2(9.00001, 3.49529)
+
+[sub_resource type="Animation" id="Animation_btqnr"]
+resource_name = "Button_Down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_bhe58"]
+resource_name = "Button_Up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [3, 2, 1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_3n18f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ux273"]
+_data = {
+"Button_Down": SubResource("Animation_btqnr"),
+"Button_Up": SubResource("Animation_bhe58"),
+"RESET": SubResource("Animation_3n18f")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nk5pv"]
+size = Vector2(68, 116)
+
+[sub_resource type="Animation" id="Animation_iqff6"]
+resource_name = "Door_Close"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Door/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/Door/Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_7qrc0"]
+resource_name = "Door_Open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Door/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/Door/Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+}
+
+[sub_resource type="Animation" id="Animation_tyx3q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Door/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/Door/Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6eedg"]
+_data = {
+"Door_Close": SubResource("Animation_iqff6"),
+"Door_Open": SubResource("Animation_7qrc0"),
+"RESET": SubResource("Animation_tyx3q")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d8lpt"]
+size = Vector2(60, 108)
+
+[node name="RopeTest" type="Node2D"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+offset_left = 311.0
+offset_top = -115.0
+offset_right = 531.0
+offset_bottom = -23.0
+text = "Extend with S / CTRL and swing!"
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_etc4o")
+cell_quadrant_size = 32
+collision_animatable = true
+format = 2
+layer_0/name = "Main Layer"
+layer_1/name = "Background"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = -1
+layer_1/tile_data = PackedInt32Array()
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+visible = false
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(2500, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(704, 430)
+texture = ExtResource("2_wnvb5")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 2.0
+offset_top = 4.0
+offset_right = 282.0
+offset_bottom = 160.0
+text = "W / SHIFT - Retract
+S / CTRL - Extend
+A and D - Swing/Move Left and Right
+Left Click - Grapple Towards Mouse
+Space / Right Click - Release Grapple
+R - Reset"
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(230, -2)
+
+[node name="Button" type="StaticBody2D" parent="Node2D"]
+position = Vector2(-34, 6)
+scale = Vector2(2, 2)
+script = ExtResource("3_fe2l5")
+metadata/TriggerObjects = [NodePath("../Door")]
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/Button"]
+position = Vector2(0, -9)
+scale = Vector2(0.426, 0.426)
+texture = ExtResource("4_34rbm")
+hframes = 2
+vframes = 2
+
+[node name="Base Collision" type="CollisionShape2D" parent="Node2D/Button"]
+position = Vector2(-1, -0.997646)
+shape = SubResource("RectangleShape2D_4jh31")
+
+[node name="Area2D" type="Area2D" parent="Node2D/Button"]
+
+[node name="Button Collision" type="CollisionShape2D" parent="Node2D/Button/Area2D"]
+position = Vector2(-0.5, -8.25235)
+shape = SubResource("RectangleShape2D_woeca")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Button"]
+libraries = {
+"": SubResource("AnimationLibrary_ux273")
+}
+
+[node name="Door" type="StaticBody2D" parent="Node2D"]
+position = Vector2(57, -40)
+script = ExtResource("5_xe4ou")
+LevelNumToEnter = 1
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/Door"]
+position = Vector2(-2.31494, -10.4397)
+scale = Vector2(0.435, 0.62931)
+texture = ExtResource("6_m6lw0")
+hframes = 3
+vframes = 4
+frame = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Door"]
+position = Vector2(-0.314941, -4.43971)
+shape = SubResource("RectangleShape2D_nk5pv")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Door"]
+root_node = NodePath("../../..")
+libraries = {
+"": SubResource("AnimationLibrary_6eedg")
+}
+
+[node name="Area2D" type="Area2D" parent="Node2D/Door"]
+position = Vector2(0, -4)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Door/Area2D"]
+position = Vector2(0.314941, 0.439713)
+shape = SubResource("RectangleShape2D_d8lpt")
+
+[node name="PullableObject" parent="." instance=ExtResource("7_wi1ls")]
+position = Vector2(73, -94)
+
+[node name="Player" parent="." instance=ExtResource("8_xncko")]
+position = Vector2(1, 1)
+
+[connection signal="button_pressed" from="Node2D/Button" to="Node2D/Door" method="activate"]
+[connection signal="body_entered" from="Node2D/Button/Area2D" to="Node2D/Button" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Node2D/Button/Area2D" to="Node2D/Button" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Node2D/Door/Area2D" to="Node2D/Door" method="_on_area_2d_body_entered"]

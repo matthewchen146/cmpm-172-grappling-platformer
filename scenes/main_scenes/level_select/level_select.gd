@@ -18,7 +18,9 @@ func _ready():
 		{"path": "res://scenes/main_scenes/Levels/Level3.tscn", "name": "Level 3"},
 		{"path": "res://scenes/main_scenes/Levels/Level4.tscn", "name": "Level 4"},
 		{"path": "res://scenes/main_scenes/Levels/Level5.tscn", "name": "Level 5"},
-		{"path": "res://scenes/main_scenes/Levels/Level6.tscn", "name": "Level 6"}
+		{"path": "res://scenes/main_scenes/Levels/Level6.tscn", "name": "Level 6"},
+		{"path": "res://scenes/main_scenes/Levels/Level7.tscn", "name": "Level 7"},
+		{"path": "res://scenes/main_scenes/Levels/Level8.tscn", "name": "Level 8"}
 	]
 	
 	var level_number = 1
