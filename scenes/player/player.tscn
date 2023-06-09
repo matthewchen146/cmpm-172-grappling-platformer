@@ -1,9 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://c8dqt4b3wvgwp"]
+[gd_scene load_steps=18 format=3 uid="uid://c8dqt4b3wvgwp"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://yqj44vfpe3dd" path="res://Resources/PlayerPhysMaterial.tres" id="1_pmfhl"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="2_o8j4d"]
 [ext_resource type="Texture2D" uid="uid://cafm28ugb122v" path="res://Assets/CharacterSpriteSheet.png" id="3_dj7kx"]
 [ext_resource type="AudioStream" uid="uid://b6wlch14xtcj8" path="res://audio/527393__mpierluissi__ropemvmt_rope-zip-fast_mp_10.wav" id="4_71lk4"]
+[ext_resource type="AudioStream" uid="uid://ksiya2ufhhqp" path="res://audio/Level_Song_1.mp3" id="5_mphx2"]
+[ext_resource type="AudioStream" uid="uid://c21nqd7l8tlts" path="res://audio/Level_Song_2.mp3" id="6_j3ha0"]
+[ext_resource type="AudioStream" uid="uid://dwd4rx7b57a3r" path="res://audio/Level_Song_3.mp3" id="7_taajs"]
+[ext_resource type="AudioStream" uid="uid://cwf6flgcf4g1p" path="res://audio/Level_Song_4.mp3" id="8_1m0dd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uv13g"]
 height = 20.0
@@ -39,6 +43,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 4)]
+}
 
 [sub_resource type="Animation" id="Animation_cv8pl"]
 resource_name = "Running"
@@ -57,9 +73,61 @@ tracks/0/keys = {
 "values": [7, 8, 9, 10, 11, 12]
 }
 
+[sub_resource type="Animation" id="Animation_xnkbw"]
+resource_name = "Jump-Airborn"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(0, 3), Vector2i(1, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_2s68j"]
+resource_name = "Jump-Landing"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 4), Vector2i(1, 4), Vector2i(2, 4), Vector2i(3, 4), Vector2i(4, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_3gkkr"]
+resource_name = "Jump-Idle"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [14, 15, 16, 17, 18]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6gkkf"]
 _data = {
 "Idle": SubResource("Animation_aisk4"),
+"Jump-Airborn": SubResource("Animation_xnkbw"),
+"Jump-Idle": SubResource("Animation_3gkkr"),
+"Jump-Landing": SubResource("Animation_2s68j"),
 "RESET": SubResource("Animation_vv2te"),
 "Running": SubResource("Animation_cv8pl")
 }
@@ -87,7 +155,8 @@ position = Vector2(0, -13)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_dj7kx")
 hframes = 7
-vframes = 2
+vframes = 5
+frame = 28
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -103,5 +172,17 @@ shape = SubResource("CapsuleShape2D_ffiph")
 [node name="GrappleHookSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_71lk4")
 volume_db = -20.0
+
+[node name="BGM1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_mphx2")
+
+[node name="BGM2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_j3ha0")
+
+[node name="BGM3" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_taajs")
+
+[node name="BGM4" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_1m0dd")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

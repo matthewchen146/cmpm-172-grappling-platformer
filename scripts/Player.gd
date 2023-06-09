@@ -31,6 +31,10 @@ var gravity : Vector2 = Vector2()
 var slacking : bool = false
 
 @onready var grappleHookSFX = $GrappleHookSFX
+@onready var bgm1 = $BGM1
+@onready var bgm2 = $BGM2
+@onready var bgm3 = $BGM3
+@onready var bgm4 = $BGM4
 
 
 class Corner extends RefCounted:
@@ -46,6 +50,18 @@ signal release
 var rect_half_size
 
 func _ready():
+	#BGM
+	var rng = RandomNumberGenerator.new()
+	var val = rng.randi_range(0,4)#how do i do a switch statement in gdscript? who cares:
+	if val == 0:
+		bgm1.play()
+	else: if val == 1:
+		bgm2.play()
+	else: if val == 2:
+		bgm3.play()
+	else:
+		bgm4.play()
+	
 	var animationPlayer = $AnimationPlayer
 	animationPlayer.play("Idle")
 	anchorNode.position = Vector2() # Peyton edit
@@ -183,6 +199,8 @@ func _physics_process(delta):
 			pulling = false
 		else:
 			if onGround:
+				if not (linear_velocity.x > 1 or linear_velocity.x < -1):
+					$AnimationPlayer.play("Jump-Idle")
 				apply_impulse(jump_strength * Vector2(0,-1))
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		grappling = false
@@ -366,9 +384,12 @@ func _process(delta):
 		if body.name != "Player":
 			onGround = true
 			break
-	if linear_velocity.x > 1 or linear_velocity.x < -1 or linear_velocity.y > 1 or linear_velocity.y < -1 or not onGround:
+	if (linear_velocity.x > 1 or linear_velocity.x < -1 or linear_velocity.y > 1 or linear_velocity.y < -1) and onGround:
 		#print("Playing Running")
 		$AnimationPlayer.play("Running")
+	else: if not onGround:
+		if not $AnimationPlayer.current_animation == "Jump-Idle":
+			$AnimationPlayer.play("Jump-Airborn")
 	else:
 		#print("Playing Idle")
 		$AnimationPlayer.play("Idle")

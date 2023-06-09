@@ -98,3 +98,14 @@ points = PackedVector2Array(0, 1, 0, 383, 100, 486, 100, 695)
 position = Vector2(950, 0)
 points = PackedVector2Array(0, 1, 0, 383, 100, 486, 100, 695)
 width = 20.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SubViewportContainer/SubViewport"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_ihu0n")
+
+[node name="backButton" type="Button" parent="SubViewportContainer/SubViewport/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Back
+"

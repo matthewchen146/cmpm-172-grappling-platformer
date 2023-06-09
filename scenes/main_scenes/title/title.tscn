@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ddw0d47ku5wla"]
+[gd_scene load_steps=9 format=3 uid="uid://ddw0d47ku5wla"]
 
 [ext_resource type="Script" path="res://scenes/main_scenes/title/title.gd" id="1_kaxqf"]
 [ext_resource type="Theme" uid="uid://dw1jwox7gvmhs" path="res://themes/main_theme.tres" id="1_xt8ah"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://da1tunqln5hl4" path="res://Assets/ui/background.png" id="2_rsxu1"]
 [ext_resource type="Texture2D" uid="uid://cljup16fcxpe6" path="res://Assets/ui/title.png" id="3_ye22j"]
 [ext_resource type="Theme" uid="uid://dgo11ku3vc8fo" path="res://themes/font_theme.tres" id="6_e8q5l"]
+[ext_resource type="AudioStream" uid="uid://cles2pmdim44s" path="res://audio/TitleScreen.mp3" id="7_4skkv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pgl4y"]
 shader = ExtResource("2_20ryr")
@@ -113,3 +114,8 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 text = "Credits"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(562, 346)
+stream = ExtResource("7_4skkv")
+autoplay = true
