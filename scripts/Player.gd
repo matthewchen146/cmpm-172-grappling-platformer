@@ -139,7 +139,6 @@ func _physics_process(delta):
 		#print("Shot The Grapple")
 		pressed_mouse = true
 		var direction : Vector2
-		grappleHookSFX.play()
 		if (Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or Input.is_key_pressed(KEY_F)):
 			direction = mouse_world_pos - position
 		else: if (Input.is_key_pressed(KEY_UP)):
@@ -155,6 +154,7 @@ func _physics_process(delta):
 			print_debug("Grapple Landed")
 			var obj_to_pull = anchorobject.collider as RigidBody2D
 			grappling = true
+			grappleHookSFX.play()
 			if obj_to_pull != null:
 				pulling = true
 				print(obj_to_pull.name)
