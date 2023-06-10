@@ -1,13 +1,15 @@
-[gd_scene load_steps=23 format=3 uid="uid://c4mqico3vrdj8"]
+[gd_scene load_steps=25 format=3 uid="uid://c4mqico3vrdj8"]
 
 [ext_resource type="TileSet" uid="uid://h5r1q5j1b8n1" path="res://Assets/Tile-Set.tres" id="1_p65wp"]
 [ext_resource type="PackedScene" uid="uid://mv2mtgrotogp" path="res://scenes/prefab_scenes/pause_menu.tscn" id="2_mkd6t"]
 [ext_resource type="Script" path="res://scripts/Button.gd" id="5_gicgk"]
+[ext_resource type="AudioStream" uid="uid://maicl8n80dca" path="res://audio/404049__deathscyp__breaker-1.wav" id="5_grjap"]
 [ext_resource type="Script" path="res://scripts/Door.gd" id="6_j2pwe"]
 [ext_resource type="Texture2D" uid="uid://ca0u07badv0np" path="res://Assets/Button_Anim.png" id="7_gplrf"]
 [ext_resource type="Texture2D" uid="uid://cjpkdhuymki1y" path="res://Assets/PLBack.png" id="7_iiwjm"]
 [ext_resource type="PackedScene" uid="uid://c8dqt4b3wvgwp" path="res://scenes/player/player.tscn" id="7_tlwvm"]
 [ext_resource type="Texture2D" uid="uid://ldn7ioj11vur" path="res://Assets/PLMid.png" id="8_4wbvw"]
+[ext_resource type="AudioStream" uid="uid://c65gkh0lq02te" path="res://audio/mixkit-futuristic-door-opening-906.mp3" id="8_oouce"]
 [ext_resource type="Texture2D" uid="uid://b1dy0gufhix1s" path="res://Assets/Door_Animation_Sprites_Revised.png" id="8_s23in"]
 [ext_resource type="Texture2D" uid="uid://sfsqba2gciaf" path="res://Assets/PLFront.png" id="9_ioh8t"]
 
@@ -236,6 +238,10 @@ libraries = {
 "": SubResource("AnimationLibrary_ux273")
 }
 
+[node name="ButtonSFX" type="AudioStreamPlayer2D" parent="Node2D/Button"]
+stream = ExtResource("5_grjap")
+volume_db = 1.0
+
 [node name="Door" type="StaticBody2D" parent="Node2D"]
 position = Vector2(635, 12)
 script = ExtResource("6_j2pwe")
@@ -267,6 +273,10 @@ position = Vector2(0, -4)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Door/Area2D"]
 position = Vector2(0.314941, 0.439713)
 shape = SubResource("RectangleShape2D_mldp2")
+
+[node name="DoorSFX" type="AudioStreamPlayer2D" parent="Node2D/Door"]
+stream = ExtResource("8_oouce")
+volume_db = -2.5
 
 [node name="Player" parent="." instance=ExtResource("7_tlwvm")]
 position = Vector2(-367, 3)

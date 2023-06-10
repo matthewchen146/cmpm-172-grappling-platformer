@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c2kk53nbwn680"]
+[gd_scene load_steps=27 format=3 uid="uid://c2kk53nbwn680"]
 
 [ext_resource type="TileSet" uid="uid://h5r1q5j1b8n1" path="res://Assets/Tile-Set.tres" id="1_j8tso"]
 [ext_resource type="Texture2D" uid="uid://cjpkdhuymki1y" path="res://Assets/PLBack.png" id="2_e5xdb"]
@@ -11,7 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://b1dy0gufhix1s" path="res://Assets/Door_Animation_Sprites_Revised.png" id="6_r80j7"]
 [ext_resource type="PackedScene" uid="uid://dc5nrsl1byves" path="res://scenes/prefab_scenes/pullable_object.tscn" id="7_u0gss"]
 [ext_resource type="PackedScene" uid="uid://c8dqt4b3wvgwp" path="res://scenes/player/player.tscn" id="8_r5t2q"]
+[ext_resource type="AudioStream" uid="uid://maicl8n80dca" path="res://audio/404049__deathscyp__breaker-1.wav" id="8_twmd8"]
 [ext_resource type="PackedScene" uid="uid://cgaeymlik4bk2" path="res://scenes/prefab_scenes/launch_pad.tscn" id="9_uonaq"]
+[ext_resource type="AudioStream" uid="uid://c65gkh0lq02te" path="res://audio/mixkit-futuristic-door-opening-906.mp3" id="11_3j58k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4jh31"]
 size = Vector2(16, 10.0047)
@@ -271,6 +273,10 @@ libraries = {
 "": SubResource("AnimationLibrary_ux273")
 }
 
+[node name="ButtonSFX" type="AudioStreamPlayer2D" parent="Node2D/Button"]
+stream = ExtResource("8_twmd8")
+volume_db = 1.0
+
 [node name="Door" type="StaticBody2D" parent="Node2D"]
 position = Vector2(-66, -14)
 script = ExtResource("5_wakw4")
@@ -302,6 +308,10 @@ position = Vector2(0, -4)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Door/Area2D"]
 position = Vector2(0.314941, 0.439713)
 shape = SubResource("RectangleShape2D_d8lpt")
+
+[node name="DoorSFX" type="AudioStreamPlayer2D" parent="Node2D/Door"]
+stream = ExtResource("11_3j58k")
+volume_db = -2.5
 
 [node name="PullableObject" parent="." instance=ExtResource("7_u0gss")]
 position = Vector2(73, -94)

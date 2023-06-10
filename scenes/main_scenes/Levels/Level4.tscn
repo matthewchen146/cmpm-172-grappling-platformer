@@ -1,11 +1,13 @@
-[gd_scene load_steps=24 format=3 uid="uid://bojtniwjvldwt"]
+[gd_scene load_steps=26 format=3 uid="uid://bojtniwjvldwt"]
 
 [ext_resource type="TileSet" uid="uid://h5r1q5j1b8n1" path="res://Assets/Tile-Set.tres" id="1_70538"]
 [ext_resource type="PackedScene" uid="uid://mv2mtgrotogp" path="res://scenes/prefab_scenes/pause_menu.tscn" id="2_3hffs"]
+[ext_resource type="AudioStream" uid="uid://maicl8n80dca" path="res://audio/404049__deathscyp__breaker-1.wav" id="5_koicx"]
 [ext_resource type="Script" path="res://scripts/Button.gd" id="6_fvmwx"]
 [ext_resource type="Texture2D" uid="uid://ca0u07badv0np" path="res://Assets/Button_Anim.png" id="7_jqs0h"]
 [ext_resource type="PackedScene" uid="uid://dc5nrsl1byves" path="res://scenes/prefab_scenes/pullable_object.tscn" id="8_aas01"]
 [ext_resource type="Script" path="res://scripts/Door.gd" id="8_gpr5r"]
+[ext_resource type="AudioStream" uid="uid://c65gkh0lq02te" path="res://audio/mixkit-futuristic-door-opening-906.mp3" id="8_nepb6"]
 [ext_resource type="Texture2D" uid="uid://cjpkdhuymki1y" path="res://Assets/PLBack.png" id="8_q3bmt"]
 [ext_resource type="Texture2D" uid="uid://ldn7ioj11vur" path="res://Assets/PLMid.png" id="9_apyjx"]
 [ext_resource type="PackedScene" uid="uid://c8dqt4b3wvgwp" path="res://scenes/player/player.tscn" id="9_c5j8o"]
@@ -239,6 +241,10 @@ libraries = {
 "": SubResource("AnimationLibrary_ux273")
 }
 
+[node name="ButtonSFX" type="AudioStreamPlayer2D" parent="Node2D/Button"]
+stream = ExtResource("5_koicx")
+volume_db = 1.0
+
 [node name="Door" type="StaticBody2D" parent="Node2D"]
 position = Vector2(109, -31)
 script = ExtResource("8_gpr5r")
@@ -270,6 +276,10 @@ position = Vector2(0, -4)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Door/Area2D"]
 position = Vector2(0.314941, 0.439713)
 shape = SubResource("RectangleShape2D_d8lpt")
+
+[node name="DoorSFX" type="AudioStreamPlayer2D" parent="Node2D/Door"]
+stream = ExtResource("8_nepb6")
+volume_db = -2.5
 
 [node name="Player" parent="." instance=ExtResource("9_c5j8o")]
 position = Vector2(-243, 2)

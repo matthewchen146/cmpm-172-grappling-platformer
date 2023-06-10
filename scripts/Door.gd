@@ -1,5 +1,7 @@
 extends Interactable
 
+@onready var DoorSFX = $DoorSFX
+
 var open = false;
 @export var LevelNumToEnter: int = 2
 # Called when the node enters the scene tree for the first time.
@@ -16,6 +18,7 @@ func activate():
 	if (!open):
 		#$Sprite2D.visible = false
 		$AnimationPlayer.play("Door_Open")
+		DoorSFX.play()
 		open = true
 	#else:
 		#$Sprite2D.visible = true

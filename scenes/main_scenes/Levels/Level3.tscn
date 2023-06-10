@@ -1,14 +1,16 @@
-[gd_scene load_steps=23 format=3 uid="uid://ruqoiu7rtjqc"]
+[gd_scene load_steps=25 format=3 uid="uid://ruqoiu7rtjqc"]
 
 [ext_resource type="TileSet" uid="uid://h5r1q5j1b8n1" path="res://Assets/Tile-Set.tres" id="1_v8fs7"]
 [ext_resource type="PackedScene" uid="uid://mv2mtgrotogp" path="res://scenes/prefab_scenes/pause_menu.tscn" id="2_fx50u"]
 [ext_resource type="Script" path="res://scripts/Button.gd" id="5_6yi48"]
+[ext_resource type="AudioStream" uid="uid://maicl8n80dca" path="res://audio/404049__deathscyp__breaker-1.wav" id="5_758gy"]
 [ext_resource type="Script" path="res://scripts/Door.gd" id="6_fytqi"]
 [ext_resource type="PackedScene" uid="uid://c8dqt4b3wvgwp" path="res://scenes/player/player.tscn" id="7_b5cwk"]
 [ext_resource type="Texture2D" uid="uid://cjpkdhuymki1y" path="res://Assets/PLBack.png" id="7_lidnh"]
 [ext_resource type="Texture2D" uid="uid://ca0u07badv0np" path="res://Assets/Button_Anim.png" id="7_xm0bd"]
 [ext_resource type="Texture2D" uid="uid://ldn7ioj11vur" path="res://Assets/PLMid.png" id="8_bd0xp"]
 [ext_resource type="Texture2D" uid="uid://b1dy0gufhix1s" path="res://Assets/Door_Animation_Sprites_Revised.png" id="8_l7pgr"]
+[ext_resource type="AudioStream" uid="uid://c65gkh0lq02te" path="res://audio/mixkit-futuristic-door-opening-906.mp3" id="8_uyj7i"]
 [ext_resource type="Texture2D" uid="uid://sfsqba2gciaf" path="res://Assets/PLFront.png" id="9_dev38"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4jh31"]
@@ -236,6 +238,10 @@ libraries = {
 "": SubResource("AnimationLibrary_ux273")
 }
 
+[node name="ButtonSFX" type="AudioStreamPlayer2D" parent="Node2D/Button"]
+stream = ExtResource("5_758gy")
+volume_db = 1.0
+
 [node name="Door" type="StaticBody2D" parent="Node2D"]
 position = Vector2(-114, 33)
 script = ExtResource("6_fytqi")
@@ -267,6 +273,10 @@ position = Vector2(0, -4)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Door/Area2D"]
 position = Vector2(0.314941, 0.439713)
 shape = SubResource("RectangleShape2D_d8lpt")
+
+[node name="DoorSFX" type="AudioStreamPlayer2D" parent="Node2D/Door"]
+stream = ExtResource("8_uyj7i")
+volume_db = -2.5
 
 [node name="Player" parent="." instance=ExtResource("7_b5cwk")]
 position = Vector2(-181, -27)

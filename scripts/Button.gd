@@ -6,6 +6,8 @@ var presscount = 0
 signal button_pressed
 signal button_depressed
 
+@onready var ButtonSFX = $ButtonSFX
+
 # Called when the node enters the scene tree for the first time.
 #func _ready():
 #	pass # Replace with function body.
@@ -19,6 +21,7 @@ func _on_area_2d_body_entered(body):
 		presscount += 1
 		if presscount == 1:
 			$AnimationPlayer.play("Button_Down")
+			ButtonSFX.play()
 			print_debug("Button Pressed")
 			button_pressed.emit()
 	

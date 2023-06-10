@@ -1,13 +1,15 @@
-[gd_scene load_steps=23 format=3 uid="uid://73pmyvsje1b1"]
+[gd_scene load_steps=25 format=3 uid="uid://73pmyvsje1b1"]
 
 [ext_resource type="TileSet" uid="uid://h5r1q5j1b8n1" path="res://Assets/Tile-Set.tres" id="1_ccjsv"]
 [ext_resource type="PackedScene" uid="uid://mv2mtgrotogp" path="res://scenes/prefab_scenes/pause_menu.tscn" id="2_agk8s"]
 [ext_resource type="Script" path="res://scripts/Button.gd" id="3_28u31"]
 [ext_resource type="Texture2D" uid="uid://ca0u07badv0np" path="res://Assets/Button_Anim.png" id="4_ig3lx"]
+[ext_resource type="AudioStream" uid="uid://maicl8n80dca" path="res://audio/404049__deathscyp__breaker-1.wav" id="5_owcvf"]
 [ext_resource type="Script" path="res://scripts/Door.gd" id="5_urpde"]
 [ext_resource type="Texture2D" uid="uid://b1dy0gufhix1s" path="res://Assets/Door_Animation_Sprites_Revised.png" id="6_ftt6n"]
 [ext_resource type="Texture2D" uid="uid://cjpkdhuymki1y" path="res://Assets/PLBack.png" id="7_fnwp7"]
 [ext_resource type="Texture2D" uid="uid://ldn7ioj11vur" path="res://Assets/PLMid.png" id="8_ejwu2"]
+[ext_resource type="AudioStream" uid="uid://c65gkh0lq02te" path="res://audio/mixkit-futuristic-door-opening-906.mp3" id="8_swem0"]
 [ext_resource type="PackedScene" uid="uid://c8dqt4b3wvgwp" path="res://scenes/player/player.tscn" id="9_28mny"]
 [ext_resource type="Texture2D" uid="uid://sfsqba2gciaf" path="res://Assets/PLFront.png" id="9_cv4y1"]
 
@@ -238,6 +240,10 @@ libraries = {
 "": SubResource("AnimationLibrary_ux273")
 }
 
+[node name="ButtonSFX" type="AudioStreamPlayer2D" parent="Node2D/Button"]
+stream = ExtResource("5_owcvf")
+volume_db = 1.0
+
 [node name="Door" type="StaticBody2D" parent="Node2D"]
 position = Vector2(356, 153)
 script = ExtResource("5_urpde")
@@ -269,6 +275,10 @@ position = Vector2(0, -4)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Door/Area2D"]
 position = Vector2(0.314941, 0.439713)
 shape = SubResource("RectangleShape2D_d8lpt")
+
+[node name="DoorSFX" type="AudioStreamPlayer2D" parent="Node2D/Door"]
+stream = ExtResource("8_swem0")
+volume_db = -2.5
 
 [node name="Player" parent="." instance=ExtResource("9_28mny")]
 position = Vector2(-243, 2)
