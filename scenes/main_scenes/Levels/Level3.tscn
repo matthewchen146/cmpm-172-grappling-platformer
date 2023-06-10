@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://ruqoiu7rtjqc"]
+[gd_scene load_steps=23 format=3 uid="uid://ruqoiu7rtjqc"]
 
 [ext_resource type="TileSet" uid="uid://h5r1q5j1b8n1" path="res://Assets/Tile-Set.tres" id="1_v8fs7"]
+[ext_resource type="PackedScene" uid="uid://mv2mtgrotogp" path="res://scenes/prefab_scenes/pause_menu.tscn" id="2_fx50u"]
 [ext_resource type="Script" path="res://scripts/Button.gd" id="5_6yi48"]
 [ext_resource type="Script" path="res://scripts/Door.gd" id="6_fytqi"]
 [ext_resource type="PackedScene" uid="uid://c8dqt4b3wvgwp" path="res://scenes/player/player.tscn" id="7_b5cwk"]
@@ -199,6 +200,8 @@ A and D - Swing/Move Left and Right
 Left Click - Grapple Towards Mouse
 Space / Right Click - Release Grapple
 R - Reset"
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("2_fx50u")]
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(-188, 205)

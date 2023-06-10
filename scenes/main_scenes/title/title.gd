@@ -21,6 +21,10 @@ func _ready():
 		var scene = scene_trs.instantiate()
 		add_child(scene)
 	)
+	%QuitButton.pressed.connect(func():
+		#get_tree().change_scene_to_file("res://scenes/main_scenes/credits/credits.tscn")
+		get_tree().quit()
+	)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

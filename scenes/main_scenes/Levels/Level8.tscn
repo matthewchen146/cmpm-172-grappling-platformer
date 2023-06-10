@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://i485ebbbg4l8"]
+[gd_scene load_steps=25 format=3 uid="uid://i485ebbbg4l8"]
 
 [ext_resource type="TileSet" uid="uid://h5r1q5j1b8n1" path="res://Assets/Tile-Set.tres" id="1_x5a14"]
 [ext_resource type="Texture2D" uid="uid://cjpkdhuymki1y" path="res://Assets/PLBack.png" id="2_6s5c6"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ldn7ioj11vur" path="res://Assets/PLMid.png" id="3_bdsx1"]
 [ext_resource type="Script" path="res://scripts/Button.gd" id="3_rqoio"]
 [ext_resource type="Texture2D" uid="uid://ca0u07badv0np" path="res://Assets/Button_Anim.png" id="4_2m750"]
+[ext_resource type="PackedScene" uid="uid://mv2mtgrotogp" path="res://scenes/prefab_scenes/pause_menu.tscn" id="5_ixbdr"]
 [ext_resource type="Script" path="res://scripts/Door.gd" id="5_n4k3x"]
 [ext_resource type="Texture2D" uid="uid://b1dy0gufhix1s" path="res://Assets/Door_Animation_Sprites_Revised.png" id="6_6jd7g"]
 [ext_resource type="PackedScene" uid="uid://dc5nrsl1byves" path="res://scenes/prefab_scenes/pullable_object.tscn" id="7_xyqgh"]
@@ -238,6 +239,8 @@ A and D - Swing/Move Left and Right
 Left Click - Grapple Towards Mouse
 Space / Right Click - Release Grapple
 R - Reset"
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("5_ixbdr")]
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(1697, 145)

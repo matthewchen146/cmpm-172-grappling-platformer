@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=9 format=3 uid="uid://qyx5fu2sfddo"]
 
 [ext_resource type="Script" path="res://scenes/main_scenes/title/title.gd" id="1_kaxqf"]
 [ext_resource type="Theme" uid="uid://dw1jwox7gvmhs" path="res://themes/main_theme.tres" id="1_xt8ah"]
@@ -114,6 +114,12 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 text = "Credits"
+
+[node name="QuitButton" type="Button" parent="SubViewportContainer/SubViewport/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+text = "Quit"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(562, 346)

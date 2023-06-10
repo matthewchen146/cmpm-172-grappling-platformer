@@ -110,13 +110,13 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="SubViewportContainer/SubViewport/Line2D2/VBoxContainer/Label/HBoxContainer"]
 layout_mode = 2
-text = "Omar A. -
-Peyton J. - 
-Margarita R. - 
-Sean O. - 
-Adam F. - 
+text = "Omar A. - Lead Artist/Producer
+Peyton J. - Lead Programmer
+Sean O. - Game/Level Design
+Margarita R. - Artist
+Mattthew C. - Programmer
+Adam F. - Artist
 Ben Q. - 
-Mattthew C. - 
 Michelle H. - "
 label_settings = SubResource("LabelSettings_nmnng")
 vertical_alignment = 1
