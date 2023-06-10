@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c2kk53nbwn680"]
+[gd_scene load_steps=28 format=3 uid="uid://c2kk53nbwn680"]
 
 [ext_resource type="TileSet" uid="uid://h5r1q5j1b8n1" path="res://Assets/Tile-Set.tres" id="1_j8tso"]
 [ext_resource type="Texture2D" uid="uid://cjpkdhuymki1y" path="res://Assets/PLBack.png" id="2_e5xdb"]
@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://maicl8n80dca" path="res://audio/404049__deathscyp__breaker-1.wav" id="8_twmd8"]
 [ext_resource type="PackedScene" uid="uid://cgaeymlik4bk2" path="res://scenes/prefab_scenes/launch_pad.tscn" id="9_uonaq"]
 [ext_resource type="AudioStream" uid="uid://c65gkh0lq02te" path="res://audio/mixkit-futuristic-door-opening-906.mp3" id="11_3j58k"]
+[ext_resource type="AudioStream" uid="uid://dh5uf08bb15h6" path="res://audio/mixkit-video-game-spin-jump-2648.wav" id="15_ta5xe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4jh31"]
 size = Vector2(16, 10.0047)
@@ -322,8 +323,16 @@ position = Vector2(1, 1)
 [node name="Launch-Pad" parent="." instance=ExtResource("9_uonaq")]
 position = Vector2(495, -480)
 
+[node name="Launch-PadSFX" type="AudioStreamPlayer2D" parent="Launch-Pad"]
+stream = ExtResource("15_ta5xe")
+volume_db = -7.0
+
 [node name="Launch-Pad2" parent="." instance=ExtResource("9_uonaq")]
 position = Vector2(721, -192)
+
+[node name="Launch-PadSFX" type="AudioStreamPlayer2D" parent="Launch-Pad2"]
+stream = ExtResource("15_ta5xe")
+volume_db = -7.0
 
 [connection signal="button_pressed" from="Node2D/Button" to="Node2D/Door" method="activate"]
 [connection signal="body_entered" from="Node2D/Button/Area2D" to="Node2D/Button" method="_on_area_2d_body_entered"]
