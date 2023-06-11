@@ -20,7 +20,7 @@ font_size = 60
 
 [sub_resource type="LabelSettings" id="LabelSettings_nmnng"]
 line_spacing = 7.0
-font_size = 30
+font_size = 25
 
 [node name="credits" type="Control"]
 layout_mode = 3
@@ -83,7 +83,7 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = 250.0
 offset_top = 60.0
-offset_right = 567.0
+offset_right = 1050.0
 offset_bottom = 708.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -92,8 +92,6 @@ grow_vertical = 2
 layout_mode = 2
 text = "CREDITS"
 label_settings = SubResource("LabelSettings_05vor")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SubViewportContainer/SubViewport/Line2D2/VBoxContainer/Label"]
 layout_mode = 1
@@ -101,31 +99,32 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -240.0
-offset_top = 45.5
-offset_right = -240.0
-offset_bottom = 437.5
+offset_left = -300.0
+offset_top = 20.5
+offset_right = 210.0
+offset_bottom = 524.5
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="SubViewportContainer/SubViewport/Line2D2/VBoxContainer/Label/HBoxContainer"]
 layout_mode = 2
-text = "Omar A. - Lead Artist/Producer
-Peyton J. - Lead Programmer
-Sean O. - Game/Level Design
-Margarita R. - Artist
-Mattthew C. - Programmer
-Adam F. - Artist
-Ben Q. - Sound Effects
-Michelle H. - "
+text = "Omar A. - Main Producer, Lead Art Director, Gameplay Designer, Music Designer
+Peyton J. - Lead Programmer, Co-Gameplay Designer, Lead Technical Designer
+Sean O. - Lead Level Designer,Game Deisnger 
+Production Assitant, Playtest Notetaker 
+Margarita R. - ​Background Concept Artist, UI Designer, SFX Designer
+Mattthew C. - External ​Programmer, UI Designer
+Adam F. -​Additional Artist, Initial Concept Artist
+Ben Q. - ​SFX Designer 
+Michelle H. - Artist "
 label_settings = SubResource("LabelSettings_nmnng")
 vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer/SubViewport/Line2D2/VBoxContainer/Label/HBoxContainer/Label"]
 layout_mode = 1
-offset_left = -140.0
+offset_left = -80.0
 offset_top = -120.0
-offset_right = 10.0
+offset_right = 70.0
 offset_bottom = 50.0
 scale = Vector2(1.5, 1.5)
 theme = ExtResource("6_d1i7y")
