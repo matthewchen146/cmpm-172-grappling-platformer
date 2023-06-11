@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c5n4emalfpudp"]
+[gd_scene load_steps=27 format=3 uid="uid://c5n4emalfpudp"]
 
 [ext_resource type="TileSet" uid="uid://h5r1q5j1b8n1" path="res://Assets/Tile-Set.tres" id="1_58ppu"]
 [ext_resource type="PackedScene" uid="uid://mv2mtgrotogp" path="res://scenes/prefab_scenes/pause_menu.tscn" id="2_wov08"]
@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://c65gkh0lq02te" path="res://audio/mixkit-futuristic-door-opening-906.mp3" id="8_k5ad4"]
 [ext_resource type="PackedScene" uid="uid://cgaeymlik4bk2" path="res://scenes/prefab_scenes/launch_pad.tscn" id="9_epmsh"]
 [ext_resource type="PackedScene" uid="uid://c8dqt4b3wvgwp" path="res://scenes/player/player.tscn" id="10_ebqdm"]
+[ext_resource type="AudioStream" uid="uid://dh5uf08bb15h6" path="res://audio/mixkit-video-game-spin-jump-2648.wav" id="10_xvatp"]
 [ext_resource type="Texture2D" uid="uid://cjpkdhuymki1y" path="res://Assets/PLBack.png" id="11_ifdg2"]
 [ext_resource type="Texture2D" uid="uid://ldn7ioj11vur" path="res://Assets/PLMid.png" id="12_h86mt"]
 [ext_resource type="Texture2D" uid="uid://sfsqba2gciaf" path="res://Assets/PLFront.png" id="13_xuwr2"]
@@ -278,29 +279,61 @@ volume_db = -2.5
 [node name="Launch-Pad8" parent="Node2D" instance=ExtResource("9_epmsh")]
 position = Vector2(1570, -818)
 
+[node name="Launch-PadSFX" type="AudioStreamPlayer2D" parent="Node2D/Launch-Pad8"]
+stream = ExtResource("10_xvatp")
+volume_db = -7.0
+
 [node name="Launch-Pad7" parent="Node2D" instance=ExtResource("9_epmsh")]
 position = Vector2(1085, -848)
+
+[node name="Launch-PadSFX" type="AudioStreamPlayer2D" parent="Node2D/Launch-Pad7"]
+stream = ExtResource("10_xvatp")
+volume_db = -7.0
 
 [node name="Launch-Pad" parent="Node2D" instance=ExtResource("9_epmsh")]
 position = Vector2(-539, -943)
 
+[node name="Launch-PadSFX" type="AudioStreamPlayer2D" parent="Node2D/Launch-Pad"]
+stream = ExtResource("10_xvatp")
+volume_db = -7.0
+
 [node name="Launch-Pad2" parent="Node2D" instance=ExtResource("9_epmsh")]
 position = Vector2(-537, -270)
+
+[node name="Launch-PadSFX" type="AudioStreamPlayer2D" parent="Node2D/Launch-Pad2"]
+stream = ExtResource("10_xvatp")
+volume_db = -7.0
 
 [node name="Launch-Pad4" parent="Node2D" instance=ExtResource("9_epmsh")]
 position = Vector2(1313, -274)
 
+[node name="Launch-PadSFX" type="AudioStreamPlayer2D" parent="Node2D/Launch-Pad4"]
+stream = ExtResource("10_xvatp")
+volume_db = -7.0
+
 [node name="Launch-Pad6" parent="Node2D" instance=ExtResource("9_epmsh")]
 position = Vector2(875, -848)
 
+[node name="Launch-PadSFX" type="AudioStreamPlayer2D" parent="Node2D/Launch-Pad6"]
+stream = ExtResource("10_xvatp")
+volume_db = -7.0
+
 [node name="Launch-Pad5" parent="Node2D" instance=ExtResource("9_epmsh")]
 position = Vector2(621, -851)
+
+[node name="Launch-PadSFX" type="AudioStreamPlayer2D" parent="Node2D/Launch-Pad5"]
+stream = ExtResource("10_xvatp")
+volume_db = -7.0
 
 [node name="Launch-Pad3" parent="Node2D" instance=ExtResource("9_epmsh")]
 position = Vector2(-210, -268)
 
 [node name="Launch-Pad3" parent="Node2D/Launch-Pad3" instance=ExtResource("9_epmsh")]
 position = Vector2(1905, -199)
+
+[node name="Launch-PadSFX" type="AudioStreamPlayer2D" parent="Node2D/Launch-Pad3"]
+stream = ExtResource("10_xvatp")
+volume_db = -7.0
 
 [node name="Player" parent="." instance=ExtResource("10_ebqdm")]
 position = Vector2(-165, 56)
