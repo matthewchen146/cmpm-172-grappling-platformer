@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c8dqt4b3wvgwp"]
+[gd_scene load_steps=19 format=3 uid="uid://c8dqt4b3wvgwp"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://yqj44vfpe3dd" path="res://Resources/PlayerPhysMaterial.tres" id="1_pmfhl"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="2_o8j4d"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://c21nqd7l8tlts" path="res://audio/Level_Song_2.mp3" id="6_j3ha0"]
 [ext_resource type="AudioStream" uid="uid://dwd4rx7b57a3r" path="res://audio/Level_Song_3.mp3" id="7_taajs"]
 [ext_resource type="AudioStream" uid="uid://cwf6flgcf4g1p" path="res://audio/Level_Song_4.mp3" id="8_1m0dd"]
+[ext_resource type="AudioStream" uid="uid://di0laxs2y3ase" path="res://audio/mixkit-space-rocket-full-power-turbine-1720.mp3" id="9_vs000"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uv13g"]
 height = 20.0
@@ -169,6 +170,10 @@ shape = SubResource("CapsuleShape2D_ffiph")
 
 [node name="GrappleHookSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_71lk4")
+volume_db = -5.0
+
+[node name="RocketSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_vs000")
 volume_db = -5.0
 
 [node name="BGM1" type="AudioStreamPlayer2D" parent="."]

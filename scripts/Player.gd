@@ -31,6 +31,7 @@ var gravity : Vector2 = Vector2()
 var slacking : bool = false
 
 @onready var grappleHookSFX = $GrappleHookSFX
+@onready var RocketSFX = $RocketSFX
 @onready var bgm1 = $BGM1
 @onready var bgm2 = $BGM2
 @onready var bgm3 = $BGM3
@@ -406,10 +407,12 @@ func _process(delta):
 	if onGround:
 		if not Input.is_action_pressed("move_left") and not Input.is_action_pressed("move_right"):
 			linear_damp = 6
+			RocketSFX.play()
 		else:
 			linear_damp = 0.05
 	else:
 		linear_damp = 0.05
+		RocketSFX.stop()
 	if grappling and not pulling:
 		if onGround:
 			apply_force(movement * move_speed)
