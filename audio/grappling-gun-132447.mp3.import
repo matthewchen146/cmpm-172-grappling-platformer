@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/grappling-gun-132447.mp3-802fbdd9409eef5ca2a6
 [params]
 
 loop=false
-loop_offset=0
-bpm=0
+loop_offset=0.0
+bpm=0.0
 beat_count=0
 bar_beats=4

@@ -6,6 +6,8 @@ func _ready():
 	$CenterContainer/VBoxContainer/Resume.pressed.connect(func(): 
 		get_tree().paused = false
 		$CenterContainer.hide()
+		$TextureRect.hide()
+	
 		)
 	$"CenterContainer/VBoxContainer/Main Menu".pressed.connect(func(): 
 		get_tree().paused = false
@@ -13,6 +15,8 @@ func _ready():
 		)
 	
 	$CenterContainer.hide()
+	$TextureRect.hide()
+	
 	pass # Replace with function body.
 
 
@@ -24,10 +28,14 @@ func _process(delta):
 func on_pause_button_pressed():
 	get_tree().paused = true
 	$CenterContainer.show()
+	$TextureRect.show()
+
 
 func on_pause_leave():
 	get_tree().paused = false
 	$CenterContainer.hide()
+	$TextureRect.hide()
+	
 
 func quit_to_main():
 	get_tree().change_scene_to_file("res://scenes/main_scenes/title/title.tscn")

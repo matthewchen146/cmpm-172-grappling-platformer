@@ -20,8 +20,11 @@ func _ready():
 		{"path": "res://scenes/main_scenes/Levels/Level5.tscn", "name": "Level 5"},
 		{"path": "res://scenes/main_scenes/Levels/Level6.tscn", "name": "Level 6"},
 		{"path": "res://scenes/main_scenes/Levels/Level7.tscn", "name": "Level 7"},
-		{"path": "res://scenes/main_scenes/Levels/Level8.tscn", "name": "Level 8"}
+		{"path": "res://scenes/main_scenes/Levels/Level8.tscn", "name": "Level 8"},
+		{"path": "res://scenes/main_scenes/Levels/Level9.tscn", "name": "Level 9"},
+		{"path": "res://scenes/main_scenes/Levels/Level10.tscn", "name": "Level 10"}
 	]
+	
 	
 	var level_number = 1
 	for level_meta in level_metas:
