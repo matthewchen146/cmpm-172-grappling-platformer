@@ -1,0 +1,177 @@
+[gd_scene load_steps=15 format=3 uid="uid://d320mgwmjm18n"]
+
+[ext_resource type="Theme" uid="uid://dw1jwox7gvmhs" path="res://themes/main_theme.tres" id="1_58c6t"]
+[ext_resource type="Script" path="res://scripts/victory.gd" id="2_l7nqs"]
+[ext_resource type="Texture2D" uid="uid://da1tunqln5hl4" path="res://Assets/ui/background.png" id="3_wy0y6"]
+[ext_resource type="Shader" path="res://shaders/cyber.gdshader" id="4_sd5l0"]
+[ext_resource type="Theme" uid="uid://dgo11ku3vc8fo" path="res://themes/font_theme.tres" id="6_vwbwy"]
+[ext_resource type="Texture2D" uid="uid://1qfatebarca5" path="res://Assets/HOPESplashArt.png" id="7_mtpfc"]
+[ext_resource type="AudioStream" uid="uid://cles2pmdim44s" path="res://audio/TitleScreen.mp3" id="8_1vail"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pgl4y"]
+shader = ExtResource("4_sd5l0")
+shader_parameter/color = Color(0.4, 1, 0.6, 1)
+shader_parameter/min_alpha = 0.5
+shader_parameter/period = 0.2
+shader_parameter/speed = 0.3
+
+[sub_resource type="LabelSettings" id="LabelSettings_pntjc"]
+font_size = 56
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2macb"]
+atlas = ExtResource("7_mtpfc")
+region = Rect2(0, 0, 1668, 1251)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v1g37"]
+atlas = ExtResource("7_mtpfc")
+region = Rect2(1668, 0, 1668, 1251)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4mcx"]
+atlas = ExtResource("7_mtpfc")
+region = Rect2(3336, 0, 1668, 1251)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rg3u8"]
+atlas = ExtResource("7_mtpfc")
+region = Rect2(0, 1251, 1668, 1251)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v8ta6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2macb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v1g37")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4mcx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rg3u8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4mcx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v1g37")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2macb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rg3u8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Victory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_58c6t")
+script = ExtResource("2_l7nqs")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_wy0y6")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.0784314, 0, 0.654902)
+metadata/_edit_lock_ = true
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_pgl4y")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -138.0
+offset_top = 9.0
+offset_right = -138.0
+offset_bottom = 9.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="Line2D" type="Line2D" parent="SubViewportContainer/SubViewport"]
+position = Vector2(200, 0)
+points = PackedVector2Array(0, 1, 0, 383, 100, 486, 100, 695)
+
+[node name="Line2D2" type="Line2D" parent="SubViewportContainer/SubViewport"]
+position = Vector2(150, 0)
+points = PackedVector2Array(0, 1, 0, 383, 100, 486, 100, 695)
+width = 20.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer/SubViewport"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -316.5
+offset_right = 316.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_58c6t")
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("6_vwbwy")
+text = "You have escaped from
+Project Elevate"
+label_settings = SubResource("LabelSettings_pntjc")
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewportContainer/SubViewport/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SubViewportContainer/SubViewport/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer/SubViewport/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme = ExtResource("6_vwbwy")
+
+[node name="MenuButton" type="Button" parent="SubViewportContainer/SubViewport/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+text = "Main Menu
+"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SubViewportContainer"]
+modulate = Color(0.647059, 0.737255, 0.701961, 1)
+position = Vector2(1113.5, 324.5)
+scale = Vector2(0.348321, 0.539568)
+sprite_frames = SubResource("SpriteFrames_v8ta6")
+autoplay = "default"
+frame_progress = 0.493268
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(562, 346)
+stream = ExtResource("8_1vail")
+autoplay = true

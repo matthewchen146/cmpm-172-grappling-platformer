@@ -244,6 +244,7 @@ volume_db = 1.0
 position = Vector2(245, -1162)
 script = ExtResource("6_t3fgn")
 LevelNumToEnter = 1
+toVictory = true
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/Door"]

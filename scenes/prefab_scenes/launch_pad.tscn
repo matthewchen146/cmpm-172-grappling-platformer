@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cgaeymlik4bk2"]
+[gd_scene load_steps=10 format=3 uid="uid://cgaeymlik4bk2"]
 
 [ext_resource type="Script" path="res://scripts/Launch-Pad.gd" id="1_umvcq"]
 [ext_resource type="Texture2D" uid="uid://cms6bu4obj7qv" path="res://Assets/LaunchPad.png" id="2_ehjuq"]
+[ext_resource type="AudioStream" uid="uid://dh5uf08bb15h6" path="res://audio/mixkit-video-game-spin-jump-2648.wav" id="3_3a010"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_03ay8"]
 size = Vector2(32, 36)
@@ -94,5 +95,9 @@ shape = SubResource("RectangleShape2D_m7r3g")
 libraries = {
 "": SubResource("AnimationLibrary_fo1gi")
 }
+
+[node name="Launch-PadSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_3a010")
+volume_db = -7.0
 
 [connection signal="body_entered" from="Area2D" to="." method="Body_Entered_Jump_Region"]

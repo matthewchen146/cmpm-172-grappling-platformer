@@ -285,7 +285,7 @@ volume_db = 1.0
 [node name="Door" type="StaticBody2D" parent="Node2D"]
 position = Vector2(57, -40)
 script = ExtResource("5_n4k3x")
-LevelNumToEnter = 1
+LevelNumToEnter = 9
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/Door"]

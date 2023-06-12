@@ -186,13 +186,15 @@ func _physics_process(delta):
 				if TM != null:
 					#there is a tilemap
 					var location0 : Vector2 = TM.local_to_map(anchorNode.position + (direction.normalized() * 0.1))
-					if TM.get_cell_tile_data(0, location0).get_custom_data("FastGrapple"):
-						#FastGrapple
-						auto_retracting = true
-						auto_retract_length = max_length
-						auto_retract_speed = 320#default
-						auto_retract_max_length = max_length
-						apply_impulse(direction.normalized() * 1500)
+					var tiledata = TM.get_cell_tile_data(0, location0)
+					if tiledata != null:
+						if tiledata.get_custom_data("FastGrapple"):
+							#FastGrapple
+							auto_retracting = true
+							auto_retract_length = max_length
+							auto_retract_speed = 320#default
+							auto_retract_max_length = max_length
+							apply_impulse(direction.normalized() * 1500)
 				
 	if Input.is_action_just_pressed("jump"):
 		if grappling:
