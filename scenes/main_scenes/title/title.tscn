@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://qyx5fu2sfddo"]
+[gd_scene load_steps=15 format=3 uid="uid://qyx5fu2sfddo"]
 
 [ext_resource type="Script" path="res://scenes/main_scenes/title/title.gd" id="1_kaxqf"]
 [ext_resource type="Theme" uid="uid://dw1jwox7gvmhs" path="res://themes/main_theme.tres" id="1_xt8ah"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://da1tunqln5hl4" path="res://Assets/ui/background.png" id="2_rsxu1"]
 [ext_resource type="Texture2D" uid="uid://cljup16fcxpe6" path="res://Assets/ui/title.png" id="3_ye22j"]
 [ext_resource type="Theme" uid="uid://dgo11ku3vc8fo" path="res://themes/font_theme.tres" id="6_e8q5l"]
+[ext_resource type="Texture2D" uid="uid://1qfatebarca5" path="res://Assets/HOPESplashArt.png" id="7_4s7f4"]
 [ext_resource type="AudioStream" uid="uid://cles2pmdim44s" path="res://audio/TitleScreen.mp3" id="7_4skkv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pgl4y"]
@@ -14,6 +15,54 @@ shader_parameter/color = Color(0.4, 1, 0.6, 1)
 shader_parameter/min_alpha = 0.5
 shader_parameter/period = 0.2
 shader_parameter/speed = 0.3
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2macb"]
+atlas = ExtResource("7_4s7f4")
+region = Rect2(0, 0, 1668, 1251)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v1g37"]
+atlas = ExtResource("7_4s7f4")
+region = Rect2(1668, 0, 1668, 1251)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4mcx"]
+atlas = ExtResource("7_4s7f4")
+region = Rect2(3336, 0, 1668, 1251)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rg3u8"]
+atlas = ExtResource("7_4s7f4")
+region = Rect2(0, 1251, 1668, 1251)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v8ta6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2macb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v1g37")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4mcx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rg3u8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4mcx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v1g37")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2macb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rg3u8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
 
 [node name="title" type="Control"]
 layout_mode = 3
@@ -50,6 +99,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -138.0
+offset_top = 9.0
+offset_right = -138.0
+offset_bottom = 9.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
@@ -121,6 +174,14 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 text = "Quit"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SubViewportContainer"]
+modulate = Color(0.647059, 0.737255, 0.701961, 1)
+position = Vector2(1113.5, 324.5)
+scale = Vector2(0.348321, 0.539568)
+sprite_frames = SubResource("SpriteFrames_v8ta6")
+autoplay = "default"
+frame_progress = 0.494706
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(562, 346)
