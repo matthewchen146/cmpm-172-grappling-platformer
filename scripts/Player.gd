@@ -34,6 +34,7 @@ var slacking : bool = false
 @onready var RocketSFX = $RocketSFX
 @onready var grappleRaiseSFX = $GrappleRaiseSFX
 @onready var grappleLowerSFX = $GrappleLowerSFX
+@onready var jumpSFX = $JumpSFX
 @onready var bgm1 = $BGM1
 @onready var bgm2 = $BGM2
 @onready var bgm3 = $BGM3
@@ -205,6 +206,7 @@ func _physics_process(delta):
 				if not (linear_velocity.x > 1 or linear_velocity.x < -1):
 					$AnimationPlayer.play("Jump-Idle")
 				apply_impulse(jump_strength * Vector2(0,-1))
+				jumpSFX.play()
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		grappling = false
 		_debug_control.hide()

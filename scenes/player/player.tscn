@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c8dqt4b3wvgwp"]
+[gd_scene load_steps=22 format=3 uid="uid://c8dqt4b3wvgwp"]
 
 [ext_resource type="PhysicsMaterial" uid="uid://yqj44vfpe3dd" path="res://Resources/PlayerPhysMaterial.tres" id="1_pmfhl"]
 [ext_resource type="Script" path="res://scripts/Player.gd" id="2_o8j4d"]
@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://di0laxs2y3ase" path="res://audio/mixkit-space-rocket-full-power-turbine-1720.mp3" id="9_vs000"]
 [ext_resource type="AudioStream" uid="uid://bfit2g6n1feu1" path="res://audio/dialtick.mp3" id="10_rplfe"]
 [ext_resource type="AudioStream" uid="uid://bn3hc7dyy4vkm" path="res://audio/dialtick1.mp3" id="11_qjbcr"]
+[ext_resource type="AudioStream" uid="uid://dgkko2ak5ugty" path="res://audio/jumpsfx.mp3" id="12_enn07"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uv13g"]
 height = 20.0
@@ -196,5 +197,8 @@ stream = ExtResource("7_taajs")
 
 [node name="BGM4" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_1m0dd")
+
+[node name="JumpSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_enn07")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
