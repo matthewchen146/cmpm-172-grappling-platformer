@@ -32,6 +32,8 @@ var slacking : bool = false
 
 @onready var grappleHookSFX = $GrappleHookSFX
 @onready var RocketSFX = $RocketSFX
+@onready var grappleRaiseSFX = $GrappleRaiseSFX
+@onready var grappleLowerSFX = $GrappleLowerSFX
 @onready var bgm1 = $BGM1
 @onready var bgm2 = $BGM2
 @onready var bgm3 = $BGM3
@@ -346,6 +348,7 @@ func _physics_process(delta):
 	
 	#Auto-retraction and normal retraction
 	if Input.is_action_pressed("raise") or auto_retracting:
+		grappleRaiseSFX.play()
 		#use 250 as speed if not auto-retracting, else use it's speed
 		var retractSpeed = 250 if not auto_retracting else auto_retract_speed
 		current_corner.length -= retractSpeed * delta
@@ -360,6 +363,7 @@ func _physics_process(delta):
 			if current_corner.length > auto_retract_max_length:
 				current_corner.length = auto_retract_max_length
 	if Input.is_action_pressed("lower"):
+		grappleLowerSFX.play()
 		current_corner.length += 250 * delta
 	
 	if Input.is_key_pressed(KEY_J):
