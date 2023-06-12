@@ -115,6 +115,7 @@ layout_mode = 2
 text = "W / SHIFT - Retract/Retract with Boost
 S / CTRL - Extend/Extend with Boost
 A and D - Swing/Move Left and Right
+Space - JUMP
 Left Click - Grapple Towards Mouse
 Space / Right Click - Release Grapple
 Arrow Keys: Quick Grapple 
@@ -125,9 +126,9 @@ vertical_alignment = 1
 [node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer/SubViewport/Line2D2/HBoxContainer/Label/HBoxContainer/Label"]
 layout_mode = 0
 offset_left = -200.0
-offset_top = -100.0
+offset_top = -75.0
 offset_right = -60.0
-offset_bottom = -20.0
+offset_bottom = 5.0
 theme = ExtResource("7_vhosm")
 
 [node name="backButton" type="Button" parent="SubViewportContainer/SubViewport/Line2D2/HBoxContainer/Label/HBoxContainer/Label/VBoxContainer"]
