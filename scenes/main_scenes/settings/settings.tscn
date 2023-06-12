@@ -69,12 +69,12 @@ size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
 [node name="Line2D" type="Line2D" parent="SubViewportContainer/SubViewport"]
-position = Vector2(200, 0)
+position = Vector2(1100, 0)
 points = PackedVector2Array(0, 1, 0, 383, 100, 486, 100, 695)
 
 [node name="Line2D2" type="Line2D" parent="SubViewportContainer/SubViewport"]
 position = Vector2(150, 0)
-points = PackedVector2Array(0, 1, 0, 383, 100, 486, 100, 695)
+points = PackedVector2Array(105, 1, 103, 435, -5, 507, -5, 703)
 width = 20.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SubViewportContainer/SubViewport/Line2D2"]
@@ -103,20 +103,21 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = 41.5
-offset_right = 130.0
-offset_bottom = 305.5
+offset_left = -25.5
+offset_top = 44.5
+offset_right = 175.5
+offset_bottom = 332.5
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="SubViewportContainer/SubViewport/Line2D2/HBoxContainer/Label/HBoxContainer"]
 layout_mode = 2
-text = "W / SHIFT - Retract
-S / CTRL - Extend
+text = "W / SHIFT - Retract/Retract with Boost
+S / CTRL - Extend/Extend with Boost
 A and D - Swing/Move Left and Right
 Left Click - Grapple Towards Mouse
 Space / Right Click - Release Grapple
+Arrow Keys: Quick Grapple 
 R - Reset"
 label_settings = SubResource("LabelSettings_64dek")
 vertical_alignment = 1
