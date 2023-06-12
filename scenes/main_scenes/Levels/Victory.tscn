@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://d320mgwmjm18n"]
+[gd_scene load_steps=15 format=3 uid="uid://c8koonyad7rww"]
 
 [ext_resource type="Theme" uid="uid://dw1jwox7gvmhs" path="res://themes/main_theme.tres" id="1_58c6t"]
 [ext_resource type="Script" path="res://scripts/victory.gd" id="2_l7nqs"]
@@ -75,6 +75,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_58c6t")
 script = ExtResource("2_l7nqs")
+metadata/_edit_group_ = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
