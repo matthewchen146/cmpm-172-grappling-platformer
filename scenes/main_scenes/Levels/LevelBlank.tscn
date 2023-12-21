@@ -249,7 +249,6 @@ libraries = {
 [node name="Door" type="StaticBody2D" parent="Node2D"]
 position = Vector2(57, -40)
 script = ExtResource("5_xe4ou")
-LevelNumToEnter = 1
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/Door"]

@@ -3,7 +3,7 @@ extends Interactable
 @onready var DoorSFX = $DoorSFX
 
 var open = false;
-@export var LevelNumToEnter: int = 2
+@export var LevelNumToEnter: int = 3
 @export var toVictory = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
